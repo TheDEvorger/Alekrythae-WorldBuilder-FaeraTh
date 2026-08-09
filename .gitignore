@@ -1,0 +1,17 @@
+# User-generated application data (legacy Meggy path retained for migration compatibility)
+Meggy/Data/
+Meggy/Games/
+Meggy/MapLibrary/*
+!Meggy/MapLibrary/.gitkeep
+
+# Backups / exports / logs
+*.alekdata
+*.log
+*.tmp
+*.bak
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
