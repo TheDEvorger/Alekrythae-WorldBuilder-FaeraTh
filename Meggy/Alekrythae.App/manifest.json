@@ -1,0 +1,23 @@
+{
+  "id": "alekrythae.meggy",
+  "name": "Ałek’ryŧhæ World Builder & Færa’Th",
+  "version": "0.1.0",
+  "architectureRevision": 5746,
+  "entry": "Alekrythae-World-Builder-FaeraTh.alek",
+  "description": "Local-first world-building and work environment: Calendar/Notes, Focus Center, Lore, Reverie, 2D Cartographer’s Table, Tide, Harmonizer and AI workspace.",
+  "preloads": [
+    "modules/application/native-renderer.module.js"
+  ],
+  "modules": [
+    "legacy/legacy-app.js",
+    "modules/application/lifecycle.module.js",
+    "modules/application/performance.module.js",
+    "modules/application/resource-governor.module.js",
+    "modules/application/shortcuts.module.js",
+    "modules/world-map/alekrythae-world-profile.js",
+    "modules/world-map/surface-taxonomy.js",
+    "modules/world-map/chunk-generator.js",
+    "modules/world-map/surface-artistry.js"
+  ],
+  "styles": []
+}
