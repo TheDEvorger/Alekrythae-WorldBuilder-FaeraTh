@@ -1,6 +1,6 @@
 // alek.window.fullscreen = true
 // ============================================================
-// AŁEK’RYŦHÆ WORLD BUILDER & FÆRA’TH v0.1.0
+// AŁEK’RYŦHÆ WORLD BUILDER & FÆRA’TH v0.1.1
 // Modular .alek application orchestrator.
 // bir modül hata verdiğinde bütün uygulamanın çökmesini önlemek.
 // ============================================================
@@ -12,7 +12,7 @@
     const manifest={
         id:"alekrythae.meggy",
         name:"Ałek’ryŧhæ World Builder & Færa’Th",
-        version:"0.1.0",
+        version:"0.1.1",
         architectureRevision:5746,
         entry:"Alekrythae-World-Builder-FaeraTh.alek",
         preloads:[

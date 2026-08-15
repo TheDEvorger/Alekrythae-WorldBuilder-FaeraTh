@@ -4,6 +4,23 @@
         id:"alekrythae-24th-planet",
         version:4,
         displayName:"Yirmi Dört'ün Gezegeni",
+        storyGenres:[
+            "Fantasy","Cosmic Fantasy","Magical Fantasy","Dark Fantasy","High Fantasy","Light Fantasy","Epic Fantasy","Nautical Fantasy","Progress Fantasy",
+            "Adventure","Strategy","Intrigue","War","Romantic","Adult Fantasy","Cosmic","Dynasty Building","Discovery","Exploration","Journey"
+        ],
+        visualThemes:{
+            defaultSurfaceTheme:"epic-fantasy",
+            families:[
+                {id:"light-fantasy",label:"Light Fantasy",mood:"Parlak, berrak, canlı ve huzurlu."},
+                {id:"epic-fantasy",label:"Epic Fantasy",mood:"Görkemli, zengin kontrastlı, kahramansı ve geniş ufuklu."},
+                {id:"dark-fantasy",label:"Dark Fantasy",mood:"Kasvetli, morumsu, gölgeli ve uğursuz."},
+                {id:"cosmic-fantasy",label:"Cosmic Fantasy",mood:"Göksel, yıldız tozlu, auralı ve esrarengiz."},
+                {id:"magical-fantasy",label:"Magical Fantasy",mood:"Büyülü, parıltılı, renkçe zengin ve enerjik."},
+                {id:"nautical-fantasy",label:"Nautical Fantasy",mood:"Su odaklı, turkuaz, kıyı ve akıntı ağırlıklı."},
+                {id:"high-fantasy",label:"High Fantasy",mood:"Soylu, temiz, dengeli ve mitik."},
+                {id:"progress-fantasy",label:"Progress Fantasy",mood:"Yükseliş, gelişim ve keşif vurgulu."}
+            ]
+        },
         laws:{
             noDesert:true,
             surfaceWaterCoverage:.50,

@@ -23,7 +23,7 @@
     const signed=(seed,x,z,octaves=5)=>fbm(seed,x,z,octaves)*2-1;
     const layerSalt=layerKey=>layerKey==="sky"?7000003:layerKey==="underground"?13000007:0;
     const normalizedLayer=layerKey=>layerKey==="sky"||layerKey==="underground"?layerKey:"surface";
-    const palette={
+    const BASE_PALETTE={
         deepWater:[3,21,48],ocean:[4,48,91],water:[7,82,132],lagoon:[18,130,157],shallows:[126,214,197],
         meadow:[65,153,83],forest:[24,111,68],deepForest:[15,83,57],flower:[95,168,93],moss:[78,139,91],
         tropical:[87,170,91],storm:[73,126,111],crystal:[92,142,151],highland:[105,133,116],mountain:[151,166,158],snow:[224,241,239],
@@ -36,7 +36,32 @@
 
     const variationAxes=PROFILE.biomeVariationEngine?.axes||{};
     const rgbShift=(color,hueBias=0,lightBias=0,satBias=0)=>{const [r,g,b]=color.map(v=>v/255),max=Math.max(r,g,b),min=Math.min(r,g,b),delta=max-min,l=(max+min)/2;let h=0,s=0;if(delta){s=delta/(1-Math.abs(2*l-1));if(max===r)h=60*(((g-b)/delta)%6);else if(max===g)h=60*((b-r)/delta+2);else h=60*((r-g)/delta+4);}h=(h+hueBias+360)%360;s=clamp(s+satBias,0,1);const nl=clamp(l+lightBias,0,1),c=(1-Math.abs(2*nl-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=nl-c/2;let rr=0,gg=0,bb=0;if(h<60){rr=c;gg=x}else if(h<120){rr=x;gg=c}else if(h<180){gg=c;bb=x}else if(h<240){gg=x;bb=c}else if(h<300){rr=x;bb=c}else{rr=c;bb=x}return[rr,gg,bb].map(v=>Math.round(clamp((v+m)*255,0,255)));};
-    const biomeVariation=(seed,x,z,layerKey,baseBiome,color)=>{const scale=layerKey==="underground"?1800:layerKey==="sky"?2600:3200,ix=Math.floor(x/scale),iz=Math.floor(z/scale),axisNames=["landform","flora","water","atmosphere","arcana","light"],picked=axisNames.map((axis,index)=>{const list=variationAxes[axis]||[axis];return list[Math.floor(hash(seed+index*7103,ix+index*17,iz-index*23)*list.length)%list.length];}),signature=picked.join(" · "),sx=x/scale,sz=z/scale,hue=signed(seed+77001,sx*.72,sz*.72,4)*7.5,light=signed(seed+77002,sx*.66,sz*.66,4)*.045,sat=signed(seed+77003,sx*.81,sz*.81,4)*.055;return{biome:`${baseBiome} · ${picked[0]} ${picked[1]}`,baseBiome,variantKey:`${layerKey}:${ix}:${iz}:${picked.join("|")}`,variantName:signature,color:rgbShift(color,hue,light,sat)};};
+    const SURFACE_THEME_PROFILES=Object.freeze({
+        "light-fantasy":{base:{hue:8,light:.055,sat:.10},water:{hue:-8,light:.05,sat:.11},flora:{hue:10,light:.04,sat:.10},stone:{hue:2,light:.05,sat:.02},variation:{hue:9.5,light:.055,sat:.065}},
+        "epic-fantasy":{base:{hue:0,light:.02,sat:.11},water:{hue:-5,light:.03,sat:.10},flora:{hue:7,light:.02,sat:.11},stone:{hue:-2,light:.015,sat:.03},variation:{hue:10.5,light:.055,sat:.075}},
+        "dark-fantasy":{base:{hue:18,light:-.07,sat:.03},water:{hue:12,light:-.08,sat:.02},flora:{hue:26,light:-.05,sat:.025},stone:{hue:18,light:-.03,sat:.01},variation:{hue:7.5,light:.035,sat:.03}},
+        "cosmic-fantasy":{base:{hue:18,light:.025,sat:.08},water:{hue:22,light:.04,sat:.09},flora:{hue:16,light:.03,sat:.085},stone:{hue:12,light:.02,sat:.035},variation:{hue:12.5,light:.06,sat:.07}},
+        "magical-fantasy":{base:{hue:10,light:.03,sat:.12},water:{hue:-10,light:.04,sat:.11},flora:{hue:12,light:.025,sat:.13},stone:{hue:4,light:.015,sat:.03},variation:{hue:12,light:.06,sat:.08}},
+        "nautical-fantasy":{base:{hue:-4,light:.012,sat:.07},water:{hue:-14,light:.06,sat:.14},flora:{hue:2,light:.01,sat:.08},stone:{hue:-6,light:.01,sat:.02},variation:{hue:8,light:.05,sat:.06}},
+        "high-fantasy":{base:{hue:4,light:.03,sat:.085},water:{hue:-6,light:.035,sat:.09},flora:{hue:5,light:.02,sat:.09},stone:{hue:2,light:.02,sat:.02},variation:{hue:9,light:.05,sat:.065}},
+        "progress-fantasy":{base:{hue:2,light:.015,sat:.09},water:{hue:-4,light:.03,sat:.095},flora:{hue:6,light:.02,sat:.10},stone:{hue:0,light:.01,sat:.02},variation:{hue:10,light:.05,sat:.07}}
+    });
+    const resolveThemeId=()=>String(window.__alekWorldSurfaceTheme||PROFILE.visualThemes?.defaultSurfaceTheme||"epic-fantasy").trim().toLocaleLowerCase("tr");
+    const activeSurfaceTheme=()=>SURFACE_THEME_PROFILES[resolveThemeId()]||SURFACE_THEME_PROFILES["epic-fantasy"];
+    const themedPalette=(themeId=resolveThemeId())=>{
+        const theme=SURFACE_THEME_PROFILES[String(themeId||"").trim().toLocaleLowerCase("tr")]||SURFACE_THEME_PROFILES["epic-fantasy"];
+        const waterKeys=new Set(["deepWater","ocean","water","lagoon","shallows","undergroundWater","deepUndergroundWater","cloud","skyVoid"]);
+        const floraKeys=new Set(["meadow","forest","deepForest","flower","moss","tropical","storm","skyMeadow","skyForest","lightGarden","mushroom","mushroomViolet","mushroomAmber","mushroomCyan","emerald"]);
+        const stoneKeys=new Set(["crystal","highland","mountain","snow","caveVoid","rock","darkRock","limestone","clay","mineral","copper","iron","gold","silver","amethyst","sapphire","crystalCave"]);
+        const themed={};
+        Object.entries(BASE_PALETTE).forEach(([key,color])=>{
+            const shift=waterKeys.has(key)?theme.water:floraKeys.has(key)?theme.flora:stoneKeys.has(key)?theme.stone:theme.base;
+            themed[key]=rgbShift(color,shift.hue,shift.light,shift.sat);
+        });
+        return themed;
+    };
+    const palette=themedPalette();
+    const biomeVariation=(seed,x,z,layerKey,baseBiome,color)=>{const theme=activeSurfaceTheme(),scale=layerKey==="underground"?1800:layerKey==="sky"?2600:3200,ix=Math.floor(x/scale),iz=Math.floor(z/scale),axisNames=["landform","flora","water","atmosphere","arcana","light"],picked=axisNames.map((axis,index)=>{const list=variationAxes[axis]||[axis];return list[Math.floor(hash(seed+index*7103,ix+index*17,iz-index*23)*list.length)%list.length];}),signature=picked.join(" · "),sx=x/scale,sz=z/scale,hue=signed(seed+77001,sx*.72,sz*.72,4)*theme.variation.hue,light=signed(seed+77002,sx*.66,sz*.66,4)*theme.variation.light,sat=signed(seed+77003,sx*.81,sz*.81,4)*theme.variation.sat;return{biome:`${baseBiome} · ${picked[0]} ${picked[1]}`,baseBiome,variantKey:`${layerKey}:${ix}:${iz}:${picked.join("|")}`,variantName:signature,color:rgbShift(color,hue,light,sat)};};
     const archetypeIndex=seed=>Math.floor(hash(Number(seed)||1,173,991)*12)%12;
     const archetypeName=seed=>PROFILE.archetypes?.[archetypeIndex(seed)]||"yaşayan-kıtalar";
     const warpCoordinates=(seed,x,z,scale=.00042,strength=1650)=>{
@@ -185,5 +210,5 @@
         }
         clearCache(){this.cache.clear();}
     }
-    window.AlekrythaeWorldMap={...(window.AlekrythaeWorldMap||{}),ChunkGenerator,terrainHeight,moistureAt,colorFor,sampleAt,archetypeName,profile:PROFILE};
+    window.AlekrythaeWorldMap={...(window.AlekrythaeWorldMap||{}),ChunkGenerator,terrainHeight,moistureAt,colorFor,sampleAt,archetypeName,profile:PROFILE,surfaceThemes:SURFACE_THEME_PROFILES,resolveThemeId};
 })();

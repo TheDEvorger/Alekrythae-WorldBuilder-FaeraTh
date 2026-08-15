@@ -6,7 +6,7 @@
 
 It combines a world-builder and a practical everyday workspace in one application. You can keep structured Lore, write in Reverie, sketch and arrange visual material in Cartographer’s Table, manage calendar notes, use focus tools, open the AI workspace and move your local data between compatible versions without bundling your private workspace into the public source package.
 
-**Current version:** `v0.1.0`  
+**Current version:** `v0.1.1`  
 **Platform:** Windows 10 / 11  
 **Runtime:** A compatible Ałek’ryŧhæ Core installation  
 **Data model:** Local-first
@@ -80,7 +80,7 @@ Do not move individual files out of the repository structure.
 The important part looks like this:
 
 ```text
-Alekrythae-World-Builder-FaeraTh-v0.1.0/
+Alekrythae-World-Builder-FaeraTh-v0.1.1/
 ├── Alekrythae.cmd
 ├── README.md
 ├── README_TR.md

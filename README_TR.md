@@ -6,7 +6,7 @@
 
 Uygulama, world-builder mantığını günlük gerçek çalışma araçlarıyla aynı ortamda birleştirir. Lore ile bilgini düzenleyebilir, Reverie ile uzun metinler yazabilir, Cartographer’s Table üzerinde görsel çalışabilir, takvim notlarını tutabilir, odak araçlarını kullanabilir, AI çalışma alanını açabilir ve kişisel kayıtlarını public kaynak koduna karıştırmadan uyumlu sürümler arasında taşıyabilirsin.
 
-**Mevcut sürüm:** `v0.1.0`  
+**Mevcut sürüm:** `v0.1.1`  
 **Platform:** Windows 10 / 11  
 **Runtime:** Uyumlu Ałek’ryŧhæ Core kurulumu  
 **Veri yaklaşımı:** Local-first / yerel-öncelikli
@@ -80,7 +80,7 @@ Dosyaları tek tek başka klasörlere taşıma.
 Önemli yapı şu şekildedir:
 
 ```text
-Alekrythae-World-Builder-FaeraTh-v0.1.0/
+Alekrythae-World-Builder-FaeraTh-v0.1.1/
 ├── Alekrythae.cmd
 ├── README.md
 ├── README_TR.md

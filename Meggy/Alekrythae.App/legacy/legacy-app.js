@@ -606,9 +606,1792 @@ const defaultMountData = { meta: { schemaVersion: 1, app: "Alekrythae Journey Mo
 const defaultForgottenData = { meta: { schemaVersion: 1, app: "Alekrythae Forgotten Vault" }, entries: [] };
 const defaultSpecialData = { meta: { schemaVersion: 21, optional: true }, specialCharacters: [] };
 const defaultMapData = { meta: { schemaVersion: 25, app: "Alekrythae Map Realms" }, activeRealmId: null, lastRealmNumber: 0, realmModelVersion: 1, sectionModelVersion: 4, showUpperSectionGhost: true, realms: [] };
-const defaultTideData = { meta: { schemaVersion: 21, app: "Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ" }, activeSketchId: null, lastSketchNumber: 0, sketches: [], camera: { x: 0, y: 0, zoom: 1 }, pins: [], links: [], images: [] };
+const defaultTideData = { meta: { schemaVersion: 21, app: "Alekrythae Connections" }, activeSketchId: null, lastSketchNumber: 0, sketches: [], camera: { x: 0, y: 0, zoom: 1 }, pins: [], links: [], images: [] };
 const defaultLoreData = { meta: { schemaVersion: 21, app: "Alekrythae Lore" }, selectedKey: null, entries: [], folders: [], categories: [], expanded: {}, search: "" };
 const defaultReverieData = { meta: { schemaVersion: 3, app: "Alekrythae Reverie" }, selectedId: null, entries: [] };
+
+const __alekEnglishUiExact = Object.freeze(new Map(Object.entries({
+    "Takvim":"Calendar",
+    "AI":"Assistant",
+    "Tide":"Connections",
+    "Takvim ve Zaman":"Calendar & Time",
+    "Boyuttan Çık":"Exit Workspace",
+    "Akışı mühürle ve kapıyı kapat":"Close Alek’rythae",
+    "Ałek’ryŧhæ boyutundan çık":"Exit the Ałek’ryŧhæ workspace",
+    "Blue Moon · Focus Center":"Blue Moon · Focus Center",
+    "Veri taşıma kasası":"Data vault",
+    "Dışarı Aktar":"Export",
+    "İçeri Aktar":"Import",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti":"A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette",
+    "Kapat":"Close",
+    "Kaydet":"Save",
+    "Sil":"Delete",
+    "Başlat":"Start",
+    "Durdur":"Stop",
+    "Duraklat":"Pause",
+    "Devam Et":"Resume",
+    "Başlık":"Title",
+    "Açıklama":"Description",
+    "Dosya bulunamadı":"File not found",
+    "Geçerli bir ad yaz.":"Enter a valid name.",
+    "Yeni Çalışma Alanı":"New Workspace",
+    "Çalışma alanı adı":"Workspace name",
+    "Bugüne Git":"Go to Today",
+    "Not Ekle":"Add Note",
+    "Takvime dön":"Back to Calendar",
+    "Journey of Adventurer dünyasına dön":"Return to Journey of Adventurer",
+    "Tüm Notlar":"All Notes",
+    "Henüz not yok.":"No notes yet.",
+    "Bu güne henüz not düşülmedi.":"No note has been added to this day yet.",
+    "Günü Aç":"Open Day",
+    "Fantastik çizim renkleri":"Fantasy drawing colors",
+    "Düz":"Solid",
+    "Noktalı":"Dotted",
+    "Kesik":"Dashed",
+    "◼ Dolgu açık":"◼ Fill on",
+    "□ Dolgu kapalı":"□ Fill off",
+    "Raptiye Paleti":"Pin Palette",
+    "Cartographer’s Table Kütüphanesi":"Cartographer’s Table Library",
+    "Kısayol Rehberi · F1":"Shortcut Guide · F1",
+    "Seçim":"Selection",
+    "Düzenleme":"Editing",
+    "Geçiş":"Transition",
+    "Yukarı taşı":"Move up",
+    "Aşağı taşı":"Move down",
+    "Henüz kayıt yok":"No entries yet",
+    "Üst menü":"Top menu",
+    "Üst menü adı":"Top menu name",
+    "Çanta":"Bag",
+    "Görevler":"Tasks",
+    "İç Ambiance":"Indoor Ambience",
+    "Dış Ambiance":"Outdoor Ambience",
+    "Çal":"Play",
+    "Dur":"Stop",
+    "Tümü":"All",
+    "Özel":"Special",
+    "İsimsiz":"Untitled",
+    "İsimsiz Reverie":"Untitled Reverie",
+    "İsimsiz Mekân":"Untitled Place",
+    "İsimsiz Grup":"Untitled Group",
+    "İsimsiz Kayıt":"Untitled Entry",
+    "İsimsiz İşaret":"Untitled Marker",
+    "İsimsiz Binek":"Untitled Mount",
+    "İsimsiz Varlık":"Untitled Being",
+    "Özel Stat":"Special Stat",
+    "Toplam EXP değerini yaz. Sıfırlamak için 0 girebilirsin.":"Enter the total EXP value. You can use 0 to reset it.",
+    "EXP sıfır veya pozitif bir sayı olmalıdır.":"EXP must be zero or a positive number.",
+    "Akışı onayla ve kaydet":"Confirm and save the flow",
+    "Çıkış kapısı açılamadı.":"The exit gate could not be opened.",
+    "Takvim notu":"Calendar note",
+    "BİNEK / TAŞIT":"MOUNT / VEHICLE",
+    "Varlık":"Being",
+    "Karakter":"Character",
+    "Tür":"Type",
+    "Medeniyet":"Civilization",
+    "Coğrafya":"Geography",
+    "Yaşam Alanı":"Habitat",
+    "Göksel Oluşum":"Celestial Formation",
+    "Düzenek":"Mechanism",
+    "Ağ":"Network",
+    "Yerleşke":"Settlement",
+    "Hükümranlık":"Dominion",
+    "Yapı":"Structure",
+    "Öğe":"Element",
+    "Diğer":"Other",
+    "Çevre":"Environment",
+    "İşleyiş":"Operation",
+    "Alım":"Input",
+    "Çıktı":"Output",
+    "Kapatılmış":"Sealed",
+    "Yeni Hikâye":"New Story",
+    "Hikâye Mühürleri":"Story Seals",
+    "Anlatıları kartlar hâlinde sakla, mühürle ve yeniden aç.":"Store stories as cards, seal them, and open them again.",
+    "Reverie görseli":"Reverie visual",
+    "Güvenli çalışma görünümü":"Safe workspace view",
+    "Lore & Biyoloji Özeti":"Lore & Biology Summary",
+    "Atmosfer ve müzik":"Atmosphere & music",
+    "Bütün menülerde kesintisiz":"UNINTERRUPTED ACROSS ALL MENUS",
+    "Müzik sırasını, kaldığı zamanı ve ses seviyesini yönet.":"Manage the music queue, playback position, and volume.",
+    "Sessizlik":"Silence",
+    "● Duraklatıldı":"● Paused",
+    "● Oynuyor":"● Playing",
+    "Bard Kütüphanesini Aç":"Open Bard Library",
+    "İç Ambiance":"Indoor Ambience",
+    "Dış Ambiance":"Outdoor Ambience",
+    "İç Ambiance Kütüphanesini Aç":"Open Indoor Ambience Library",
+    "Dış Ambiance Kütüphanesini Aç":"Open Outdoor Ambience Library",
+    "Bekleme":"Interval",
+    "Geçiş":"Transition",
+    "Performans & GPU":"Performance & GPU",
+    "Windows · WebView2 · Uyku Yönetimi":"Windows · WebView2 · Sleep Management",
+    "Çizim Profili":"Rendering Profile",
+    "Profil":"Profile",
+    "Tasarruf · statik Ambiance":"Eco · static ambience",
+    "Dengeli · önerilen":"Balanced · recommended",
+    "Sinematik · tam geçişler":"Cinematic · full transitions",
+    "Etkin Çizici":"Active Renderer",
+    "Taranıyor…":"Scanning…",
+    "Windows GPU Güç Sınıfı":"Windows GPU Power Class",
+    "Tercih":"Preference",
+    "Windows karar versin":"Let Windows decide",
+    "Yeniden Tara":"Rescan",
+    "Tercihi Uygula":"Apply Preference",
+    "Windows Grafik Ayarları":"Windows Graphics Settings",
+    "Hikâyedeki Rol":"Story Role",
+    "Ne Zaman Kullanılır / Hikâyeye Katkısı":"When to Use / Story Contribution",
+    "VARLIK DOĞASI":"BEING NATURE",
+    "Beden, İçgüdü ve Ekolojik İz":"Body, Instinct & Ecological Trace",
+    "Anatomi ve Beden":"Anatomy & Body",
+    "İçgüdü ve Davranış":"Instinct & Behavior",
+    "Ekolojik İz":"Ecological Trace",
+    "CANLILAR VE SOYLAR":"LIVING KINDS & LINEAGES",
+    "Köken ve Özgün Nitelikler":"Origin & Unique Traits",
+    "Tür Kartı":"Type Card",
+    "Halk Kartı":"People Card",
+    "Melez Kökler":"Hybrid Roots",
+    "Kendine Has Nitelikler":"Unique Traits",
+    "TAKAT TÜKENDİ":"STAMINA DEPLETED",
+    "Kozmik Mühür":"Cosmic Seal",
+    "Mührü Aç":"Open Seal",
+    "Rastgele ad üret":"Generate random name",
+    "Rastgele soyad üret":"Generate random surname",
+    "Karakterin ünvanı":"Character title",
+    "Hasar miktarı":"Damage amount",
+    "Şifa miktarı":"Healing amount",
+    "Can tepe değeri":"Maximum Health",
+    "Takat tepe değeri":"Maximum Stamina",
+    "Metanet tepe değeri":"Maximum Resolve",
+    "Karakter Kağıdı":"Character Sheet",
+    "Cinsiyet":"Gender",
+    "Erkek":"Male",
+    "Kadın":"Female",
+    "Cinsiyetsiz":"Genderless",
+    "Hareket Hızı (metre/saniye)":"Movement Speed (meters/second)",
+    "Görüş Mesafesi (metre)":"Vision Range (meters)",
+    "Saatlik Can İyileşmesi":"Health Recovery / hour",
+    "Saatlik Mana Yenilenmesi":"Mana Recovery / hour",
+    "Saatlik Takat Yenilenmesi":"Stamina Recovery / hour",
+    "Saatlik Metanet Yenilenmesi":"Resolve Recovery / hour",
+    "Kahramanın Mührü":"Hero’s Seal",
+    "Vazgeç":"Cancel",
+    "Evrene Yaz":"Write to World",
+    "Görevler ve Yazgılar":"Quests & Paths",
+    "Kahramanın Günlüğü":"Hero’s Journal",
+    "Mühür çözüldü":"Seal opened",
+    "Salt okunur":"Read-only",
+    "Dünya":"World",
+    "Ana Dünya":"Main World",
+    "Yıl":"Year",
+    "İlkbahar":"Spring",
+    "Yaz":"Summer",
+    "Sonbahar":"Autumn",
+    "Kış":"Winter",
+    "Ałek’ryŧhæ Maceraları":"Ałek’ryŧhæ Adventures",
+    "Alekdata Dosyasını Seç":"Select Alekdata File",
+    "Öte Diyar Maceraları":"Other-Realm Adventures",
+    "Meggy · Tüm Notlar":"Meggy · All Notes",
+    "Grup adı":"Group name",
+    "Binek adı":"Mount name",
+    "Mahzene Gönder":"Send to Vault",
+    "Yeni Realm":"New Realm",
+    "Realm adını değiştir":"Rename Realm",
+    "Gridi küçült":"Decrease Grid",
+    "Grid aralığı":"Grid spacing",
+    "Gridi büyüt":"Increase Grid",
+    "Çizim Paleti":"Drawing Palette",
+    "Çizgi rengi":"Line color",
+    "Fantastik renk kasası":"Fantasy Color Vault",
+    "Dünya yüzeyi fantasy teması":"World Surface Fantasy Theme",
+    "Görünümü varsayılana getir":"Reset view",
+    "Tümünü kadraja al":"Fit All",
+    "Section seç":"Select Section",
+    "Realm seç":"Select Realm",
+    "Lore Menüsünü Düzenle":"Edit Lore Menu",
+    "Lore Menüsünü Sil":"Delete Lore Menu",
+    "Menü adı":"Menu name",
+    "Yeni Kayıt":"New Entry",
+    "Yeni Menü":"New Menu",
+    "HİKÂYE MÜHÜRLERİ":"STORY SEALS",
+    "MÜHÜRLÜ":"SEALED",
+    "Ölçek":"Scale",
+    "Tam En":"Full Width",
+    "Hikâye Anlatısı":"Story Narrative",
+    "Başlangıç tarihi":"Start date",
+    "Kapak görselini kaldır":"Remove cover image",
+    "Mührü Yenile":"Renew Seal",
+    "Mührü Çöz":"Unseal",
+    "Hikâyeyi Mühürle":"Seal Story",
+    "Akışa Kaydet":"Save to Flow",
+    "Kaydet ve Mühürle":"Save & Seal",
+    "Yeni Çalışma Alanı":"New Workspace",
+    "Çalışma Alanını Sil":"Delete Workspace",
+    "Kapak Düzenle":"Edit Cover",
+    "Adı Düzenle":"Edit Name",
+    "AKTİF":"ACTIVE",
+    "Bugüne Git":"Go to Today",
+    "Bulunduğum Güne Git":"Go to Current Day",
+    "Günün Notları":"Day Notes",
+    "Sahnedeki Konuşmacılar":"Speakers in Scene",
+    "Bilinmeyen":"Unknown",
+    "ÖLDÜ":"DEAD",
+    "ÖLÜMSÜZ":"IMMORTAL",
+    "BAYGIN":"UNCONSCIOUS",
+    "NÜFUZ":"INFLUENCE",
+    "İTİBAR":"REPUTATION",
+    "CAN":"HEALTH",
+    "TAKAT":"STAMINA",
+    "METANET":"RESOLVE",
+    "KÖK MEVCUDAT":"ROOT ENTITY",
+    "ÖZGÜN NİTELİKLER":"UNIQUE TRAITS",
+    "KRONİK":"CHRONICLE",
+    "Kağıdı Düzenle":"Edit Sheet",
+    "ÜST KONTEYNER":"PARENT CONTAINER",
+    "MEVCUT KONTEYNER":"CURRENT CONTAINER",
+    "MEVCUT MEVCUDAT":"CURRENT ENTITY",
+    "İÇ KONTEYNERLER":"INNER CONTAINERS",
+    "TOPLU KAYNAK":"COLLECTIVE RESOURCE",
+    "KURUMSAL KAYNAKLAR":"INSTITUTIONAL RESOURCES",
+    "Tam Varlık Kağıdını Aç":"Open Full Being Sheet",
+    "Tam Binek Kağıdını Aç":"Open Full Mount Sheet",
+    "Kağıt Kimliğini Düzenle":"Edit Sheet Identity",
+    "MEVCUDATIN KENDİ KAYDI":"ENTITY’S OWN RECORD",
+    "KAĞIT ÖZETİ":"SHEET SUMMARY",
+    "İçerik":"Content",
+    "Kronometre":"Stopwatch",
+    "Zamanlayıcı":"Timer",
+    "Odak Sistemleri":"Focus Systems",
+    "Olumlama":"Affirmations",
+    "Dakika":"Minutes",
+    "Sonraki Aşama":"Next Phase",
+    "Turu Sıfırla":"Reset Round",
+    "Bu Cümleyi Sil":"Delete This Sentence"
+})));
+const __alekEnglishUiRegex = Object.freeze([
+    [/^(\d+)\s*gün$/u, (_,days)=>`${days} days`],
+    [/^İsimsiz\s+(.+)$/u, (_,name)=>`Untitled ${name}`],
+    [/^Yeni Reverie\s+(\d+)$/u, (_,n)=>`New Reverie ${n}`],
+    [/^(.+) seçildi\. Cartographer’s Table üzerinde F ile yerleştir\.$/u, (_,name)=>`${name} selected. Press F to place it on the Cartographer’s Table.`],
+    [/^🗑️ Takvim notu silindi\.$/u, ()=>"🗑️ Calendar note deleted."],
+    [/^(\d+) not$/u, (_,n)=>`${n} notes`],
+    [/^(\d+) yerel parça$/u, (_,n)=>`${n} local tracks`],
+    [/^(.+) · Takvim notları$/u, (_,name)=>`${name} · Calendar notes`],
+    [/^✦ ŞİMDİ (.+)$/u, (_,clock)=>`✦ NOW ${clock}`],
+    [/^Bulunulan oyun günü · (.+)$/u, (_,clock)=>`Current game day · ${clock}`],
+    [/^Konuşma süresi · (.+)$/u, (_,duration)=>`Dialogue duration · ${duration}`],
+    [/^(\d+) öğe seçildi\. İmleçle taşı · Space: bırak · Delete: sil · Esc: iptal$/u, (_,n)=>`${n} items selected. Move with pointer · Space: drop · Delete: delete · Esc: cancel`],
+    [/^(\d+) çizim\/metin silindi\.$/u, (_,n)=>`${n} drawings/text items deleted.`],
+    [/^⚠ (\d+) bozuk\/eski Map kaydı atlandı; sağlam içerikler gösteriliyor\.$/u, (_,n)=>`⚠ ${n} broken/legacy Map records were skipped; valid content is displayed.`],
+    [/^(.+) yüzey teması etkin\.$/u, (_,theme)=>`${theme} surface theme enabled.`],
+    [/^(.+) haritaya yerleştirildi\.$/u, (_,name)=>`${name} placed on the map.`],
+    [/^🖼️ (\d+) görsel panodan CT'ye yapıştırıldı\.$/u, (_,n)=>`🖼️ ${n} visuals pasted from clipboard into the Cartographer’s Table.`],
+    [/^(.+) bölgesi ve Mekân Kağıdı oluşturuldu\.$/u, (_,name)=>`${name} region and Place Sheet created.`],
+    [/^(.+) metre kaldı$/u, (_,distance)=>`${distance} meters remaining`],
+    [/^(.+) metre yarıçap · E\+tık ile iç katmana gir$/u, (_,radius)=>`${radius} meter radius · E+click to enter inner layer`],
+    [/^(\d+) yeni Lore keşfi görüş menziline girdi\.$/u, (_,n)=>`${n} new Lore discoveries entered sight range.`],
+    [/^(.+) ışınlandı\.$/u, (_,name)=>`${name} teleported.`],
+    [/^(\d+) mevcudat seçili · Kağıdı aç, Mevcudat sekmesinde W \+ tık ile hedefe bırak$/u, (_,n)=>`${n} entities selected · open a Sheet, then W + click a target in Entities to place them`],
+    [/^(.+) oluşturuldu\.$/u, (_,name)=>`${name} created.`],
+    [/^Adventure açıldı: (.+)$/u, (_,name)=>`Workspace opened: ${name}`]
+]);
+const __alekEnglishUiExactMore=Object.freeze(new Map(Object.entries({
+    "Seçili raptiye":"Selected pin",
+    "Raptiye klasörü boş. Görsel eklediğinde burada otomatik görünür.":"The Pin folder is empty. Visuals added there will appear automatically.",
+    "Kütüphane (F)":"Library (F)",
+    "Seçili Map kütüphane öğesi":"Selected map library item",
+    "İptal":"Cancel",
+    "Alekdata Dosyasını Seç":"Choose Alekdata File",
+    "Veriyi İçeri Aktar":"Import Data",
+    "Veri Geçidi Açılıyor…":"Opening Data Gateway…",
+    "Yeni Veri Açılıyor…":"Opening New Data…",
+    "Başlangıç Gününü Belirle":"Set Starting Day",
+    "Başlangıcı Mühürle":"Seal Starting Point",
+    "Kozmik Mühür":"Seal Verification",
+    "Silme işlemini onaylamak için parolayı yaz.":"Enter the password to confirm deletion.",
+    "🔒 MÜHÜRLÜ":"🔒 SEALED",
+    "Ölçek":"Scale",
+    "Görseli hikâye kutusunun tam enine getir":"Fit visual to full story width",
+    "Bu görseli hikâyeden kaldır":"Remove this visual from the story",
+    "‹ Gölgelere Dön":"‹ Back to Reverie",
+    "Başlangıç tarihi":"Start date",
+    "🔓 Mühür çözüldü":"🔓 Seal opened",
+    "Kapak görselini kaldır":"Remove cover visual",
+    "＋ Hikâye Görseli":"＋ Story Visual",
+    "Görseli hikâye imlecinin bulunduğu yere ekler":"Add a visual at the story cursor",
+    "Mührü Yenile":"Renew Seal",
+    "Mührü Çöz":"Open Seal",
+    "Hikâyeyi Mühürle":"Seal Story",
+    "Kaydet ve Mühürle":"Save & Seal",
+    "Akışa Kaydet":"Save Flow",
+    "Hikâye Anlatısı":"Story Narrative",
+    "Metin ve görseller düzenlenebilir":"Text and visuals can be edited",
+    "Mühürlü: okuyabilir, ancak değiştiremez veya kaydedemezsin":"Sealed: readable, but editing and saving are disabled",
+    "Hikâyenin akışını buraya yaz…":"Write the story flow here…",
+    "Reverie akışa kaydedildi.":"Reverie flow saved.",
+    "Bu hikâye mühürlü. Kaydetmek için önce mührü çöz.":"This story is sealed. Open the seal before saving.",
+    "Akış kaydedildi ve mühür yenilendi.":"Flow saved and seal renewed.",
+    "Reverie Mührünü Çöz":"Open Reverie Seal",
+    "Reverie'yi Gölgelere Gönder":"Delete Reverie",
+    "Çalışma alanı adı":"Workspace name",
+    "Her çalışma alanı kendi Games/<ad>/game.db dosyasında tutulur ve gerçek dünya tarih/saatini kullanır.":"Each workspace is stored in its own Games/<name>/game.db file and uses real-world date and time.",
+    "Kapaksız başla":"Start without cover",
+    "Dosyadan kapak seç":"Choose cover file",
+    "Oluştur":"Create",
+    "Bu ad veya klasör adı zaten kullanılıyor.":"This name or folder name is already in use.",
+    "Macera Adını Değiştir":"Rename Workspace",
+    "Adı Değiştir":"Rename",
+    "Bu macera adı veya klasör adı zaten kullanılıyor.":"This workspace name or folder name is already in use.",
+    "Macerayı Kalıcı Sil":"Delete Workspace Permanently",
+    "Mavi Ay":"Blue Moon",
+    "Bir Çalışma Alanı Seç":"Choose a Workspace",
+    "Bir kapağa dokun ve çalışma alanını aç.":"Select a cover to open its workspace.",
+    "Kapak Düzenleme: Açık":"Cover Editing: On",
+    "Kapak Düzenle":"Edit Cover",
+    "Adı Düzenle":"Edit Name",
+    "Çalışma Alanını Sil":"Delete Workspace",
+    "AKTİF":"ACTIVE",
+    "Henüz çalışma alanı yok":"No workspace yet",
+    "Yeni Çalışma Alanı ile kapaklı bir gerçek dünya çalışma alanı oluşturabilirsin.":"Create a real-world workspace with New Workspace.",
+    "Bulunduğum Güne Git":"Go to Current Day",
+    "Günün Notları":"Day Notes",
+    "Bu güne yeni not...":"Add a note to this day…",
+    "Önce bir metin yaz.":"Write some text first.",
+    "Vakayiname’ye Dön":"Back to Chronicle",
+    "Kayıtlı konuşma geçmişi · yeniden devam ettirilemez":"Saved conversation history · cannot be resumed",
+    "Cartographer’s Table Kütüphanesi":"Cartographer’s Table Library",
+    "MapLibrary klasörü boş.":"The MapLibrary folder is empty.",
+    "Adventure kayıtları":"Workspace records",
+    "AI için güncel Ałek’ryŧhæ Core gerekli":"Assistant requires the current Ałek’ryŧhæ Core",
+    "Meggy dosya köprüsü bulunamadı.":"Meggy file bridge was not found.",
+    "Microsoft Edge AI alanı açılamadı":"Microsoft Edge Assistant area could not be opened",
+    "Önce bir yazı alanına tıkla.":"Click a text field first.",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti":"A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette",
+    "Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ Bağı":"A̤ɐ͜ɨǣ́ꞎ͡ƣ Connection",
+    "Save Relation":"Save Relation",
+    "Delete Relation":"Delete Relation",
+    "Adı":"Name",
+    "Realm adını değiştir":"Rename Realm",
+    "Yeni kurulacak bağın yönünü değiştir":"Change the direction of the next relation",
+    "🔗 Bağ Modu Açık":"🔗 Relation Mode On",
+    "🔗 Bağ Kur":"🔗 Create Relation",
+    "Gridi küçült":"Decrease Grid",
+    "Grid aralığı":"Grid Spacing",
+    "Gridi büyüt":"Increase Grid",
+    "Tide işlemini geri al · Ctrl+Z":"Undo Connections action · Ctrl+Z",
+    "Tide işlemini ileri al · Ctrl+Shift+Z / Ctrl+Y":"Redo Connections action · Ctrl+Shift+Z / Ctrl+Y",
+    "Tekerlek: yakınlaştır · Orta tuş: gez · R: raptiye · Ctrl+Z/Y: geçmiş":"Wheel: zoom · Middle button: pan · R: pin · Ctrl+Z/Y: history",
+    "Connections Realm Name":"Connections Realm Name",
+    "Delete Connections Realm":"Delete Connections Realm",
+    "Üst Section silik referans":"Faded upper Section reference",
+    "Realm seç":"Select Realm",
+    "Bir alt Sectiona geç":"Go down one Section",
+    "Section seç":"Select Section",
+    "Bir üst Sectiona geç":"Go up one Section",
+    "Section adını değiştir":"Rename Section",
+    "Section'ı sil":"Delete Section",
+    "Bir üst Sectionın çizim ve resimlerini silik göster":"Show drawings and images from the upper Section as a faded reference",
+    "Tümünü kadraja al":"Fit All",
+    "Yeni çizimlerin rengi":"Color for new drawings",
+    "Çizgi rengi":"Line color",
+    "Üçgen, çember/elips ve dikdörtgen/karenin içini seçili rengin yarı saydam tonuyla doldurur.":"Fill triangles, circles/ellipses, and rectangles/squares with a translucent version of the selected color.",
+    "İleri al":"Redo",
+    "Grid yakalamayı aç / kapat":"Toggle grid snapping",
+    "Görünümü varsayılana getir":"Reset view",
+    "Seçim alanında taşınabilir çizim veya metin bulunamadı.":"No movable drawing or text was found in the selection area.",
+    "Seçilen öğeler yeni konumuna bırakıldı.":"Selected items were placed at the new position.",
+    "Seçim tamamlandı.":"Selection complete.",
+    "Harita Raptiyesi":"Map Pin",
+    "Şeklin üçüncü noktası taban çizgisinden farklı bir yerde olmalı.":"The third point must be away from the base line.",
+    "Çizim Paleti":"Drawing Palette",
+    "2D taslak, geometri, eğri, ölçü ve düzenleme araçları · \" ile aç/kapat":"2D drafting, geometry, curve, dimension, and editing tools · toggle with the key above Tab",
+    "Araç ara…":"Search tools…",
+    "Çizim aracı ara":"Search drawing tools",
+    "Fantastik renk kasası":"Fantasy Color Vault",
+    "Dünya yüzeyi fantasy teması":"World Surface Fantasy Theme",
+    "Haritaya yazılacak metin…":"Text to place on the map…",
+    "Harita Metni":"Map Text",
+    "Üç nokta aynı çizgi üzerinde olamaz.":"The three points cannot be collinear.",
+    "Varlıklar • Yaratıklar • İnsansılar":"Beings • Creatures • Humanoids",
+    "Organizasyonlar • Cemiyetler • Oluşumlar":"Organizations • Societies • Formations",
+    "Mekânlar":"Places",
+    "Menü adı":"Menu name",
+    "Lore Menüsünü Düzenle":"Edit Lore Menu",
+    "Boş Menüyü Sil":"Delete Empty Menu",
+    "İçinde kayıt veya alt menü bulunan menü silinemez.":"A menu containing entries or submenus cannot be deleted.",
+    "Lore Menüsünü Sil":"Delete Lore Menu",
+    "Üst Lore Menüsünü Düzenle":"Edit Top Lore Menu",
+    "Üst menü adı boş olamaz.":"Top menu name cannot be empty.",
+    "İçinde kayıt veya alt menü bulunan üst menü silinemez. Önce içindekileri taşı veya sil.":"A top menu containing entries or submenus cannot be deleted. Move or delete its contents first.",
+    "Üst Lore Menüsünü Sil":"Delete Top Lore Menu",
+    "Yeni Lore kaydı":"New Lore entry",
+    "Yeni iç içe menü":"New nested menu",
+    "24 Halk gibi yeni üst menü":"New top menu, such as 24 Peoples",
+    "Kayıtlarda ve menülerde ara...":"Search entries and menus…",
+    "Alt menüyü aç / kapat":"Toggle submenu",
+    "Menüyü düzenle":"Edit menu",
+    "Menüyü aç / kapat":"Toggle menu",
+    "Üst menüyü düzenle / sil":"Edit / delete top menu",
+    "Yeni kayıt başlığı":"New entry title",
+    "Menü":"Menu",
+    "Yeni Lore Kaydı":"New Lore Entry",
+    "Başlık gerekli.":"Title is required.",
+    "Yeni İç İçe Lore Menüsü":"New Nested Lore Menu",
+    "Menü adı gerekli.":"Menu name is required.",
+    "Yeni Üst Lore Menüsü":"New Top Lore Menu",
+    "Üst menü adı gerekli.":"Top menu name is required.",
+    "Önce ⊞ ile bir üst lore menüsü oluştur":"Create a top Lore menu with ⊞ first",
+    "↻ Medyayı Yenile":"↻ Refresh Media",
+    "＋ Çoklu Görsel / Video":"＋ Multiple Images / Video",
+    "Eklenen görsel ve videolar bu maceranın Media/Ambiance klasörüne kopyalanır.":"Added images and videos are copied to this workspace's Media/Ambiance folder.",
+    "Önizle":"Preview",
+    "＋ Müzik Ekle":"＋ Add Music",
+    "Eklenen müzikler bu maceranın Media/Audio klasörüne kopyalanır.":"Added music is copied to this workspace's Media/Audio folder.",
+    "Kaldır":"Remove",
+    "Bard Kütüphanesi":"Bard Library",
+    "İsimsiz Keşif":"Untitled Discovery",
+    "Hedef seçilmedi":"No destination selected",
+    "Seyahati Sürdür":"Resume Travel",
+    "Bu katmanda coğrafi bölge yok. “Bölge Çiz” ile doğal alan oluştur.":"There is no geographic region on this layer. Use Draw Region to create one.",
+    "Henüz Lore keşfi yok. Yolcuyu görüş menzilindeki düğümlere yaklaştır.":"No Lore discovery yet. Move the traveler close to nodes within sight range.",
+    "Bölge / mekân adı":"Region / place name",
+    "Bu alan için otomatik bir Mekân Kağıdı oluşturulur. İç içe alanlarda en küçük kapsayan bölge üst mekân olur.":"A Place Sheet is created automatically for this area. In nested areas, the smallest enclosing region becomes the parent place.",
+    "Map Bölgesi Oluştur":"Create Map Region",
+    "Bölgeyi Kur":"Create Region",
+    "Bölge adı gerekli.":"Region name is required.",
+    "Map için önce bir macera aç.":"Open a workspace before using Map.",
+    "AŁEK’RYŦHÆ · YAŞAYAN DÜNYA MASASI":"AŁEK’RYŦHÆ · LIVING WORLD TABLE",
+    "Harita, gerçek seyahat, piyonlar, iç içe mekânlar ve görüşe bağlı keşif tek yüzeyde.":"Map, real travel, pawns, nested places, and sight-based discovery on one surface.",
+    "2B Üstten":"2D Top-Down",
+    "F2 · Ana Daire":"F2 · Primary Radial Menu",
+    "Map yaşayan dünya masası":"Map Living World Table",
+    "Aktif Varlık":"Active Entity",
+    "Rotayı İptal Et":"Cancel Route",
+    "Işınlan":"Teleport",
+    "Bölge Çiz":"Draw Region",
+    "K · Karakter":"K · Character",
+    "M · Mekân":"M · Place",
+    "Üst Katmana Çık":"Go to Upper Layer",
+    "Seyahat ve mekân ayarları":"Travel & Place Settings",
+    "Hız (metre/saniye)":"Speed (meters/second)",
+    "Görüş / metre":"Vision / meters",
+    "1 gerçek sn. = oyun dk.":"1 real sec = game min",
+    "Mekân türü":"Place type",
+    "Coğrafi · sabit alan":"Geographic · fixed area",
+    "Hareketli · gerçek alan":"Mobile · real area",
+    "Bu Katmandaki Bölgeler":"Regions on This Layer",
+    "Keşfedilen Lore":"Discovered Lore",
+    "Işınlanma hedefini haritada seç. Oyun zamanı tüketilmez.":"Choose a teleport destination on the map. No game time is consumed.",
+    "Bölge merkezinden dışarı sürükle; bırakınca adını yaz.":"Drag outward from the region center, then name it when released.",
+    "Hareket edecek varlık bu Map katmanında değil.":"The entity to move is not on this Map layer.",
+    "Coğrafi mekân sabittir. Mekân türünü hareketli piyon veya hareketli alan yap.":"Geographic places are fixed. Change the place type to a mobile pawn or mobile area.",
+    "Q seçimi temizlendi.":"Q selection cleared.",
+    "Paketle gelen deneme kayıtları temizlendi.":"Bundled demo records were cleared.",
+    "Ałek’ryŧhæ kapısını aç":"Open the Ałek’ryŧhæ gate",
+    "Başlamak için aya tıkla":"Click the moon to begin",
+    "Macera geçidine dön":"Return to workspace gateway",
+    "Hızlı araçlar":"Quick tools",
+    "🛑 AŁEK'RYŦHÆ ÇÖKTÜ:":"🛑 AŁEK'RYŦHÆ CRASHED:",
+    "🌌 Külliyat kapatıldı, sessizlik hakim.":"🌌 The compendium is closed. Silence remains.",
+    "🛑 Bootstrap hatası:":"🛑 Bootstrap error:"
+})));
+const __alekEnglishUiExactMore2=Object.freeze(new Map(Object.entries({
+    "Ay":"Month","Gün":"Day","Saat":"Hour",
+    "Seyahati Duraklat":"Pause Travel","Seyahati Sürdür":"Resume Travel","Vakit Ocağı":"Time","Taksonomi":"Taxonomy","Mevcudat":"Entities",
+    "Sol tık":"Left click","Sağ tık":"Right click","Sürükle":"Drag","çoklu seçim":"multi-select","dünyadan çıkar":"remove from world","Rotaları Başlat":"Start Routes","Ana Daire":"Primary Radial Menu","İmge Paleti":"Symbol Palette",
+    "2B Üstten":"2D Top-Down","3B Masa":"3D Table","Odaklan":"Focus","Bölge Çiz":"Draw Region","Üst Katmana Çık":"Go to Upper Layer",
+    "Hasar":"Damage","İyileştir":"Heal","Mana Harca":"Spend Mana","Mana Yenile":"Restore Mana","Takat Harca":"Spend Stamina","Takat Yenile":"Restore Stamina","Metanet Kır":"Break Resolve","Metanet Yenile":"Restore Resolve","ÜYE":"MEMBERS",
+    "Girilen değer bölünmez; herkese tam uygulanır.":"The entered value is not divided; it is applied in full to everyone.",
+    "Can ve Mana yerine Nüfuz ile İtibar kullanılır.":"Influence and Reputation are used instead of Health and Mana.",
+    "Açı":"Angle","Öne al":"Bring Forward","Kilitle / aç":"Lock / unlock","İsteğe bağlı":"Optional",
+    "Önce bir macera aç.":"Open a workspace first.","Başlatılabilecek geçerli bir rota yok.":"There is no valid route to start.",
+    "Külliyat":"Compendium","Külliyatı Aç":"Open Compendium","Geri çağrılabilir mevcudatın tutulduğu Unutulmuşlar Mahzeni":"Vault of restorable entities",
+    "Rehberi kapat":"Close guide","Kısayol veya işlem ara…":"Search shortcut or action…","Kısayol ara":"Search shortcuts","Yalnız etkin özellikler listelenir.":"Only active features are listed."
+})));
+const __alekEnglishUiExactMore3=Object.freeze(new Map(Object.entries({
+    "Bu konuşmacı için aynı isimli .pth + .index çifti bulunamadı.":"No matching .pth + .index pair was found for this speaker.",
+    "Seslendirilecek metin boş.":"The text to voice is empty.",
+    "👑 Ana Karakterler":"👑 Main Characters",
+    "👥 Yoldaşlar ve Kayıplar (NPC)":"👥 Companions & NPCs",
+    "🌌 Karakter Külliyatı":"🌌 Character Compendium",
+    "∞ Bu ruh ölümsüzlük mührü taşıyor. Önce ölümsüzlük mührünü çöz.":"∞ This character has the Immortal Trait. Remove it first.",
+    "🛑 Hatalı şifre! Ruh hayata tutundu.":"🛑 Incorrect password. No change was made.",
+    "✦ Bu yaşam bağı zaten akıyor.":"✦ This character is already active.",
+    "Yaşam Mührünü Geri Çağır":"Restore Character",
+    "⚠️ Eski ölüm kaydında kaynak anlık görüntüsü bulunamadığı için can ve Æřɨŧqʉɍ tam değerlerine getirildi.":"⚠️ No resource snapshot was found in the legacy death record, so Health and Æřɨŧqʉɍ were restored to full.",
+    "∞ Bu kart ölümsüzlük mührü taşıyor; silinemez veya mahzene gönderilemez.":"∞ This card has the Immortal Trait and cannot be deleted or sent to the vault.",
+    "Özel karakter kaydı mahzene gönderilemez.":"A special character record cannot be sent to the vault.",
+    "Oyuncunun hamlesi veya kararı...":"Player action or decision…",
+    "🛑 'Meggy_API_Key.md' bulunamadı!":"🛑 'Meggy_API_Key.md' was not found!",
+    "🛑 Geçerli bir API anahtarı yapıştırın!":"🛑 Paste a valid API key!",
+    "🛑 Meggy Pro Hatası:":"🛑 Meggy Pro Error:",
+    "YENİ RUH ÇAĞIR":"CREATE NEW CHARACTER",
+    "Bu mevcudat türünün kağıt içeriği henüz kurulmadı":"The sheet content for this entity type has not been configured yet",
+    "Kart kimliği ve görsel komutları":"Card identity and visual controls",
+    "Ölüm Mührü":"Mark as Dead",
+    "Karakter kimliği, ölümsüzlük ve görsel kontrolleri":"Character identity, Immortal Trait, and visual controls",
+    "Cinsiyeti değiştir":"Change gender",
+    "Resim koy / değiştir":"Set / change image",
+    "Resim koy veya değiştir":"Set or change image",
+    "Resmi sıfırla · mavi ayı geri getir":"Reset image · restore Blue Moon",
+    "Resmi sıfırla":"Reset image",
+    "☠️ Ölü bir varlığa ölümsüzlük mührü vurulamaz.":"☠️ The Immortal Trait cannot be applied to a dead entity.",
+    "Ölümsüzlük Mührü":"Immortal Trait",
+    "Ölümsüzlük Mührünü Çöz":"Remove Immortal Trait",
+    "💠 Akış kaydedildi.":"💠 Flow saved.",
+    "🛑 Akış kaydedilemedi.":"🛑 Flow could not be saved.",
+    "Taksonomik Stat Dairesi":"Taxonomic Stat Circle",
+    "24 evrensel statın taksonomik dairesi":"Taxonomic circle of the 24 universal stats",
+    "Stat adı":"Stat name",
+    "Özel statı kaldır":"Remove custom stat",
+    "Daireyi Kaydet":"Save Circle",
+    "Ad, Soyad ve Ünvan mühürleri":"Name, Surname & Title",
+    "Ałek’ryŧhæ Irkı":"Ałek’ryŧhæ People",
+    "Öte Dünya ırkını yaz…":"Enter an other-world people/species…",
+    "🧬 Melez için en az iki kanonik ırk seçmelisin.":"🧬 Select at least two canonical peoples for a hybrid.",
+    "🧬 Melez · Henüz halk seçilmedi · En az iki halk seçip Seçimi Tamamla demelisin":"🧬 Hybrid · No people selected yet · Select at least two and finish the selection",
+    "🧬 Melez kök seçimi temizlendi. Kalıcılaştırmak için Akışı Kaydet kullanılır.":"🧬 Hybrid roots cleared. Use Save Flow to make the change permanent.",
+    "🧬 Melez için en az iki halk seçip Seçimi Tamamla demelisin.":"🧬 Select at least two peoples for a hybrid and finish the selection.",
+    "Ałek’ryŧhæ halkını seç":"Select Ałek’ryŧhæ people",
+    "Öte Dünya Irkı":"Other-World People",
+    "Kipi değiştir":"Change mode",
+    "🔒 Cinsiyet mührü kilitli.":"🔒 Gender is locked.",
+    "☠️ Ölü bir varlığa ölümsüzlük mührü vurulamaz. Önce Yaşam Mührünü geri çağır.":"☠️ The Immortal Trait cannot be applied to a dead entity. Restore the character first.",
+    "🛑 Hatalı kelime! İşlem iptal edildi.":"🛑 Incorrect confirmation word. Operation cancelled.",
+    "Arcana Külliyatını aç ve yeni aile oluştur":"Open the Arcana Compendium and create a new family",
+    "Külliyat Bilgisi":"Compendium Information",
+    "Ekle: mevcut EXP üzerine ekler. Ayarla: toplam EXP'yi bu değere eşitler.":"Add increases current EXP. Set replaces total EXP with this value.",
+    "Girilen EXP'yi mevcut büyü EXP'sine ekler":"Add entered EXP to the current Arcana EXP",
+    "Büyünün toplam EXP'sini girilen değere eşitler":"Set total Arcana EXP to the entered value",
+    "Yeni Büyü Adı...":"New Arcana Name…",
+    "Büyünün Etkisi...":"Arcana Effect…",
+    "Yetenek görselini kaldır":"Remove skill visual",
+    "Yeteneğin toplam EXP'sini girilen değere eşitler":"Set total skill EXP to the entered value",
+    "Büyü kaydı bulunamadı.":"Arcana record was not found.",
+    "☠️ Ölü varlıkta yeni büyü eklenemez.":"☠️ New Arcana cannot be added to a dead entity.",
+    "☠️ Ölü varlıktan büyü silinemez.":"☠️ Arcana cannot be deleted from a dead entity.",
+    "Yıkım Mührü":"Delete Entry",
+    "Hiçliğe Karıştır":"Delete Permanently",
+    "☠️ Ölü varlıktan Arcana ailesi silinemez.":"☠️ An Arcana family cannot be deleted from a dead entity.",
+    "☠️ Ölü varlık yeni Arcana ailesi oluşturamaz.":"☠️ A dead entity cannot create a new Arcana family.",
+    "Arcana Külliyatı":"Arcana Compendium",
+    "Altı katmanlı Arcana çemberi":"Six-layer Arcana circle",
+    "⛔ Bu Arcana ailesi bu karakterde zaten mühürlü.":"⛔ This Arcana family already exists on this character.",
+    "Yetenek kaydı bulunamadı.":"Skill record was not found.",
+    "☠️ Ölü varlıktan yetenek silinemez.":"☠️ Skills cannot be deleted from a dead entity.",
+    "☠️ Ölü varlığa yeni yetenek eklenemez.":"☠️ New skills cannot be added to a dead entity.",
+    "Açıklama giriniz...":"Enter a description…"
+})));
+const __alekEnglishUiExactMore4=Object.freeze(new Map(Object.entries({
+    "Macera Grubu":"Adventure Party",
+    "Takım":"Team",
+    "Birlik":"Unit",
+    "Mürettebat":"Crew",
+    "Kervan":"Caravan",
+    "Aile":"Family",
+    "Topluluk":"Community",
+    "Sürü":"Pack",
+    "Ordu":"Army",
+    "Kafile":"Company",
+    "At":"Horse",
+    "Deve":"Camel",
+    "Kurt":"Wolf",
+    "Geyik":"Deer",
+    "Fil":"Elephant",
+    "Büyük Kedi":"Great Cat",
+    "Ejder":"Dragon",
+    "Grifon":"Griffin",
+    "Uçan Canlı":"Flying Creature",
+    "Deniz Canlısı":"Sea Creature",
+    "Araba":"Carriage",
+    "Savaş Arabası":"War Chariot",
+    "Kızak":"Sled",
+    "Kervan Taşıtı":"Caravan Vehicle",
+    "Mekanik Taşıt":"Mechanical Vehicle",
+    "Büyülü Taşıt":"Enchanted Vehicle",
+    "Kayık":"Rowboat",
+    "Tekne":"Boat",
+    "Yelkenli":"Sailboat",
+    "Gemi":"Ship",
+    "Savaş Gemisi":"Warship",
+    "Denizaltı":"Submarine",
+    "Zeplin":"Airship",
+    "Hava Gemisi":"Skyship",
+    "Uçan Gemi":"Flying Ship",
+    "Uçan Platform":"Flying Platform",
+    "Uzay Gemisi":"Starship",
+    "Portal Taşıyıcısı":"Portal Carrier",
+    "Ałek’ryŧhæ Maceraları":"Ałek’ryŧhæ Adventures",
+    "Kanonik Ałek’ryŧhæ başlangıcı ve kendi lore zamanı.":"Canonical Ałek’ryŧhæ beginning with its own lore time.",
+    "Bilgisayarın yerel tarih, saat ve zaman dilimi.":"The computer’s local date, time, and time zone.",
+    "Öte Diyar Maceraları":"Other-Realm Adventures",
+    "Boş özgün evren; 12 ay × 30 gün ve dört mevsim döngüsü.":"Blank original universe; 12 months × 30 days with a four-season cycle.",
+    "Melez":"Hybrid",
+    "Mekân":"Place",
+    "Hanedan":"Dynasty",
+    "Cemiyet / Oluşum":"Society / Formation",
+    "Yerleşke":"Settlement",
+    "Uçan Ada":"Flying Isle",
+    "Diyar":"Land",
+    "Hükümranlık":"Sovereignty",
+    "Medeniyet":"Civilization",
+    "Âlem":"Plane",
+    "Tesis":"Facility",
+    "Kaynak":"Resource"
+})));
+const __alekEnglishUiExactMore5=Object.freeze(new Map(Object.entries({
+    "Köprü yok, binary yazılamadı":"Bridge unavailable; binary data could not be written",
+    "Belirtilmedi":"Not specified",
+    "Melez Kök":"Hybrid Root",
+    "İleri alınacak işlem yok.":"Nothing to redo.",
+    "Geri alınacak işlem yok.":"Nothing to undo.",
+    "↷ İşlem ileri alındı.":"↷ Redone.",
+    "↶ İşlem geri alındı.":"↶ Undone.",
+    "Eski Çanta İçeriği":"Legacy Bag Contents",
+    "Müzik ve ses":"Music & audio",
+    "Görsel veya video":"Image or video",
+    "Görsel":"Visual",
+    "Medya işlemi başarısız:":"Media operation failed:",
+    "medya dosyası aktif macera klasörüne kopyalandı.":"media files copied to the active workspace folder.",
+    "TAKAT TÜKENDİ":"STAMINA DEPLETED",
+    "Karakter fiziksel olarak durdu. Kamp Kurma veya Yatak / Han uykusu, iksir ya da bar girdisiyle Takat %100 olmadan menüler açılmaz.":"The character has physically stopped. Menus remain locked until Stamina reaches 100% through camp/rest or another recovery source.",
+    "Adı rastgele dokuyup alana yerleştir":"Generate a random name and place it in the field",
+    "Rastgele ad üret":"Generate random name",
+    "Soyadı rastgele dokuyup alana yerleştir":"Generate a random surname and place it in the field",
+    "Rastgele soyad üret":"Generate random surname",
+    "Ünvan":"Title",
+    "Hasar · Değeri yazıp Enter'a bas":"Damage · Enter a value and press Enter",
+    "Hasar miktarı":"Damage amount",
+    "Şifa · Değeri yazıp Enter'a bas":"Healing · Enter a value and press Enter",
+    "Şifa miktarı":"Healing amount",
+    "Can tepe değeri · Değeri yazıp Enter'a bas":"Maximum Health · Enter a value and press Enter",
+    "Can tepe değeri":"Maximum Health",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ harcaması · Değeri yazıp Enter'a bas":"A̤ɐ͜ɨǣ́ꞎ͡ƣ spend · Enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ yenilenmesi · Değeri yazıp Enter'a bas":"A̤ɐ͜ɨǣ́ꞎ͡ƣ recovery · Enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ tepe değeri · Değeri yazıp Enter'a bas":"Maximum A̤ɐ͜ɨǣ́ꞎ͡ƣ · Enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ tepe değeri":"Maximum A̤ɐ͜ɨǣ́ꞎ͡ƣ",
+    "Takat harcaması · Değeri yazıp Enter'a bas":"Stamina spend · Enter a value and press Enter",
+    "Takat toparlanması · Değeri yazıp Enter'a bas":"Stamina recovery · Enter a value and press Enter",
+    "Takat tepe değeri · Değeri yazıp Enter'a bas":"Maximum Stamina · Enter a value and press Enter",
+    "Takat tepe değeri":"Maximum Stamina",
+    "Metanet kaybı · Değeri yazıp Enter'a bas":"Resolve loss · Enter a value and press Enter",
+    "Metanet toparlanması · Değeri yazıp Enter'a bas":"Resolve recovery · Enter a value and press Enter",
+    "Metanet tepe değeri · Değeri yazıp Enter'a bas":"Maximum Resolve · Enter a value and press Enter",
+    "Metanet tepe değeri":"Maximum Resolve",
+    "Æřɨŧqʉɍ Can, A̤ɐ͜ɨǣ́ꞎ͡ƣ, Takat ve Metanet kaynakları":"Æřɨŧqʉɍ Health, A̤ɐ͜ɨǣ́ꞎ͡ƣ, Stamina & Resolve resources",
+    "Karakter Kağıdı":"Character Sheet",
+    "☠️ Ölü karakterin Æřɨŧqʉɍ değerleri değiştirilemez.":"☠️ Æřɨŧqʉɍ values cannot be changed for a dead character.",
+    "Varlık / Yaratık":"Being / Creature",
+    "Hanedan Mensupları":"Dynasty Members",
+    "Cemiyet / Oluşum":"Society / Formation",
+    "Mensuplar ve Bağlı Oluşumlar":"Members & Linked Formations",
+    "Alekrytha'nın 24 Irkı":"Alekrytha’s 24 Peoples",
+    "Alekrytha Oyunlarında Karakter Kağıtlarının seçebildiği 24 kanonik ırk.":"The 24 canonical peoples available to Character Sheets in Alekrytha.",
+    "Alekrytha'nın 24 kanonik ırkından biri":"One of Alekrytha’s 24 canonical peoples",
+    "Bu birey hikâyede hangi rolü üstleniyor?":"What role does this individual play in the story?",
+    "Hangi sahneleri, kararları, çatışmaları veya imkânları doğurur?":"What scenes, decisions, conflicts, or opportunities do they create?",
+    "Duyular, uzuvlar, hareket biçimi, zayıflıklar ve doğal yetiler…":"Senses, limbs, movement style, weaknesses, and natural abilities…",
+    "Avlanma, korunma, iletişim, korku, merak ve toplumsal davranış…":"Hunting, protection, communication, fear, curiosity, and social behavior…",
+    "Yaşam alanı, beslenme, çevreye etkisi ve dünyada bıraktığı iz…":"Habitat, nutrition, environmental impact, and the trace left on the world…"
+})));
+const __alekEnglishUiExactMore6=Object.freeze(new Map(Object.entries({
+    "⛏️ ARAÇ VE KULLANIM":"⛏️ TOOLS & USE",
+    "🗡️🏹🛡️ Teçhizat ve Silahlar":"🗡️🏹🛡️ Equipment & Weapons",
+    "Genel Eşya":"General Items",
+    "⚗️ TÜKETİM VE YAKIT":"⚗️ CONSUMABLES & FUEL",
+    "💎⚖️ A̤ɐ͜ɨǣ́ꞎ͡ƣ Kristali (Parça/KG)":"💎⚖️ A̤ɐ͜ɨǣ́ꞎ͡ƣ Crystal (Piece/KG)",
+    "🥩 Erzak ve Su":"🥩 Provisions & Water",
+    "🧪 İksir":"🧪 Potion",
+    "💎 GELİŞTİRME VE TAKVİYE":"💎 DEVELOPMENT & UPGRADE",
+    "🛠️ Crafting Materyalleri":"🛠️ Crafting Materials",
+    "Rünler":"Runes",
+    "🔮 ODAK VE GÜÇ AKTARICI":"🔮 FOCUS & POWER CONDUIT",
+    "🎗️ Tılsımlı Eşyalar":"🎗️ Enchanted Items",
+    "Büyülü Odaklar":"Arcane Foci",
+    "🏺 ANTİK ESER VE ÖZEL AMAÇ":"🏺 ARTIFACTS & SPECIAL PURPOSE",
+    "📜 Görev Eşyaları ve Kalıntılar":"📜 Quest Items & Relics",
+    "Koleksiyon":"Collection",
+    "✨ Kahramanın Mührü":"Character Entry",
+    "Vazgeç":"Cancel",
+    "Evrene Yaz":"Apply",
+    "🎒 Yolcunun Heybesi":"🎒 Traveler’s Bag",
+    "✨ Yeni Kategori":"✨ New Category",
+    "Kategori yok...":"No categories…",
+    "+ Alt Sınıf":"+ Subcategory",
+    "Alt sınıf bulunmuyor...":"No subcategories…",
+    "+ Eşya Ekle":"+ Add Item",
+    "Boş...":"Empty…"
+})));
+const __alekEnglishUiExactMore7=Object.freeze(new Map(Object.entries({
+    "Tam Mühür":"Full Seal",
+    "Tamamlanmış ve kesin cümleyi kapatır.":"Closes a completed and definitive sentence.",
+    "Devam Mührü":"Continuation Seal",
+    "Cümleyi kapatır, düşünce akışını sürdürür.":"Closes the sentence while keeping the thought flowing.",
+    "Açık Uç":"Open End",
+    "Düşüncenin bilinçli biçimde tamamlanmadığını gösterir.":"Marks a thought as intentionally unfinished.",
+    "Sözün dış müdahaleyle kesildiğini gösterir.":"Marks speech interrupted by an outside event.",
+    "Gerçek Sorgu":"Genuine Question",
+    "Cevabı gerçekten öğrenilmek istenen soruyu kapatır.":"Closes a question whose answer is genuinely sought.",
+    "Sınayıcı Sorgu":"Challenging Question",
+    "Meydan okuyan, kuşkulu veya sınayıcı sorguyu gösterir.":"Marks a challenging, doubtful, or testing question.",
+    "Hayret Dalgası":"Wonder Wave",
+    "Yoğun hayret, ihtişam veya ani kavrayışı gösterir.":"Marks intense wonder, grandeur, or sudden realization.",
+    "İrade Darbesi":"Command Strike",
+    "Acil emir, savaş komutu veya ölümcül uyarıdır.":"Marks an urgent order, battle command, or severe warning.",
+    "Söz Kabı":"Speech Vessel",
+    "Birebir söylenen gerçek sözü çevreler.":"Encloses words spoken aloud exactly.",
+    "Zihin Kabı":"Thought Vessel",
+    "İç konuşmayı veya yalnız zihinde kurulan cümleyi çevreler.":"Encloses inner speech or a sentence formed only in thought.",
+    "Yankı Kabı":"Echo Vessel",
+    "Hatıra, rüya veya başka zamandan dönen sözü çevreler.":"Encloses words returning from memory, dream, or another time.",
+    "Örtülü Kısım":"Veiled Section",
+    "Gizlenen, silinen veya algılanamayan içeriği gösterir.":"Marks hidden, erased, or imperceptible content.",
+    "Neden Bağı":"Causal Link",
+    "Sol düşüncenin sağdaki sonucu doğurduğunu gösterir.":"Shows that the thought on the left causes the result on the right.",
+    "Karşıt Menteşe":"Contrast Hinge",
+    "Çatışan iki düşünceyi aynı yapı içinde bağlar.":"Connects two conflicting thoughts within one structure.",
+    "Eşzaman Bağı":"Simultaneous Link",
+    "Olayların aynı zaman kesitinde gerçekleştiğini gösterir.":"Shows events occurring within the same time slice.",
+    "Seçim Çatalı":"Choice Fork",
+    "Olasılıkları, alternatifleri veya yol ayrımını ayırır.":"Separates possibilities, alternatives, or branching paths.",
+    "Zaman Katı":"Time Layer",
+    "Başka bir zaman akışına geçildiğini gösterir.":"Marks a transition to another time flow.",
+    "Mekân Katı":"Place Layer",
+    "Diyar, şehir, yüzey veya gerçeklik düzlemi değişimini gösterir.":"Marks a change of land, city, surface, or plane of reality.",
+    "Ses Değişimi":"Voice Shift",
+    "Konuşmacı, anlatıcı veya bakış noktası değişimini gösterir.":"Marks a change of speaker, narrator, or viewpoint.",
+    "Ölçek Değişimi":"Scale Shift",
+    "Anlatının bireyden kozmosa benzeri ölçek değişimini gösterir.":"Marks a narrative shift in scale, such as individual to cosmic.",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ Sözü":"A̤ɐ͜ɨǣ́ꞎ͡ƣ Speech",
+    "Sözün doğrudan A̤ɐ͜ɨǣ́ꞎ͡ƣ alanından aktarıldığını gösterir.":"Marks speech transmitted directly through the A̤ɐ͜ɨǣ́ꞎ͡ƣ field.",
+    "Feł Bağı":"Feł Link",
+    "Anlamın Feł’aryŋ bağı üzerinden paylaşıldığını gösterir.":"Shows meaning shared through the Feł’aryŋ link.",
+    "Çoklu Ağız":"Multiple Voices",
+    "Birden fazla varlığın aynı sözü tek iradeyle söylediğini gösterir.":"Marks multiple entities speaking the same words together.",
+    "Mutlak Kapanış":"Absolute Closure",
+    "Yemin, yasa veya geri alınamaz hükmü tamamen kapatır.":"Fully closes an oath, law, or irreversible decree.",
+    "Çift Kök":"Double Root",
+    "Sesi göğüs ve derin beden boşluğunda birlikte titreştirir.":"Resonates the voice through the chest and deep body cavity together.",
+    "Derin Kök":"Deep Root",
+    "Sesi tek, yoğun ve aşağıdaki bir merkezden doğurur.":"Produces the voice from one dense, lower center.",
+    "Yan Kök":"Lateral Root",
+    "Rezonansı dil ve çenenin yanlarına taşır.":"Moves resonance toward the sides of the tongue and jaw.",
+    "Sönük Kök":"Muted Root",
+    "Sesi yaşayan titreşim ile sessizlik arasına indirir.":"Lowers the voice between living resonance and silence.",
+    "Kıvılcım Başlangıcı":"Spark Onset",
+    "Sesi hazırlıksız ve bir anda başlatır.":"Starts the sound suddenly without preparation.",
+    "İkiz Tını":"Twin Timbre",
+    "Tek harfe aynı anda iki farklı ses rengi verir.":"Gives one letter two simultaneous tonal colors.",
+    "Boş Nefes":"Hollow Breath",
+    "Sesin merkezinde yuvarlak bir hava boşluğu oluşturur.":"Creates a rounded pocket of air at the center of the sound.",
+    "Sesi çevreye dağılan yumuşak bir tınıya dönüştürür.":"Turns the sound into a soft timbre that disperses outward.",
+    "Yükselen Taç":"Rising Crown",
+    "Perdeyi ve yoğunluğu yükseltir.":"Raises pitch and intensity.",
+    "Alçalan Taç":"Falling Crown",
+    "Sesi aşağı indirir, koyulaştırır ve ağırlaştırır.":"Lowers, darkens, and weights the sound.",
+    "Dışa Açılan Taç":"Outward Crown",
+    "Sesi merkezde yükseltip iki yana genişletir.":"Raises the sound at the center and expands it sideways.",
+    "İçe Çöken Taç":"Inward Crown",
+    "Sesi kısa süre aşağı çöktürüp yeniden yükseltir.":"Briefly drops the sound inward before raising it again.",
+    "Süre Çizgisi":"Duration Line",
+    "Sesi kesmeden normal süresinden uzun tutar.":"Holds the sound beyond its normal duration without breaking it.",
+    "Kısa Yay":"Short Arc",
+    "Sesi olağan süresinden kısa ve dar çıkarır.":"Produces a shorter, narrower sound than usual.",
+    "Çift Darbe":"Double Pulse",
+    "Tek sesin içinde iki enerji vuruşu oluşturur.":"Creates two pulses within a single sound.",
+    "Gecikmiş Çözülüş":"Delayed Release",
+    "Sesin yankısını kısa gecikmeyle serbest bırakır.":"Releases the echo after a short delay.",
+    "Alt Akış Köprüsü":"Lower Flow Bridge",
+    "İki sesi kesmeden tek akış içinde birbirine dönüştürür.":"Blends two sounds into one flow without interruption.",
+    "Üst Kaynaşma Köprüsü":"Upper Fusion Bridge",
+    "İki harfi tek boğumlanma ve kapanışta kaynaştırır.":"Fuses two letters into one articulation and closure.",
+    "İç Yarık":"Inner Rift",
+    "Ses içinde çok kısa gırtlak, nefes veya enerji kesintisi oluşturur.":"Creates a very brief throat, breath, or energy interruption within the sound.",
+    "Yankı İzi":"Echo Trace",
+    "Ana ses bittikten sonra zayıf bir artık titreşim bırakır.":"Leaves a faint residual vibration after the main sound ends.",
+    "Sözcüğe savaş iradesi, tutku veya kararlılık yükler.":"Adds resolve, passion, or determination to the word.",
+    "Sükûnet Halesi":"Calm Halo",
+    "Sözcüğe koruma, teselli veya sakinlik niyeti yükler.":"Adds an intent of protection, comfort, or calm to the word.",
+    "Sesi fiziksel ağız dışındaki uzaktan veya çevresel alandan aktarır.":"Projects the sound from a distant or environmental source rather than the physical mouth.",
+    "İlksel Alan":"Primal Field",
+    "Sesi beden, çevre ve A̤ɐ͜ɨǣ́ꞎ͡ƣ akışıyla birlikte üretir.":"Produces sound through body, environment, and A̤ɐ͜ɨǣ́ꞎ͡ƣ flow together."
+})));
+const __alekEnglishUiExactMore8=Object.freeze(new Map(Object.entries({
+    "Hedef küme artık mevcut değil.":"The target set no longer exists.",
+    "Bu mevcudat fiziksel konteyner değildir; başka mevcudatlar buraya taşınamaz.":"This entity is not a physical container; other entities cannot be moved into it.",
+    "Taşınacak seçili mevcudat yok.":"No selected entities to move.",
+    "Seçili mevcudatlar zaten bu kümede.":"The selected entities are already in this set.",
+    "Yalnız gerçek bir üst-alt döngüsü oluşturan mevcudatlar taşınmadı.":"Entities that would create a real parent-child loop were not moved.",
+    "Seçili mevcudatlardan biri artık bulunamadı.":"One of the selected entities could no longer be found.",
+    "Bir mevcudat kendi içine bırakılamaz.":"An entity cannot be placed inside itself.",
+    "Seçili mevcudatlar bu kümeye bırakılamadı.":"The selected entities could not be placed in this set.",
+    "Bu mevcudat artık mevcut değil.":"This entity no longer exists.",
+    "Bu mevcudat fiziksel konteyner değildir; bağlıları Bağlar ekranında görünür.":"This entity is not a physical container; linked entities appear in Relations.",
+    "Her satıra bir özgün nitelik…":"One unique trait per line…",
+    "Grup Görseli Seç":"Choose Group Visual",
+    "Görseli Kaldır":"Remove Visual",
+    "Grup adı gerekli.":"Group name is required.",
+    "Macera Grubu JoA seyahatinin silinemez ana mevcudatıdır.":"The Adventure Party is the permanent main travel entity of JoA.",
+    "Bineği Kaydet":"Save Mount",
+    "Binek adı gerekli.":"Mount name is required.",
+    "Mahzene gönderilecek mevcudat seçilmedi.":"No entity was selected for the vault.",
+    "Unutulmuşlar Mahzeni’ne Gönder":"Send to Archive",
+    "Mahzen sessiz.":"The archive is empty.",
+    "Sonsuz Unutuş":"Delete Permanently",
+    "Unutulmuşlar Mahzeni":"Archive",
+    "Vakit geçirildi":"Time advanced",
+    "Vakit ilerler. Can ve mana doğal hızında, metanet çok hafif toparlanır; uyku olmadığı için Takat yenilenmez.":"Time advances. Health and Mana recover naturally, Resolve recovers slightly, and Stamina does not recover without sleep.",
+    "İlk Yardım":"First Aid",
+    "İlk yardım uygulandı":"First aid applied",
+    "Temel bakım Canı güçlü, manayı hafif toparlar. Uyku olmadığı için Takat yenilenmez.":"Basic care strongly restores Health and slightly restores Mana. Stamina does not recover without sleep.",
+    "Kamp uykusu dört kaynağı da yeniler. Takat yalnız uyku içeren seçeneklerde doğal saatlik değeriyle çalışır.":"Camp sleep restores all four resources. Stamina recovers at its natural hourly rate only when sleep is involved.",
+    "Han yatağında uyundu":"Rested at an inn",
+    "Konforlu uyku dört kaynağın da en güçlü doğal toparlanmasını sağlar.":"Comfortable sleep provides the strongest natural recovery for all four resources.",
+    "Şimdiki Vakit":"Current Time",
+    "Dinlenme Biçimi":"Rest Type",
+    "Dinlenme biçimi":"Rest type",
+    "İlerleyecek süreyi seç":"Choose the duration to advance",
+    "Vakit Ocağı · Dinlenme ve Zaman Atlama":"Time · Rest & Time Advance",
+    "Vakti İlerle":"Advance Time",
+    "İlerleyecek süreyi seç.":"Choose the duration to advance.",
+    "İsimsiz Binek / Taşıt":"Untitled Mount / Vehicle",
+    "Binek / Taşıt":"Mount / Vehicle",
+    "Normal tık: kart kağıdı · E + tık: konteynerin içine gir":"Click: open sheet · E + click: enter container",
+    "İçinde":"Contains",
+    "kart var":"cards",
+    "Canlılar ve Soylar":"Living Beings & Lineages",
+    "Bireysel kişiler, kahramanlar ve yaşayan dünya sakinleri.":"Individual people, heroes, and inhabitants of the living world.",
+    "Yaratıklar, hayvanlar ve insan dışı bireysel oluşumlar.":"Creatures, animals, and individual non-human beings.",
+    "Irklar, biyolojik türler ve ortak varoluş şablonları.":"Peoples, biological species, and shared existence templates.",
+    "Kavimler, nüfuslar ve ortak kimlik taşıyan":"Peoples, populations, and groups sharing an identity",
+    "Takımlar, birlikler, mürettebatlar, sürüler ve kervanlar.":"Teams, units, crews, packs, and caravans.",
+    "Toplumlar ve Düzenler":"Societies & Orders",
+    "Loncalar, örgütler, akademiler, şirketler ve oluşumlar.":"Guilds, organizations, academies, companies, and formations.",
+    "Krallıklar, imparatorluklar ve egemen yönetim düzenleri.":"Kingdoms, empires, and sovereign systems of rule.",
+    "Büyük uygarlıklar ve uzun ömürlü kültür dünyaları.":"Great civilizations and enduring cultural worlds.",
+    "Köyler, şehirler, koloniler, kamplar ve istasyonlar.":"Villages, cities, colonies, camps, and stations.",
+    "Geniş coğrafi, siyasi veya boyutsal alanlar.":"Large geographic, political, or dimensional regions.",
+    "Dünyalar, boyutlar, evrenler ve gerçeklik katmanları.":"Worlds, dimensions, universes, and layers of reality.",
+    "Odalar, mağaralar, salonlar, sokaklar ve belirli alanlar.":"Rooms, caves, halls, streets, and defined spaces.",
+    "Evler, kaleler, kuleler, saraylar ve megayapılar.":"Houses, castles, towers, palaces, and megastructures.",
+    "Dağlar, nehirler, denizler, çöller ve ormanlar.":"Mountains, rivers, seas, deserts, and forests.",
+    "Gezegenler, yıldızlar, nebulalar ve kozmik anomaliler.":"Planets, stars, nebulae, and cosmic anomalies.",
+    "Hareketli karalar, yürüyen şehirler ve gezen coğrafyalar.":"Moving lands, walking cities, and roaming geographies.",
+    "Binekler, arabalar, gemiler ve uzay taşıtları.":"Mounts, carriages, ships, and spacecraft.",
+    "Makineler, mekanizmalar ve çalışan yapay sistemler.":"Machines, mechanisms, and functioning artificial systems.",
+    "Fabrikalar, laboratuvarlar, üsler ve üretim kompleksleri.":"Factories, laboratories, bases, and production complexes.",
+    "Madenler, enerji, su, besin ve kullanılabilir rezervler.":"Minerals, energy, water, food, and usable reserves.",
+    "Yollar, portal hatları, iletişim ve enerji şebekeleri.":"Roads, portal routes, communication networks, and power grids.",
+    "Bu kart yuvası taksonomi dairesinde hazırlandı; davranışı sonraki revizyonda açılacak.":"This card slot is defined in the taxonomy circle; its behavior will be enabled in a later revision.",
+    "Seçili mevcudatı Mavi Ay mührüyle çağır":"Create the selected entity with Blue Moon",
+    "Seçili mevcudatı çağır":"Create selected entity",
+    "Bu kök mevcudat, dünya içinde bağımsız kimliği olan bir oluşumu anlatmak için kullanılır.":"Use this root entity for something with an independent identity in the world.",
+    "Mevcudatlar arası bağlar üzerinden hikâyeye sonuç ve anlam katar.":"Adds consequence and meaning to the story through relations between entities.",
+    "Diğer kök mevcudatlarla bağ kurabilir.":"Can form relations with other root entities.",
+    "Ortak mevcudat çekirdeğiyle bağ kurar.":"Connects through the shared entity core.",
+    "Mavi Aya Basarak Oluştur":"Create with Blue Moon",
+    "Taksonomiyi aç":"Open Taxonomy",
+    "mevcudat türünü seçer":"selects the entity type",
+    "seçili mevcudatı çağırır":"creates the selected entity",
+    "Tür Profili":"Type Profile",
+    "Kalıtsal Nitelikler":"Inherited Traits",
+    "Bağlı Bireyler":"Linked Individuals",
+    "Tür Kroniği":"Type Chronicle",
+    "Kültürel Nitelikler":"Cultural Traits",
+    "Halk Kroniği":"People Chronicle",
+    "Grup Özeti":"Group Summary",
+    "Grup Kroniği":"Group Chronicle",
+    "Hanedan Özeti":"Dynasty Summary",
+    "Hanedan Kroniği":"Dynasty Chronicle",
+    "Özgün Nitelikler":"Unique Traits",
+    "BU KART NEDİR?":"WHAT IS THIS CARD?",
+    "Dünya içinde bağımsız kimliği bulunan bir kök karttır.":"A root card with an independent identity in the world.",
+    "Bu oluşumu dünya içinde ayrı kimlikle izlemek istediğinde kullanılır.":"Use it when you want to track this formation as a distinct identity in the world.",
+    "HİKÂYEYE NE KATAR?":"WHAT DOES IT ADD TO THE STORY?",
+    "BAĞLAR VE BARINDIRMA":"RELATIONS & CONTAINMENT",
+    "Fiziksel barındırma davranışı yoktur.":"It has no physical containment behavior.",
+    "Henüz özgün nitelik yazılmadı.":"No unique traits have been written yet.",
+    "Henüz kronik kaydı yazılmadı.":"No chronicle entry has been written yet.",
+    "Henüz bağlı mevcudat bulunmuyor.":"No linked entities yet.",
+    "Üst Kümeye Taşı":"Move to Parent Set",
+    "Bu Mevcudata Bırak":"Place Inside This Entity",
+    "Zaten en üst düzeyde":"Already at the top level",
+    "Bu kart zaten Ana Dünya düzeyinde":"This card is already at Main World level",
+    "Açık kart bir üst kümeye taşınamadı.":"The open card could not be moved to the parent set.",
+    "Döngü koruması: bu dal yeniden gösterilmedi.":"Cycle protection: this branch was not displayed again.",
+    "Bu mevcudat boş. Seçili kartları yukarıdaki ‘Bu Mevcudata Bırak’ hedefine W + tık ile yerleştir.":"This entity is empty. Use W + click on Place Inside This Entity to move selected cards here.",
+    "Konteyner sekme içeriği açılamadı":"Container tab content could not be opened",
+    "Kağıdı aç · Q seçimini Mevcudat sekmelerinden bir alt kümeye yerleştir":"Open Sheet · place Q selection into a subset from the Entities tabs",
+    "← Ana Dünyaya Dön":"← Back to Main World",
+    "← Üst Konteynere Dön":"← Back to Parent Container",
+    "İÇERİK":"CONTENT"
+})));
+const __alekEnglishUiExactMore9=Object.freeze(new Map(Object.entries({
+    "🗺️ Görevler ve Yazgılar":"🗺️ Quests & Paths",
+    "📖 Kahramanın Günlüğü":"📖 Character Journal",
+    "Başlık...":"Title…",
+    "✅ Akışta Güncellendi":"✅ Updated in Flow",
+    "💠 Mührü Akışa İşle":"💠 Apply to Flow",
+    "İsimsiz Eşya":"Untitled Item",
+    "Eşya Adı...":"Item Name…",
+    "Özellikler...":"Properties…",
+    "İmgeler":"Symbols",
+    "24 Anlam-Örgü":"24 Meaning Weaves",
+    "Karakterler":"Characters",
+    "Gemiler • Binekler • Taşıtlar":"Ships • Mounts • Vehicles",
+    "✦ ŞİMDİ":"✦ NOW",
+    "Bulunulan oyun günü":"Current game day",
+    "Bir güne dokun: o tarihe ait notlarını açar.":"Click a day to open its notes.",
+    "Karşılaşma":"Encounter",
+    "Konum kaydı yok":"No location record",
+    "Bu günde karşılaşma üst bilgisi bulunmuyor.":"No encounter header is stored for this day.",
+    "Bu güne ait kayıtlı konuşma yok.":"No saved conversation for this day.",
+    "Karşılaş":"Encounter",
+    "Yazdığın metni Meggy adına gönder":"Send the written text as Meggy",
+    "Bu mesajı sil":"Delete this message",
+    "Meggy · vakit dışı":"Meggy · outside game time",
+    "Karşılaşma başladı.":"Encounter started.",
+    "Metni yaz, sonra Meggy’ye veya sağdaki konuşmacılardan birine dokun.":"Write the text, then click Meggy or one of the speakers on the right.",
+    "Konuşmayı, anlatımı veya sahne hareketini yaz...":"Write dialogue, narration, or scene action…",
+    "Kişi konuşmaları karakter uzunluğuna göre oyun zamanını ilerletir; Meggy vakit dışıdır.":"Character dialogue advances game time according to text length; Meggy is outside game time.",
+    "Sahnedeki Konuşmacılar":"Speakers in Scene",
+    "Metni bu konuşmacı adına gönder":"Send text as this speaker",
+    "JoA Mevcudatından katılımcıları seçip B ile yeni bir karşılaşma başlat.":"Select participants from JoA Entities and press B to start a new encounter.",
+    "İsimsiz Bölge":"Untitled Region",
+    "Map hedefe ulaştı.":"Map destination reached.",
+    "Yeni Bölge":"New Region",
+    "Keşfedildi":"Discovered",
+    "Ek Düzlem":"Additional Plane",
+    "Trim için bu çizgiyi kesen başka bir çizim bulunamadı.":"No intersecting drawing was found for Trim.",
+    "İsimsiz İşaret":"Untitled Marker",
+    "Başlangıç kapağı":"Starting cover",
+    "Adventure resmi güncellendi.":"Workspace image updated.",
+    "Kapak resmi":"Cover image",
+    "Dünya Görünümü":"World View",
+    "Dışa Aktar":"Export",
+    "İçe Aktar":"Import"
+})));
+const __alekEnglishUiExactMore10=Object.freeze(new Map(Object.entries({
+    "Henüz yerel müzik yok.":"No local music yet.",
+    "Müzik Ekle":"Add Music",
+    "＋ Müzik Ekle":"＋ Add Music",
+    "Yukarıdaki düğmeyle görsel veya video ekle.":"Add an image or video with the button above.",
+    "Hazır":"Ready",
+    "Önizle":"Preview",
+    "Medya dosyasına erişilemiyor.":"The media file cannot be accessed.",
+    "İç Ambiance":"Indoor Ambience",
+    "Dış Ambiance":"Outdoor Ambience",
+    "İç Ambiance Kütüphanesi":"Indoor Ambience Library",
+    "Dış Ambiance Kütüphanesi":"Outdoor Ambience Library",
+    "↻ Medyayı Yenile":"↻ Refresh Media",
+    "＋ Çoklu Görsel / Video":"＋ Add Images / Videos",
+    "Eklenen görsel ve videolar bu maceranın Media/Ambiance klasörüne kopyalanır.":"Added images and videos are copied to this workspace's Media/Ambiance folder.",
+    "Ana Liste":"Main List",
+    "yerel parça":"local tracks",
+    "yerel parçalar":"local tracks",
+    "Lore kaydı güncellendi.":"Lore entry updated.",
+    "Soldan bir lore kaydı seç.":"Select a Lore entry from the left.",
+    "Okuma Modu":"Reading Mode",
+    "Henüz içerik yazılmadı.":"No content has been written yet.",
+    "Alt başlık / kısa tanım":"Subtitle / short description",
+    "Lore metnini buraya yaz...":"Write Lore text here…",
+    "Kapak Görseli Seç":"Choose Cover Visual",
+    "Görseli Kaldır":"Remove Visual",
+    "Lore Kaydını Kaydet":"Save Lore Entry",
+    "Kapak görseli önizlemeye alındı.":"Cover visual loaded into preview.",
+    "Bu Kaydı Sil":"Delete This Entry",
+    "Lore Kaydını Sil":"Delete Lore Entry",
+    "Boş Üst Menüyü Sil":"Delete Empty Top Menu",
+    "Lore Menüsünü Düzenle":"Edit Lore Menu",
+    "Lore Menüsünü Sil":"Delete Lore Menu",
+    "Menü adı":"Menu name",
+    "Üst menü adı":"Top menu name",
+    "Lore Menüsü":"Lore Menu",
+    "Yeni Lore Kaydı":"New Lore Entry",
+    "Yeni Üst Menü":"New Top Menu",
+    "Kayıt adı":"Entry name",
+    "İsimsiz Lore":"Untitled Lore",
+    "Yeni Reverie":"New Reverie",
+    "Henüz Reverie hikâyesi yok.":"No Reverie stories yet.",
+    "Yeni Hikâye ile ilk mührünü oluştur.":"Create your first story with New Story.",
+    "HİKÂYE MÜHÜRLERİ":"STORY COLLECTION",
+    "Reverie hikâyesi":"Reverie story",
+    "Reverie akışa kaydedildi.":"Reverie saved.",
+    "Akış kaydedildi ve mühür yenilendi.":"Changes saved.",
+    "Hikâye mühürlendi.":"Story saved.",
+    "Bard Kütüphanesini Aç":"Open Bard Library",
+    "0 parça":"0 tracks",
+    "Ses":"Volume",
+    "Atmosfer ve müzik":"Atmosphere & music",
+    "Bütün menülerde kesintisiz":"UNINTERRUPTED ACROSS ALL MENUS",
+    "Müzik sırasını, kaldığı zamanı ve ses seviyesini yönet.":"Manage the music queue, playback position, and volume.",
+    "Sessizlik":"Silence",
+    "● Duraklatıldı":"● Paused",
+    "● Oynuyor":"● Playing",
+    "Performans & GPU":"Performance & GPU",
+    "Ayarlar":"Settings",
+    "Kütüphane":"Library",
+    "Uygula":"Apply",
+    "İptal":"Cancel",
+    "Vazgeç":"Cancel",
+    "Onayla":"Confirm",
+    "Sıfırla":"Reset",
+    "Evet":"Yes",
+    "Hayır":"No",
+    "Tamam":"OK",
+    "Geri Dön":"Go Back",
+    "Arama":"Search",
+    "Ara":"Search",
+    "Dosya Seç":"Choose File",
+    "Klasör Seç":"Choose Folder",
+    "Dosya":"File",
+    "Klasör":"Folder",
+    "Durum":"Status",
+    "Ad":"Name",
+    "Adı":"Name",
+    "Ünvan":"Title",
+    "Seçenekler":"Options",
+    "İşlemler":"Actions",
+    "Başlangıç":"Start",
+    "Kullanıcılar":"Users",
+    "Ayrıntılar":"Details",
+    "Hizmetler":"Services",
+    "Performans":"Performance",
+    "Uygulama geçmişi":"App history",
+    "Hafıza":"Memory",
+    "Hata":"Error",
+    "Uyarı":"Warning",
+    "Başarılı":"Success"
+})));
+const __alekEnglishUiExactMore11=Object.freeze(new Map(Object.entries({
+    "ÖLDÜ":"DEAD",
+    "Yaşam bağı koptu":"Life has ended",
+    "BAYGIN":"UNCONSCIOUS",
+    "Yaşam akışı sürüyor":"Life signs continue",
+    "∞ ÖLÜMSÜZ":"∞ IMMORTAL",
+    "TAKAT TÜKENDİ":"STAMINA DEPLETED",
+    "Karakter fiziksel olarak durdu. Kamp Kurma veya Yatak / Han uykusu, iksir ya da bar girdisiyle Takat %100 olmadan menüler açılmaz.":"The character is physically exhausted. Menus remain locked until Stamina returns to 100% through Camp, Bed / Inn rest, a potion, or a bar input.",
+    "Kozmik Mühür":"Password Verification",
+    "Kelimeyi yaz.":"Enter the confirmation word.",
+    "Mührü Aç":"Confirm",
+    "🛑 Hatalı kelime!":"🛑 Incorrect confirmation word.",
+    "🛑 Mühür açılamadı.":"🛑 Verification failed.",
+    "Düzenleme mührünü çözmek için kutsal kelimeyi yaz.":"Enter the confirmation word to unlock editing.",
+    "Karakter Kağıdı":"Character Sheet",
+    "Varlık Kağıdı":"Being Sheet",
+    "Tür Kağıdı":"Type Sheet",
+    "Halk Kağıdı":"People Sheet",
+    "Güvenli çalışma görünümü":"Safe workspace view",
+    "Karakter kimliği, ölümsüzlük ve görsel kontrolleri":"Character identity, immortality, and visual controls",
+    "Adı rastgele dokuyup alana yerleştir":"Generate a random name",
+    "Rastgele ad üret":"Generate random name",
+    "Soyadı rastgele dokuyup alana yerleştir":"Generate a random surname",
+    "Rastgele soyad üret":"Generate random surname",
+    "Karakterin ünvanı":"Character title",
+    "Hasar miktarı":"Damage amount",
+    "Hasar · Değeri yazıp Enter'a bas":"Damage · enter a value and press Enter",
+    "Şifa miktarı":"Healing amount",
+    "Şifa · Değeri yazıp Enter'a bas":"Healing · enter a value and press Enter",
+    "Can tepe değeri":"Maximum Health",
+    "Can tepe değeri · Değeri yazıp Enter'a bas":"Maximum Health · enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ harcaması · Değeri yazıp Enter'a bas":"A̤ɐ͜ɨǣ́ꞎ͡ƣ spend · enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ yenilenmesi · Değeri yazıp Enter'a bas":"A̤ɐ͜ɨǣ́ꞎ͡ƣ recovery · enter a value and press Enter",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ tepe değeri":"Maximum A̤ɐ͜ɨǣ́ꞎ͡ƣ",
+    "A̤ɐ͜ɨǣ́ꞎ͡ƣ tepe değeri · Değeri yazıp Enter'a bas":"Maximum A̤ɐ͜ɨǣ́ꞎ͡ƣ · enter a value and press Enter",
+    "Takat harcaması · Değeri yazıp Enter'a bas":"Stamina spend · enter a value and press Enter",
+    "Takat toparlanması · Değeri yazıp Enter'a bas":"Stamina recovery · enter a value and press Enter",
+    "Takat tepe değeri":"Maximum Stamina",
+    "Takat tepe değeri · Değeri yazıp Enter'a bas":"Maximum Stamina · enter a value and press Enter",
+    "Metanet kaybı · Değeri yazıp Enter'a bas":"Resolve loss · enter a value and press Enter",
+    "Metanet toparlanması · Değeri yazıp Enter'a bas":"Resolve recovery · enter a value and press Enter",
+    "Metanet tepe değeri":"Maximum Resolve",
+    "Metanet tepe değeri · Değeri yazıp Enter'a bas":"Maximum Resolve · enter a value and press Enter",
+    "Hareket Hızı (metre/saniye)":"Movement Speed (m/s)",
+    "Görüş Mesafesi (metre)":"Vision Range (meters)",
+    "Saatlik Can İyileşmesi":"Health Recovery per Hour",
+    "Saatlik A̤ɐ͜ɨǣ́ꞎ͡ƣ Yenilenmesi":"A̤ɐ͜ɨǣ́ꞎ͡ƣ Recovery per Hour",
+    "Saatlik Takat Toparlanması":"Stamina Recovery per Hour",
+    "Saatlik Metanet Toparlanması":"Resolve Recovery per Hour",
+    "Karakter bilgileri mühürlü.":"Character information is locked.",
+    "Akışı onayla ve kaydet":"Confirm and save",
+    "Akışı Kaydet":"Save Changes",
+    "Akışa Kaydet":"Save Changes",
+    "Akış kaydedildi.":"Changes saved.",
+    "Akış kaydedilemedi.":"Changes could not be saved.",
+    "Akış kaydedilemedi:":"Changes could not be saved:",
+    "Karakter akışı onaylandı ve kaydedildi.":"Character changes were confirmed and saved.",
+    "Karakter akışı diske yazılamadı.":"Character changes could not be written to disk.",
+    "Karakter resmi güncellendi.":"Character image updated.",
+    "Resim koy / değiştir":"Add / change image",
+    "Resim koy veya değiştir":"Add or change image",
+    "Resmi sıfırla":"Reset image",
+    "Resmi sıfırla · mavi ayı geri getir":"Reset image · restore Blue Moon",
+    "Cinsiyeti değiştir":"Change gender",
+    "Cinsiyet mührü kilitli.":"Gender is locked.",
+    "Cinsiyet mührü çözüldü.":"Gender lock removed.",
+    "Cinsiyet mührü kilitlendi.":"Gender locked.",
+    "Taslak cinsiyet":"Draft gender",
+    "Cinsiyetsiz":"Genderless",
+    "Öte Dünya Irkı":"Outer World People",
+    "Ałek’ryŧhæ Irkı":"Ałek’ryŧhæ People",
+    "Ałek’ryŧhæ halkını seç":"Choose an Ałek’ryŧhæ people",
+    "Kipi değiştir":"Switch mode",
+    "Melez":"Hybrid",
+    "Melez Kökler":"Hybrid Roots",
+    "Seçimi Tamamla":"Confirm Selection",
+    "İptal Et":"Cancel",
+    "Kendine Has Nitelikler":"Unique Traits",
+    "Her satır ayrı bir niteliktir.":"Each line is a separate trait.",
+    "Tür Kartı":"Type Card",
+    "Halk Kartı":"People Card",
+    "Köken ve Özgün Nitelikler":"Origins & Unique Traits",
+    "Nitelikler kaynağından okunur; karta kopyalanmaz.":"Traits are read from their source and are not copied into the card.",
+    "Ne Zaman Kullanılır / Hikâyeye Katkısı":"When to Use / Story Contribution",
+    "Duyular, uzuvlar, hareket biçimi, zayıflıklar ve doğal yetiler…":"Senses, limbs, movement, weaknesses, and natural abilities…",
+    "Avlanma, korunma, iletişim, korku, merak ve toplumsal davranış…":"Hunting, protection, communication, fear, curiosity, and social behavior…",
+    "Yaşam alanı, beslenme, çevreye etkisi ve dünyada bıraktığı iz…":"Habitat, nutrition, environmental impact, and its mark on the world…",
+    "Bu kökte henüz nitelik yazılmadı.":"No traits have been written for this root yet.",
+    "Tür veya Halk kartı bağlandığında ortak nitelikler burada kaynağıyla görünür.":"When a Type or People card is linked, shared traits appear here with their source.",
+    "Özel Stat":"Custom Stat",
+    "Stat adı":"Stat name",
+    "Özel statı kaldır":"Remove custom stat",
+    "Örn. Savaşçı, Mühendis, Şifacı, Büyücü…":"e.g. Warrior, Engineer, Healer, Mage…",
+    "ÖZ":"SELF",
+    "İçkin alan":"Intrinsic domain",
+    "ÇEVRE":"ENVIRONMENT",
+    "Dışsal alan":"External domain",
+    "İŞLEYİŞ":"PROCESS",
+    "Vazgeç":"Cancel",
+    "Ölümsüzlük Mührü":"Immortal Trait",
+    "Ölümsüzlük Mührünü Çöz":"Remove Immortal Trait",
+    "Ölümsüz Kıl":"Make Immortal",
+    "Mührü Sök":"Remove Trait",
+    "Ölüm Mührü":"Mark as Dead",
+    "Yaşam Mührünü Geri Çağır":"Restore Character",
+    "Yaşamaya İzin Ver":"Keep Alive",
+    "Canını Al":"Mark as Dead",
+    "Yaşamı Geri Getir":"Restore Character",
+    "Bu yaşam bağı zaten akıyor.":"This character is already alive.",
+    "Ölü bir varlığa ölümsüzlük mührü vurulamaz.":"A dead character cannot be marked immortal.",
+    "Bu kart ölümsüzlük mührü taşıyor; silinemez veya mahzene gönderilemez.":"This card is immortal and cannot be deleted or moved to the archive.",
+    "Özel karakter kaydı mahzene gönderilemez.":"This special character record cannot be moved to the archive.",
+    "Geri alınacak işlem yok.":"Nothing to undo.",
+    "İleri alınacak işlem yok.":"Nothing to redo.",
+    "↶ İşlem geri alındı.":"↶ Action undone.",
+    "↷ İşlem ileri alındı.":"↷ Action redone.",
+    "💠 Değişiklik otomatik kaydedildi.":"💠 Changes saved automatically.",
+    "SQLite veritabanı yazma hatası!":"SQLite database write error!",
+    "WebGL kullanılamıyor":"WebGL is unavailable",
+    "Dosya okunamadı":"File could not be read",
+    "Dosya yazılamadı":"File could not be written",
+    "Dosya güncellenemedi":"File could not be updated",
+    "C# köprüsü yok":"C# bridge is unavailable",
+    "IndexedDB kullanılamıyor":"IndexedDB is unavailable",
+    "Medya bağlantı işlemi başarısız":"Media link operation failed",
+    "Windows dosya seçicisi açılamadı":"Windows file picker could not be opened",
+    "Core dosya yolu döndürmedi.":"Core did not return a file path.",
+    "Seçilen dosyanın gerçek yolu alınamadı.":"The actual path of the selected file could not be retrieved.",
+    "Kullanılmayan medya bağlantıları temizlenemedi.":"Unused media links could not be cleaned up.",
+    "Ambiance videosu açılamadı":"Ambience video could not be opened",
+    "Ambiance videosu oynatılamadı":"Ambience video could not be played",
+    "Ambiance görseli açılamadı":"Ambience image could not be opened",
+    "Bard oynatma hatası":"Bard playback error",
+    "Parça oynatılamadı":"Track could not be played"
+})));
+const __alekEnglishUiExactMore12=Object.freeze(new Map(Object.entries({
+    "Ałek’ryŧhæ Maceraları":"Ałek’ryŧhæ Workspaces",
+    "Kanonik Ałek’ryŧhæ başlangıcı ve kendi lore zamanı.":"Canonical Ałek’ryŧhæ start with its own Lore timeline.",
+    "Bilgisayarın yerel tarih, saat ve zaman dilimi.":"Uses the computer's local date, time, and time zone.",
+    "Boş özgün evren; 12 ay × 30 gün ve dört mevsim döngüsü.":"Blank custom world; 12 months × 30 days with four seasons.",
+    "Öte Diyar Maceraları":"Other World Workspaces",
+    "Ana Dünya":"Main World",
+    "Mürettebat":"Crew",
+    "Sürü":"Pack",
+    "Takım":"Team",
+    "Büyük Kedi":"Big Cat",
+    "Uçan Canlı":"Flying Creature",
+    "Deniz Canlısı":"Sea Creature",
+    "Savaş Arabası":"War Chariot",
+    "Kızak":"Sled",
+    "Kervan Taşıtı":"Caravan Vehicle",
+    "Mekanik Taşıt":"Mechanical Vehicle",
+    "Büyülü Taşıt":"Arcane Vehicle",
+    "Kayık":"Boat",
+    "Savaş Gemisi":"Warship",
+    "Denizaltı":"Submarine",
+    "Uçan Gemi":"Airship",
+    "Uçan Platform":"Flying Platform",
+    "Portal Taşıyıcısı":"Portal Carrier",
+    "Alekrytha'nın 24 kanonik ırkından biri":"One of Alekrytha's 24 canonical peoples",
+    "Eski Çanta İçeriği":"Legacy Bag Contents",
+    "Medya bağlantı veritabanı açılamadı":"Media-link database could not be opened",
+    "Medya bağlantısı okunamadı":"Media link could not be read",
+    "Paket görseli kopyalanamadı":"Package visual could not be copied",
+    "Macera SQLite veritabanı oluşturulamadı.":"Workspace SQLite database could not be created.",
+    "Macera listesi SQLite'a yazılamadı.":"Workspace list could not be written to SQLite.",
+    "Core grafik köprüsü bulunamadı":"Core graphics bridge was not found",
+    "Core bu grafik işlemini desteklemiyor":"Core does not support this graphics operation",
+    "Voiceforge konuşma hatası":"Voiceforge speech error",
+    "Voiceforge bağlantısı kurulamadı":"Voiceforge connection could not be established",
+    "🎵 Müzik adresine ulaşılamadı. Dosya taşınmış veya silinmiş olabilir.":"🎵 The music source could not be reached. The file may have been moved or deleted.",
+    "🌌 Karakter Külliyatı":"Character Compendium",
+    "👥 Yoldaşlar ve Kayıplar (NPC)":"Companions & Lost Characters (NPC)",
+    "🗑️ Tüm Zihni Sil":"🗑️ Clear All Memory",
+    "⏪ Zaman bir adım geriye sarıldı.":"⏪ Time moved back one step.",
+    "🛑 'Meggy_API_Key.md' bulunamadı!":"🛑 'Meggy_API_Key.md' was not found!",
+    "🛑 Geçerli bir API anahtarı yapıştırın!":"🛑 Paste a valid API key!",
+    "Zihin Derinliklerine Bakıyor...":"Thinking…",
+    "🛑 Meggy Pro Hatası":"🛑 Meggy Pro Error",
+    "API Hatası Detayı":"API Error Details",
+    "🗑️ Hafıza silindi.":"🗑️ Memory cleared.",
+    "🖼️ Resmi Değiştir":"🖼️ Change Image",
+    "YENİ RUH ÇAĞIR":"CREATE NEW CHARACTER",
+    "✨ Evrene yeni bir beden düştü.":"✨ A new character was added to the world.",
+    "Bu mevcudat türünün kağıt içeriği henüz kurulmadı":"This entity type's sheet content has not been configured yet",
+    "Çanta":"Bag",
+    "🔮 Arcana Yetkinliği":"Arcana Proficiency",
+    "Temel A̤ɐ͜ɨǣ́ꞎ͡ƣ Yönlendirmesi":"Basic A̤ɐ͜ɨǣ́ꞎ͡ƣ Control",
+    "⚔️ Fiziksel İrade":"⚔️ Physical Discipline",
+    "🧬 Doğuştan":"🧬 Innate",
+    "Arcana Külliyatı":"Arcana Compendium",
+    "ALTI MÜHRÜN KESİŞİMİ":"SIX-LAYER COMBINATION",
+    "Altı katmanlı Arcana çemberi":"Six-layer Arcana wheel",
+    "Henüz mühürlenmiş aile yok.":"No Arcana families yet.",
+    "Yeni Büyü Adı...":"New Spell Name…",
+    "Büyünün Etkisi...":"Spell Effect…",
+    "Açıklama yok...":"No description…",
+    "Görseli değiştirmek veya kaldırmak için kilidi aç.":"Unlock editing to change or remove the visual.",
+    "Yetenek görseli ekle":"Add skill visual",
+    "Yetenek görselini değiştir":"Change skill visual",
+    "Yetenek görselini kaldır":"Remove skill visual",
+    "Ölü varlıkta yeni yetenek ekleme ve silme kapalıdır.":"Adding or deleting skills is disabled for dead characters.",
+    "Büyü kaydı bulunamadı.":"Spell record was not found.",
+    "Ölü varlıkta yeni büyü eklenemez.":"A dead character cannot add a new spell.",
+    "Aileye yeni bir büyü yazıldı.":"A new spell was added to the family.",
+    "Ölü varlıktan büyü silinemez.":"A spell cannot be deleted from a dead character.",
+    "Büyü unutuldu.":"Spell deleted.",
+    "Ölü varlıktan Arcana ailesi silinemez.":"An Arcana family cannot be deleted from a dead character.",
+    "Ölü varlık yeni Arcana ailesi oluşturamaz.":"A dead character cannot create a new Arcana family.",
+    "Bu Arcana ailesi bu karakterde zaten mühürlü.":"This Arcana family already exists on this character.",
+    "Yetenek kaydı bulunamadı.":"Skill record was not found.",
+    "Ölü varlıktan yetenek silinemez.":"A skill cannot be deleted from a dead character.",
+    "Mühür silindi.":"Skill deleted.",
+    "Yetenek düzenleme kilidi açıldı.":"Skill editing unlocked.",
+    "İsimsiz Yetenek":"Untitled Skill",
+    "Ölü varlığa yeni yetenek eklenemez.":"A dead character cannot add a new skill.",
+    "Açıklama giriniz...":"Enter a description…",
+    "Hiçliğe Karıştır":"Delete",
+    "Yıkım Mührü":"Delete Record",
+    "⛏️ ARAÇ VE KULLANIM":"⛏️ TOOLS & USE",
+    "🗡️🏹🛡️ Teçhizat ve Silahlar":"🗡️🏹🛡️ Equipment & Weapons",
+    "Genel Eşya":"General Items",
+    "⚗️ TÜKETİM VE YAKIT":"⚗️ CONSUMABLES & FUEL",
+    "💎⚖️ A̤ɐ͜ɨǣ́ꞎ͡ƣ Kristali (Parça/KG)":"💎⚖️ A̤ɐ͜ɨǣ́ꞎ͡ƣ Crystal (Piece/KG)",
+    "🥩 Erzak ve Su":"🥩 Supplies & Water",
+    "🧪 İksir":"🧪 Potion",
+    "💎 GELİŞTİRME VE TAKVİYE":"💎 UPGRADES & MATERIALS",
+    "🛠️ Crafting Materyalleri":"🛠️ Crafting Materials",
+    "Rünler":"Runes",
+    "🔮 ODAK VE GÜÇ AKTARICI":"ARCANE FOCUS & POWER",
+    "🎗️ Tılsımlı Eşyalar":"Enchanted Items",
+    "Büyülü Odaklar":"Arcane Focuses",
+    "🏺 ANTİK ESER VE ÖZEL AMAÇ":"🏺 ANCIENT OBJECTS & SPECIAL USE",
+    "📜 Görev Eşyaları ve Kalıntılar":"📜 Quest Items & Relics",
+    "Koleksiyon":"Collection",
+    "+ Eşya Ekle":"+ Add Item",
+    "Kozmik Çantaya Yeni Ana Sınıf:":"New Main Category:",
+    "Yeni Alt Sınıf:":"New Subcategory:",
+    "+ Alt Sınıf":"+ Subcategory",
+    "✨ Kahramanın Mührü":"Character Entry",
+    "💠 Mührü Akışa İşle":"Apply Changes",
+    "✅ Akışta Güncellendi":"✅ Updated",
+    "🌟 YOLCULUĞUN ÇAĞRISI (Main)":"🌟 JOURNEY (Main)",
+    "Uyanış ve Keşif":"Awakening & Discovery",
+    "Büyük İmtihan":"Great Challenge",
+    "Antik Varlıkların Savaşı":"War of Ancient Beings",
+    "Büyük Dönüm Noktası":"Major Turning Point",
+    "✨ KAHRAMANIN AĞITI (Side)":"✨ CHARACTER STORIES (Side)",
+    "Kayıp Ruhlar":"Lost Characters",
+    "Kanlı İntikamlar":"Vengeance",
+    "Sessiz Yardımlar":"Quiet Aid",
+    "Yarım Kalan Hesaplar":"Unfinished Business",
+    "💍 EBEDİ YEMİNLER (Aile Bağları)":"💍 FAMILY BONDS",
+    "Feł’aryŋ ve Eş Bağı":"Feł’aryŋ & Spousal Bond",
+    "Evlilik ve Törenler":"Marriage & Ceremonies",
+    "Hanenin Birliği":"Household Unity",
+    "Sadakat ve Sınavlar":"Loyalty & Trials",
+    "🌱 MELEZLERİN MEYVELERİ (Aile Bağları)":"🌱 FAMILY & CHILDREN",
+    "Gebelik ve Doğum":"Pregnancy & Birth",
+    "Çocukların Eğitimi":"Children's Education",
+    "Köklerin Uyanışı":"Awakening of Roots",
+    "Aile Maceraları":"Family Adventures",
+    "🍻 YOLDAŞ VE KAN BAĞI":"🍻 COMPANIONS & KINSHIP",
+    "Sadakat Sınavı":"Test of Loyalty",
+    "Geçmişin Tayfları":"Echoes of the Past",
+    "Bağlar ve Umutlar":"Bonds & Hopes",
+    "Yoldaşlık Yeminleri":"Companion Commitments",
+    "⚖️ LONCA VE CEMİYET":"⚖️ GUILDS & SOCIETIES",
+    "Suikast Sözleşmeleri":"Assassination Contracts",
+    "Hırsızlar Ağı":"Thieves' Network",
+    "Büyücüler Meclisi":"Mage Council",
+    "Savaşçılar Loncası":"Warriors' Guild",
+    "Cemiyet İttifakları":"Society Alliances",
+    "🗺️ DİYARIMIN DÖRT BİR YANI":"🗺️ ACROSS THE REALM",
+    "Yapılar":"Structures",
+    "Sınır Savaşları, Fetihler ve Kayıplar":"Border Wars, Conquests & Losses",
+    "Köy Yardımları":"Village Aid",
+    "Keşif ve İmar Seferleri":"Exploration & Development Expeditions",
+    "Lanetli Ritüeller":"Forbidden Practices",
+    "Karanlık Anlaşmalar":"Dark Agreements",
+    "Köle Tüccarlığı":"Slave Trade",
+    "Kültistler ve Tarikatlar":"Secret Factions",
+    "🏴‍☠️ ENGİN SULAR VE RÜZGARLI YELKEN":"🏴‍☠️ OPEN SEAS & WINDY SAILS",
+    "Gemi Kuşatmaları":"Ship Sieges",
+    "Kayıp Adalar":"Lost Islands",
+    "Deniz Canavarları":"Sea Monsters",
+    "Mürettebat Bağları":"Crew Bonds",
+    "Limanlar ve Ticaret Rotaları":"Ports & Trade Routes",
+    "⚒️ ÖRS, TİCARET VE SİKKE":"⚒️ FORGE, TRADE & COIN",
+    "Tılsım Üretimi":"Enchanted Crafting",
+    "Siparişler ve Borçlar":"Orders & Debts",
+    "📖 KİŞİSEL NOTLAR":"📖 PERSONAL NOTES",
+    "Hatıralar":"Memories",
+    "Gözlemler":"Observations",
+    "Eş":"Spouse",
+    "Çocuklar":"Children",
+    "Karanlık Düşünceler":"Dark Thoughts",
+    "Rüyalar ve Görüntüler":"Dreams & Visions",
+    "🗺️ KEŞİFLER":"🗺️ DISCOVERIES",
+    "Gizli Geçitler":"Hidden Passages",
+    "Tehlikeli Bölgeler":"Dangerous Regions",
+    "Önemli Mekanlar":"Important Places",
+    "Sıradan Mekanlar":"Ordinary Places",
+    "📜 LORE VE TARİH":"📜 LORE & HISTORY",
+    "Unutulmuş Efsaneler":"Forgotten Legends",
+    "Antik Güçler ve Kültistler":"Ancient Powers & Secret Factions",
+    "Irkların Kökeni":"Origins of Peoples",
+    "Büyü Kuramları":"Magic Theory",
+    "+ Akış Ekle":"+ Add Entry",
+    "Alt Kategori":"Subcategory",
+    "Silmek için sil yazın:":"Type delete to confirm:",
+    "Tam Mühür":"Full Stop",
+    "Tamamlanmış ve kesin cümleyi kapatır.":"Closes a complete and definitive sentence.",
+    "Devam Mührü":"Continuation Mark",
+    "Cümleyi kapatır, düşünce akışını sürdürür.":"Closes the sentence while keeping the thought flowing.",
+    "Açık Uç":"Open End",
+    "Düşüncenin bilinçli biçimde tamamlanmadığını gösterir.":"Shows that the thought is intentionally unfinished.",
+    "Sözün dış müdahaleyle kesildiğini gösterir.":"Shows speech interrupted by an outside event.",
+    "Gerçek Sorgu":"Genuine Question",
+    "Cevabı gerçekten öğrenilmek istenen soruyu kapatır.":"Closes a question whose answer is genuinely sought.",
+    "Sınayıcı Sorgu":"Challenging Question",
+    "Meydan okuyan, kuşkulu veya sınayıcı sorguyu gösterir.":"Marks a challenging, doubtful, or testing question.",
+    "Hayret Dalgası":"Wonder Mark",
+    "Yoğun hayret, ihtişam veya ani kavrayışı gösterir.":"Marks intense wonder, grandeur, or sudden realization.",
+    "İrade Darbesi":"Command Mark",
+    "Acil emir, savaş komutu veya ölümcül uyarıdır.":"Marks an urgent order, battle command, or severe warning.",
+    "Söz Kabı":"Spoken Quote",
+    "Birebir söylenen gerçek sözü çevreler.":"Encloses directly spoken words.",
+    "Zihin Kabı":"Inner Thought",
+    "İç konuşmayı veya yalnız zihinde kurulan cümleyi çevreler.":"Encloses inner speech or a sentence formed only in thought.",
+    "Yankı Kabı":"Echo Quote",
+    "Hatıra, rüya veya başka zamandan dönen sözü çevreler.":"Encloses words returning from memory, dream, or another time.",
+    "Örtülü Kısım":"Hidden Section",
+    "Gizlenen, silinen veya algılanamayan içeriği gösterir.":"Marks hidden, removed, or imperceptible content.",
+    "Neden Bağı":"Causal Link",
+    "Sol düşüncenin sağdaki sonucu doğurduğunu gösterir.":"Shows that the thought on the left causes the result on the right.",
+    "Karşıt Menteşe":"Contrast Link",
+    "Çatışan iki düşünceyi aynı yapı içinde bağlar.":"Connects two conflicting thoughts in the same structure.",
+    "Eşzaman Bağı":"Simultaneous Link",
+    "Olayların aynı zaman kesitinde gerçekleştiğini gösterir.":"Shows events occurring in the same time frame.",
+    "Seçim Çatalı":"Choice Fork",
+    "Olasılıkları, alternatifleri veya yol ayrımını ayırır.":"Separates possibilities, alternatives, or branches."
+})));
+const __alekEnglishUiExactMore13=Object.freeze(new Map(Object.entries({
+    "24’ün Gezegeni ve Ałek’ryŧhæ":"Planet of the Twenty-Four & Ałek’ryŧhæ",
+    "İnsan":"Human",
+    "Mevcudatları ve alt alanları barındırabilir.":"Can contain entities and sub-areas.",
+    "Bağlar":"Relations",
+    "gün":"days",
+    "yaşamaya devam etsin":"keep alive",
+    "Onay kelimesi: 24’ün Gezegeni ve Ałek’ryŧhæ":"Confirmation phrase: Planet of the Twenty-Four & Ałek’ryŧhæ",
+    "Onay cümlesi: yaşamaya devam etsin":"Confirmation phrase: keep alive",
+    "Eski Meggy Dünyası":"Legacy Meggy World",
+    "Her türden kartı içinde barındırabilir; içindeki kartlar kendi kimliğini korur.":"Can contain cards of every type; contained cards keep their own identity.",
+    "⊞ Açık":"⊞ On",
+    "Karakter Kağıdı güvenli görünüme geçti:":"Character Sheet switched to safe view:",
+    "Eski Ambiance dosyası okunamadı:":"Legacy Ambience file could not be read:",
+    "Ambiance medya adresi üretilemedi:":"Ambience media URL could not be generated:",
+    "Ambiance videosu açılamadı:":"Ambience video could not be opened:",
+    "Ambiance videosu oynatılamadı:":"Ambience video could not be played:",
+    "Ambiance görseli açılamadı:":"Ambience image could not be opened:",
+    "Voiceforge konuşma hatası:":"Voiceforge speech error:",
+    "🌌 Atmosfer ufku güncellendi.":"🌌 Ambience updated.",
+    "🛑 HATA: Bu dosya bozuk veya eski bir log dosyası!":"🛑 ERROR: This file is corrupt or uses an unsupported legacy log format!",
+    "mekânın":"place's",
+    "✦ Yaşamı Geri Getir":"✦ Restore Character",
+    "Karakter Kağıdı boş döndü":"Character Sheet returned empty",
+    "İlk karakter sekmesi yüklenmedi":"The first Character tab did not load",
+    "💠 Karakter akışı onaylandı ve kaydedildi.":"💠 Character changes confirmed and saved.",
+    "Balina, yaşayan ada, orman ruhu, gök yaratığı…":"Whale, living island, forest creature, sky creature…",
+    "🧬 Melez · En az iki kök seç":"🧬 Hybrid · select at least two roots",
+    "🔓 Cinsiyet mührü çözüldü.":"🔓 Gender lock removed.",
+    "🔒 Cinsiyet mührü kilitlendi.":"🔒 Gender locked.",
+    "🔓 Mühürler çözüldü.":"🔓 Editing unlocked.",
+    "🔒 Ruh mühürlendi ve veriler işlendi.":"🔒 Character data locked and processed.",
+    "✨ Aileye yeni bir büyü yazıldı.":"✨ A new spell was added to the family.",
+    "🗑️ Büyü unutuldu.":"🗑️ Spell deleted.",
+    "🗑️ Mühür silindi.":"🗑️ Skill deleted.",
+    "🔓 Yetenek düzenleme kilidi açıldı.":"🔓 Skill editing unlocked.",
+    "Önemli Karakterler":"Important Characters",
+    "Çocuk":"Child",
+    "Dal'Rhim Kraliçe":"Dal'Rhim Queen",
+    "Raptiye Seç":"Select Pin",
+    "VoiceMasks klasörü okunamadı:":"VoiceMasks folder could not be read:",
+    "Geri çağrılabilir mevcudatın tutulduğu Unutulmuşlar Mahzeni":"Archive containing recoverable entities",
+    "Bu Meggy revizyonu için paketteki AI uyumlu Core sürümünü kur.":"Install the Assistant-compatible Core version included with this Meggy revision.",
+    "Bağımsız JoA Mevcudat açılamadı":"Standalone JoA Entities could not be opened",
+    "🛑 Karakter ayrıntısı açılamadı:":"🛑 Character details could not be opened:",
+    "Bilinmeyen veri taşıma hatası":"Unknown data-transfer error",
+    "Seçilen klasörde meggy.db veya game.db bulunamadı.":"No meggy.db or game.db was found in the selected folder.",
+    "Bu .alekdata paketi tanınmadı veya bu sürümden daha yeni bir kasa biçimi kullanıyor.":"This .alekdata package is not recognized or uses a newer vault format than this version supports.",
+    "Macera listesi güncellenemedi.":"Workspace list could not be updated.",
+    "Açık macera dışa aktarmadan önce kaydedilemedi.":"The open workspace could not be saved before export.",
+    "Veri dışa aktarma hatası":"Data export error",
+    "İçe aktarılan veri için aktif çalışma alanı bulunamadı.":"No active workspace was found for the imported data.",
+    "Açık çalışma alanı kaydedilemedi.":"The open workspace could not be saved.",
+    "Açık çalışma alanı içe aktarmadan önce kaydedilemedi.":"The open workspace could not be saved before import.",
+    "Veri içe aktarma hatası":"Data import error",
+    "Ałek’ryŧhæ Zaman Mührü":"Ałek’ryŧhæ Timeline",
+    "Öte Diyar Başlangıç Mührü":"Other World Start",
+    "Gün":"Day",
+    "Yeni Reverie akışı oluşturuldu.":"New Reverie entry created.",
+    "Hikâye içi görsel":"Story visual",
+    "Grup türü":"Group type",
+    "Külliyat Özeti":"Compendium Summary",
+    "Özgün Nitelikler · Her Satır Bir Nitelik":"Unique Traits · One trait per line",
+    "◌ Unutulmuşlar Mahzeni":"◌ Archive",
+    "Coğrafi Mekân":"Geographic Place",
+    "Journey kartı açılamadı:":"Journey card could not be opened:",
+    "🛑 Kart açılamadı:":"🛑 Card could not be opened:",
+    "Kavimler, nüfuslar ve ortak kimlik taşıyan geniş topluluklar.":"Peoples, populations, and large communities sharing an identity.",
+    "Bir kişinin seçimlerini, gelişimini ve dünyayla bağını izlemek istediğinde.":"Use when you want to track an individual's choices, growth, and relationship with the world.",
+    "Karar, duygu, çatışma ve değişim getirir.":"Brings decisions, emotion, conflict, and change.",
+    "Tür · Halk · Grup · Hanedan · Öğe · Mekân":"Type · People · Group · Dynasty · Item · Place",
+    "Kendi davranışı, bedeni ve kaynakları bulunan insan dışı bir birey gerektiğinde.":"Use when you need an individual non-human being with its own behavior, body, and resources.",
+    "Bilinmezlik, ekoloji, tehlike veya yoldaşlık getirir.":"Brings uncertainty, ecology, danger, or companionship.",
+    "Tür · Halk · Yaşam Alanı · Grup · Mekân":"Type · People · Habitat · Group · Place",
+    "Duyu, yaşam döngüsü, anatomi ve kalıtsal nitelikleri kaynağından vermek istediğinde.":"Use when senses, life cycle, anatomy, and inherited traits should come from a shared source.",
+    "Akrabalık, farklılık ve uyum çatışması üretir.":"Creates kinship, difference, and adaptation conflicts.",
+    "Karakter · Varlık · Halk · Yaşam Alanı":"Character · Being · People · Habitat",
+    "Köken bağları yanında her türden kartı fiziksel olarak da barındırabilir.":"Can physically contain cards of any type in addition to origin relations.",
+    "Biyolojiden bağımsız kültürel aidiyeti ve ortak geçmişi anlatmak istediğinde.":"Use when representing cultural identity and shared history independent of biology.",
+    "Kimlik, dayanışma, göç ve kültür karşılaşmaları üretir.":"Creates identity, solidarity, migration, and cultural encounters.",
+    "Karakter · Varlık · Tür · Hanedan · Medeniyet":"Character · Being · Type · Dynasty · Civilization",
+    "Kültürel bağları yanında her türden kartı fiziksel olarak da barındırabilir.":"Can physically contain cards of any type alongside cultural relations.",
+    "Takım, birlik, mürettebat, sürü veya kervanı birlikte yönetmek istediğinde.":"Use when managing a team, unit, crew, pack, or caravan together.",
+    "Ortak hedef, rol paylaşımı, dayanışma ve iç çatışma üretir.":"Creates shared goals, role distribution, solidarity, and internal conflict.",
+    "Karakter · Varlık · Binek / Taşıt · Mekân":"Character · Being · Mount / Vehicle · Place",
+    "Üyeleri ve alt konteynerleri barındırabilir.":"Can contain members and sub-containers.",
+    "Akrabalık, veraset, miras ve kuşaklar arası sonuçları izlemek istediğinde.":"Use when tracking kinship, succession, inheritance, and consequences across generations.",
+    "Miras çekişmesi, aile sırrı, yükseliş ve çöküş üretir.":"Creates inheritance disputes, family secrets, rise, and decline.",
+    "Karakter · Halk · Hükümranlık · Yerleşke":"Character · People · Sovereignty · Settlement",
+    "Mensubiyet bağları yanında her türden kartı fiziksel olarak da barındırabilir.":"Can physically contain cards of any type alongside membership relations.",
+    "Lonca, akademi, şirket veya gizli örgütü temsil etmek istediğinde.":"Use when representing a guild, academy, company, or secret organization.",
+    "Rütbe, görev, rekabet, sır ve örgütlü güç üretir.":"Creates rank, duties, rivalry, secrets, and organized power.",
+    "Karakter · Grup · Yerleşke · Ağ":"Character · Group · Settlement · Network",
+    "İlişki bağları yanında her türden kartı fiziksel olarak da barındırabilir.":"Can physically contain cards of any type alongside relationship links.",
+    "Yasa, yönetim, sınır, diplomasi ve iktidar mücadelesi gerektiğinde.":"Use when law, government, borders, diplomacy, and struggles for power matter.",
+    "İttifak, savaş ve yönetim krizi üretir.":"Creates alliances, war, and crises of governance.",
+    "Hanedan · Halk · Diyar · Yerleşke":"Dynasty · People · Land · Settlement",
+    "Dil, bilgi, mimari ve mirasın çağlar boyunca iz bırakmasını istediğinde.":"Use when language, knowledge, architecture, and heritage should leave a mark across ages.",
+    "Kadim kalıntı, ortak miras, yükseliş ve çöküş üretir.":"Creates ancient remains, shared heritage, rise, and decline.",
+    "Halk · Hükümranlık · Yapı · Öğe":"People · Sovereignty · Structure · Item",
+    "Köy, şehir, koloni, kamp veya istasyonun iç yaşamını takip etmek istediğinde.":"Use when tracking the inner life of a village, city, colony, camp, or station.",
+    "Ticaret, güvenlik, ihtiyaç ve gündelik hayat üretir.":"Creates trade, security, needs, and everyday life.",
+    "Halk · Diyar · Yapı · Tesis":"People · Land · Structure · Facility",
+    "Bir bölgenin sınırlarını, iklimini ve geçişlerini topluca tanımlamak istediğinde.":"Use when defining a region's borders, climate, and passages as a whole.",
+    "Keşif, sınır, yolculuk ve bölgesel farklılık üretir.":"Creates exploration, borders, travel, and regional differences.",
+    "Coğrafya · Yerleşke · Hükümranlık · Ağ":"Geography · Settlement · Sovereignty · Network",
+    "Başka zaman akışı, fizik veya gerçeklik düzeni gerektiğinde.":"Use when another timeline, physics model, or reality structure is needed.",
+    "Geçit, yabancı kural ve gerçeklik çatışması üretir.":"Creates passages, unfamiliar rules, and conflicts between realities.",
+    "Diyar · Göksel Oluşum · Ağ · Uçan Ada":"Land · Celestial Formation · Network · Flying Isle",
+    "Oda, mağara, sokak veya belirli bir sahne alanını somutlaştırmak istediğinde.":"Use when defining a room, cave, street, or specific scene location.",
+    "Karşılaşma, keşif, konum ve çevresel seçim üretir.":"Creates encounters, exploration, positioning, and environmental choices.",
+    "Yapı · Yerleşke · Karakter · Öğe":"Structure · Settlement · Character · Item",
+    "Mevcudatları ve alt mekânları barındırabilir.":"Can contain entities and sub-places.",
+    "Ev, kale, kule, saray veya megayapıyı tek kimlik altında anlatmak istediğinde.":"Use when representing a house, castle, tower, palace, or megastructure as one identity.",
+    "Katmanlı keşif, savunma, erişim ve yıkım üretir.":"Creates layered exploration, defense, access, and destruction.",
+    "Mekân · Yerleşke · Tesis · Öğe":"Place · Settlement · Facility · Item",
+    "Dağ, nehir, deniz, çöl veya ormanın yolculuğu etkilemesini istediğinde.":"Use when mountains, rivers, seas, deserts, or forests should affect travel.",
+    "Rota, engel, kaynak ve doğal tehlike üretir.":"Creates routes, obstacles, resources, and natural hazards.",
+    "Diyar · Yaşam Alanı · Kaynak · Ağ":"Land · Habitat · Resource · Network",
+    "Bir biyomun veya yapay biyosferin yaşayan dengesini anlatmak istediğinde.":"Use when describing the living balance of a biome or artificial biosphere.",
+    "Besin zinciri, uyum, bozulma ve ekolojik sonuç üretir.":"Creates food chains, adaptation, disruption, and ecological consequences.",
+    "Tür · Varlık · Coğrafya · Kaynak":"Type · Being · Geography · Resource",
+    "Gezegen, yıldız, uydu veya kozmik anomali dünyayı etkilediğinde.":"Use when a planet, star, moon, or cosmic anomaly affects the world.",
+    "Çevrim, göksel etki ve uzak hedef üretir.":"Creates cycles, celestial effects, and distant objectives.",
+    "Âlem · Diyar · Ağ · Kaynak":"Plane · Land · Network · Resource",
+    "Mekânın kendisi uçuyor, yürüyor veya yer altında geziyorsa.":"Use when the place itself flies, walks, or travels underground.",
+    "Rota, irtifa, denge ve hareketli dünya sahneleri üretir.":"Creates routes, altitude, balance, and moving-world scenes.",
+    "Diyar · Yerleşke · Mekân · Ağ":"Land · Settlement · Place · Network",
+    "Silah, kitap, giysi, anahtar veya özel nesnenin izini sürmek istediğinde.":"Use when tracking a weapon, book, clothing, key, or special object.",
+    "Sahiplik, kullanım, kayıp, keşif ve el değiştirme üretir.":"Creates ownership, use, loss, discovery, and transfer.",
+    "Karakter · Mekân · Düzenek · Kaynak":"Character · Place · Mechanism · Resource",
+    "Binek, araba, gemi, hava aracı veya uzay taşıtını yönetmek istediğinde.":"Use when managing a mount, carriage, ship, aircraft, or spacecraft.",
+    "Yolculuk, kapasite, mürettebat ve yük üretir.":"Creates travel, capacity, crew, and cargo concerns.",
+    "Karakter · Grup · Mekân · Ağ":"Character · Group · Place · Network",
+    "Yolcu, mürettebat, yük ve alt bölme barındırabilir.":"Can contain passengers, crew, cargo, and compartments.",
+    "Bir sistemin nasıl çalıştığını, bozulduğunu veya onarıldığını izlemek istediğinde.":"Use when tracking how a system works, fails, or is repaired.",
+    "Çalıştırma, arıza, bakım ve teknik engel üretir.":"Creates operation, faults, maintenance, and technical obstacles.",
+    "Öğe · Tesis · Kaynak · Ağ":"Item · Facility · Resource · Network",
+    "Fabrika, laboratuvar, üs veya üretim alanını tek işlev altında anlatmak istediğinde.":"Use when representing a factory, laboratory, base, or production site as a single function.",
+    "Üretim, personel, kapasite, ikmal ve kesinti üretir.":"Creates production, staffing, capacity, supply, and outage concerns.",
+    "Düzenek · Kaynak · Yerleşke · Ağ":"Mechanism · Resource · Settlement · Network",
+    "Belirli maden, su rezervi, enerji yatağı veya besin kaynağı için mücadele olduğunda.":"Use when conflict centers on a mineral, water reserve, energy source, or food supply.",
+    "Kıtlık, hâkimiyet, üretim ve tükenme üretir.":"Creates scarcity, control, production, and depletion.",
+    "Coğrafya · Tesis · Düzenek · Ağ":"Geography · Facility · Mechanism · Network",
+    "Yol, portal, haberleşme veya enerji bağlantılarının birlikte çalışmasını istediğinde.":"Use when roads, portals, communication, or energy links need to work together.",
+    "Bağlantı, menzil, kesinti, kontrol ve stratejik düğüm üretir.":"Creates connectivity, range, interruptions, control, and strategic nodes.",
+    "Yerleşke · Tesis · Diyar · Âlem":"Settlement · Facility · Land · Plane",
+    "Ałek’ryŧhæ · Kök":"Ałek’ryŧhæ · Root",
+    "Dünya içinde bağımsız kimliği bulunan bu oluşumu anlatmak için kullanılır.":"Use this to represent an entity with an independent identity in the world.",
+    "Bu mevcudatın hikâyedeki rolü henüz ayrıntılandırılmadı.":"This entity's role in the story has not been detailed yet.",
+    "Fiziksel konteyner değildir; mevcudat bağlarıyla ilişki kurar.":"It is not a physical container; it connects through entity relations.",
+    "Soyad / Bağ":"Surname / Relation",
+    "Üst kümeye taşımak için W tuşunu basılı tutup bu hedefe tıkla.":"Hold W and click this target to move to the parent set.",
+    "Önce Q + tık ile üst kümeye taşınacak kartları seç.":"First select cards with Q + click to move them to the parent set.",
+    "W + tık: seçili kartları açık kartın doğrudan içine bırak":"W + click: place selected cards directly inside the open card",
+    "Bu karta bırakmak için W tuşunu basılı tutup bu hedefe tıkla.":"Hold W and click this target to place cards inside this card.",
+    "Önce Q + tık ile bu karta bırakılacak kartları seç.":"First select cards with Q + click to place them inside this card.",
+    "W + tık: açık kartın kendisini bulunduğu konteynerden bir üst konteynere taşı":"W + click: move the open card itself to its parent container",
+    "Açık kartı bir üst kümeye taşımak için W tuşunu basılı tutup altın hedefe tıkla.":"Hold W and click the gold target to move the open card to its parent set.",
+    "Önce Q + tık ile taşınacak kartları seç.":"First select cards with Q + click.",
+    "Bu mevcudatın içinde henüz başka mevcudat yok.":"This entity does not contain any other entities yet.",
+    "Mevcudat Bağları":"Entity Relations",
+    "Bu Tür/Halk kökünü kullanan Karakter ve Varlıklar kaynağından canlı okunur; nitelikler kopyalanmaz.":"Characters and Beings using this Type/People root are read live from the source; traits are not copied.",
+    "Bu bağlar fiziksel konumu değiştirmez; dünya içindeki ilişkiyi taşır.":"These relations do not change physical location; they represent relationships in the world.",
+    "İç Konteynerler":"Inner Containers",
+    "Basınca ilgili mevcudat aynı Kağıt şablonunda açılır.":"Click to open the related entity in the same Sheet template.",
+    "Henüz kağıt veya lore özeti yazılmadı.":"No sheet or Lore summary has been written yet.",
+    "Hanedan / Bağ":"Dynasty / Relation",
+    "BİNEK TOPLAMI":"TOTAL MOUNTS",
+    "Çalışma alanı resmi":"Workspace image",
+    "BAĞLAR":"RELATIONS",
+    "GÖRÜNÜM":"VIEW",
+    "Aktif Sectionın hemen altına boş Section ekler ve alttakileri aşağı kaydırır":"Adds an empty Section directly below the active Section and shifts lower Sections down.",
+    "Aktif Sectionın hemen üstüne boş Section ekler ve üsttekileri yukarı kaydırır":"Adds an empty Section directly above the active Section and shifts upper Sections up.",
+    "Çizim Paleti · Fantasy renkleri ve tema kasası · \" tuşu":"Drawing Palette · Fantasy colors and theme vault · \" key",
+    "Üst section silik resmi":"Faded upper-section image",
+    "Bu katman henüz boş":"This layer is empty",
+    "Bölge Çiz ile coğrafyayı kur veya K / M ile varlık ekle.":"Build geography with Draw Region or add entities with K / M.",
+    "Bölge adı":"Region name",
+    "bugün":"today",
+    "JoA dünyasında seyahat eden, silinemez ana macera topluluğu.":"The permanent main adventuring group that travels through the JoA world.",
+    "JoA Kağıt geçişinde dünya kapatılamadı":"The world could not be closed during the JoA Sheet transition",
+    "Karşılaşılacak mevcudat seçilmedi.":"No entity was selected for the encounter.",
+    "Başlatılabilecek geçerli bir rota yok.":"There is no valid route to start.",
+    "JoA seyahatinde ilk varış":"First JoA arrival",
+    "Eski Map güvenli biçimde kapatıldı":"Legacy Map closed safely",
+    "Notify WebAudio hazırlanamadı; HTMLAudio yedeği kullanılacak.":"Notify WebAudio could not be prepared; the HTMLAudio fallback will be used.",
+    "Notify WebAudio çalınamadı; HTMLAudio yedeğine geçiliyor.":"Notify WebAudio could not play; switching to the HTMLAudio fallback.",
+    "KRİTİK HATA RAPORU:":"CRITICAL ERROR REPORT:",
+    "AŁEK'RYŦHÆ Bootstrap çöktü:":"AŁEK'RYŦHÆ Bootstrap crashed:"
+})));
+const __alekEnglishUiFragments=Object.freeze([
+    ["Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ","Connections"],
+    ["İlişkilerin, ipuçlarının ve A̤ɐ͜ɨǣ́ꞎ͡ƣ bağlarının yaşayan tahtası","A living board for relations, clues, and A̤ɐ͜ɨǣ́ꞎ͡ƣ links"],
+    ["Adventure kayıtları · Aktif:","Workspace records · Active:"],
+    ["Adventure açıldı:","Workspace opened:"],
+    ["çalışma alanı içeri alındı","workspace imported"],
+    ["çalışma alanı içeri alındı ·","workspaces imported ·"],
+    ["çalışma alanı","workspace"],
+    ["çalışma alanları","workspaces"],
+    ["açıldı.","opened."],
+    ["açıldı","opened"],
+    ["oluşturuldu.","created."],
+    ["güncellendi.","updated."],
+    ["silindi.","deleted."],
+    ["seçildi.","selected."],
+    ["haritaya yerleştirildi.","placed on the map."],
+    ["ışınlandı.","teleported."],
+    ["yüzey teması etkin.","surface theme enabled."],
+    ["yerel parça","local tracks"],
+    ["metre kaldı","meters remaining"],
+    ["metre yarıçap","meter radius"],
+    ["görüş menziline girdi","entered sight range"],
+    ["yeni Lore keşfi","new Lore discoveries"],
+    ["oyun zamanı geçti","of game time elapsed"],
+    ["karakter","characters"],
+    ["Takvim notları","Calendar notes"],
+    ["Takvime düşülen bütün notlar · eskiden yeniye","All calendar notes · oldest to newest"],
+    ["Takvimde bir güne not düştüğünde burada kronolojik olarak görünecek.","Notes added to Calendar days will appear here chronologically."],
+    ["Kayıtlı konuşma geçmişi · yeniden devam ettirilemez","Saved conversation history · cannot be resumed"],
+    ["Maceranın game.db dosyası ve Media klasörü kalıcı olarak silinecek.","The workspace game.db file and Media folder will be deleted permanently."],
+    ["game.db dosyası ve Media klasörü kalıcı olarak silinecek.","game.db file and Media folder will be deleted permanently."],
+    ["ve Games/","and Games/"],
+    ["klasörü silindi","folder deleted"],
+    ["Macera klasörü taşınamadı:","Workspace folder could not be moved:"],
+    ["Veri dışa aktarılamadı:","Data could not be exported:"],
+    ["Veri içeri aktarılamadı:","Data could not be imported:"],
+    ["Eski klasör içeri alınamadı:","Legacy folder could not be imported:"],
+    ["macera ve","workspaces and"],
+    ["veri dosyası","data files"],
+    ["kasasına aktarıldı","exported to the vault"],
+    ["Macerada bilgisayar saati kullanılmaz.","The computer clock is not used in this workspace."],
+    ["Bu macerada bilgisayar saati kullanılmaz.","The computer clock is not used in this workspace."],
+    ["Dünyanın ilk gününü bir kez belirle; bundan sonra zaman yalnız eylem, konuşma, seyahat ve dinlenmeyle ilerler.","Set the world's first day once; after that, time advances only through actions, conversation, travel, and rest."],
+    ["Macera şu vakitte başlayacak","The workspace will start at"],
+    ["Metaneti tamamen çöktüğü için Meggy konuşmasına katılamaz.","cannot join the Meggy conversation because Resolve has fully collapsed."],
+    ["Metaneti çöktüğü için konuşamaz.","cannot speak because Resolve has collapsed."],
+    ["Metanet en az %50 olunca yeniden konuşabilir.","They can speak again when Resolve reaches at least 50%."],
+    ["Metanet %50 veya üzerine çıkınca konuşma yeniden açılır.","Conversation becomes available again when Resolve reaches 50% or higher."],
+    ["hikâyesini düzenlemek için Ałek’ryŧhæ parolasını yaz.","Enter the Ałek’ryŧhæ password to edit this story."],
+    ["hikâyesini kalıcı olarak silmek için Ałek’ryŧhæ parolasını yaz.","Enter the Ałek’ryŧhæ password to permanently delete this story."],
+    ["üst menüsünü silmek için parolayı yaz.","Enter the password to delete this top menu."],
+    ["menüsünü silmek için parolayı yaz.","Enter the password to delete this menu."],
+    ["görsel · F ile yerleştir","visuals · press F to place"],
+    ["görsel","visuals"],
+    ["Seçili Map kütüphane öğesi","Selected map library item"],
+    ["Raptiye klasörü boş.","The Pin folder is empty."],
+    ["Görsel eklediğinde burada otomatik görünür.","Visuals added there appear here automatically."],
+    ["MapLibrary klasörü boş.","The MapLibrary folder is empty."],
+    ["PNG, WEBP, JPG, GIF veya SVG görsellerini MapLibrary klasörüne koy.","Place PNG, WEBP, JPG, GIF, or SVG visuals in the MapLibrary folder."],
+    ["İmleç konumuna raptiye ekler","Add a pin at the pointer"],
+    ["Sol sürükle: taşı/döndür · Sağ/orta sürükle: döndür · E+tık: iç katmana gir · Tekerlek: yaklaş","Left drag: move/rotate · Right/middle drag: rotate · E+click: enter inner layer · Wheel: zoom"],
+    ["İç katmana gir","Enter inner layer"],
+    ["Üst katmana çık","Go to upper layer"],
+    ["Bölge merkezinden dışarı sürükle; bırakınca adını yaz.","Drag outward from the region center, then name it on release."],
+    ["Aynı taraftaki Sectionlar boşluğu kapatacak şekilde kaydırılacak.","Sections on the same side will shift to close the gap."],
+    ["ve içindeki bütün Sectionlar silinecek.","and all Sections inside it will be deleted."],
+    ["bozuk/eski Map kaydı atlandı; sağlam içerikler gösteriliyor.","broken/legacy Map records were skipped; valid content is displayed."],
+    ["öğe seçildi. İmleçle taşı · Space: bırak · Delete: sil · Esc: iptal","items selected. Move with the pointer · Space: drop · Delete: delete · Esc: cancel"],
+    ["çizim/metin silindi.","drawings/text items deleted."],
+    ["Aktif araç:","Active tool:"],
+    ["Yüzey teması:","Surface theme:"],
+    ["içinde henüz başka mevcudat yok.","does not contain any other entities yet."],
+    ["mevcudat seçili","entities selected"],
+    ["Seçimi Bırak","Drop Selection"],
+    ["Önce Q + tık ile bu kümeye bırakılacak kartları seç.","First select cards with Q + click to place them in this set."],
+    ["Bu bölgede mevcudat yok.","There are no entities in this region."],
+    ["Doğrudan Karakter veya N Varlığı bulunmuyor.","No direct Character or N-Being is present."],
+    ["Kağıdı aç","Open Sheet"],
+    ["İçte başka konteyner yok.","There is no other inner container."],
+    ["Basınca doğrudan ilgili konteynere gidilir.","Click to open the related container directly."],
+    ["Karakter ve N kartları bu sekmede açılır-kapanır görünür.","Character and N cards expand and collapse in this tab."],
+    ["Yaşayan dünya hazırlanıyor…","Preparing the living world…"],
+    ["Görseli Değiştir","Change Visual"],
+    ["İsteğe bağlı","Optional"],
+    ["Öne al","Bring Forward"],
+    ["Kilitle / aç","Lock / unlock"],
+    ["Serbest döndür · Shift: varsayılan duruşa göre 1° adımlar","Free rotation · Shift: 1° steps from default orientation"],
+    ["Tek Yönlü","One-Way"],
+    ["Çift Yönlü","Two-Way"],
+    ["Bütün menülerde kesintisiz","UNINTERRUPTED ACROSS ALL MENUS"],
+    ["Müzik sırasını, kaldığı zamanı ve ses seviyesini yönet.","Manage the music queue, playback position, and volume."],
+    ["Uygulama çerçevesinin iç yüzeyi","Inside the application frame"],
+    ["Uygulamanın dış kozmik zemini","Outer cosmic backdrop"],
+    ["Panellerin arkasında görünen iç atmosfer medyasını bağımsız yönet.","Manage the indoor atmospheric media behind panels independently."],
+    ["Ana pencerenin çevresinde görünen dış atmosfer medyasını bağımsız yönet.","Manage the outer atmospheric media around the main window independently."],
+    ["Kütüphanesini Aç","Open Library"],
+    ["Kütüphanesi","Library"],
+    ["Medyayı Yenile","Refresh Media"],
+    ["Dosya bulunamadı","File not found"],
+    ["İzin gerekli","Permission required"],
+    ["Eski dış yol","Legacy external path"],
+    ["Macera klasörü","Adventure folder"],
+    ["Yukarı taşı","Move up"],
+    ["Aşağı taşı","Move down"],
+    ["Henüz kayıt yok","No entries yet"],
+    ["Henüz not yok","No notes yet"],
+    ["Henüz Reverie hikâyesi yok","No Reverie story yet"],
+    ["Henüz kronik kaydı yazılmadı","No chronicle entry has been written yet"],
+    ["Takvime dön","Back to Calendar"],
+    ["Journey of Adventurer dünyasına dön","Return to Journey of Adventurer"],
+    ["Rastgele ad üret","Generate random name"],
+    ["Rastgele soyad üret","Generate random surname"],
+    ["Geri Çağır","Restore"],
+    ["Sonsuza Sil","Delete Forever"],
+    ["Yeni Hikâye","New Story"],
+    ["Yeni Çalışma Alanı","New Workspace"],
+    ["Yeni Kayıt","New Entry"],
+    ["Yeni Menü","New Menu"],
+    ["Yeni Realm","New Realm"],
+    ["Günü Aç","Open Day"],
+    ["Not Ekle","Add Note"],
+    ["Tüm Notlar","All Notes"],
+    ["Açıklama metni","annotation text"],
+    ["Fantastik çizim renkleri","Fantasy drawing colors"],
+    ["Grid yakalamayı aç / kapat","Toggle grid snapping"],
+    ["Görünümü varsayılana getir","Reset view"],
+    ["Tümünü kadraja al","Fit All"],
+    ["Windows Grafik Ayarları","Windows Graphics Settings"],
+    ["Windows karar versin","Let Windows decide"],
+    ["Güç tasarrufu","Power saving"],
+    ["Yüksek performans","High performance"],
+    ["Yazılım çizimi","Software rendering"],
+    ["Etkin Çizici","Active Renderer"],
+    ["Uyku Yönetimi","Sleep Management"],
+    ["Komuta Atlası","Command Atlas"],
+    ["Ana Daire","Primary Radial Menu"],
+    ["Mavi Ay","Blue Moon"],
+    ["Odak Merkezi","Focus Center"]
+]);
+const __alekEnglishUiWordRules=Object.freeze([
+    [/(?<![\p{L}\p{N}_])Takvim(?![\p{L}\p{N}_])/gu,"Calendar"],[/(?<![\p{L}\p{N}_])Harita(?![\p{L}\p{N}_])/gu,"Map"],[/(?<![\p{L}\p{N}_])Dünya(?![\p{L}\p{N}_])/gu,"World"],
+    [/(?<![\p{L}\p{N}_])Kaydet(?![\p{L}\p{N}_])/gu,"Save"],[/(?<![\p{L}\p{N}_])Sil(?![\p{L}\p{N}_])/gu,"Delete"],[/(?<![\p{L}\p{N}_])Kapat(?![\p{L}\p{N}_])/gu,"Close"],[/(?<![\p{L}\p{N}_])Başlat(?![\p{L}\p{N}_])/gu,"Start"],[/(?<![\p{L}\p{N}_])Durdur(?![\p{L}\p{N}_])/gu,"Stop"],[/(?<![\p{L}\p{N}_])Duraklat(?![\p{L}\p{N}_])/gu,"Pause"],
+    [/(?<![\p{L}\p{N}_])Yeni(?![\p{L}\p{N}_])/gu,"New"],[/(?<![\p{L}\p{N}_])Seç(?![\p{L}\p{N}_])/gu,"Select"],[/(?<![\p{L}\p{N}_])Geri(?![\p{L}\p{N}_])/gu,"Back"],[/(?<![\p{L}\p{N}_])İleri(?![\p{L}\p{N}_])/gu,"Forward"],
+    [/(?<![\p{L}\p{N}_])Karakter(?![\p{L}\p{N}_])/gu,"Character"],[/(?<![\p{L}\p{N}_])Varlık(?![\p{L}\p{N}_])/gu,"Being"],[/(?<![\p{L}\p{N}_])Tür(?![\p{L}\p{N}_])/gu,"Type"],[/(?<![\p{L}\p{N}_])Halk(?![\p{L}\p{N}_])/gu,"People"],[/(?<![\p{L}\p{N}_])Binek(?![\p{L}\p{N}_])/gu,"Mount"],[/(?<![\p{L}\p{N}_])Grup(?![\p{L}\p{N}_])/gu,"Group"],
+    [/(?<![\p{L}\p{N}_])Başlık(?![\p{L}\p{N}_])/gu,"Title"],[/(?<![\p{L}\p{N}_])Açıklama(?![\p{L}\p{N}_])/gu,"Description"],[/(?<![\p{L}\p{N}_])Cinsiyet(?![\p{L}\p{N}_])/gu,"Gender"],[/(?<![\p{L}\p{N}_])Kadın(?![\p{L}\p{N}_])/gu,"Female"],[/(?<![\p{L}\p{N}_])Erkek(?![\p{L}\p{N}_])/gu,"Male"],
+    [/(?<![\p{L}\p{N}_])Görevler(?![\p{L}\p{N}_])/gu,"Tasks"],[/(?<![\p{L}\p{N}_])Görev(?![\p{L}\p{N}_])/gu,"Task"],[/(?<![\p{L}\p{N}_])Notlar(?![\p{L}\p{N}_])/gu,"Notes"],[/(?<![\p{L}\p{N}_])Not(?![\p{L}\p{N}_])/gu,"Note"],[/(?<![\p{L}\p{N}_])İçerik(?![\p{L}\p{N}_])/gu,"Content"],
+    [/(?<![\p{L}\p{N}_])Müzik(?![\p{L}\p{N}_])/gu,"Music"],[/(?<![\p{L}\p{N}_])Ses(?![\p{L}\p{N}_])/gu,"Volume"],[/(?<![\p{L}\p{N}_])Sessizlik(?![\p{L}\p{N}_])/gu,"Silence"],[/(?<![\p{L}\p{N}_])Oynuyor(?![\p{L}\p{N}_])/gu,"Playing"],[/(?<![\p{L}\p{N}_])Duraklatıldı(?![\p{L}\p{N}_])/gu,"Paused"],
+    [/(?<![\p{L}\p{N}_])Profil(?![\p{L}\p{N}_])/gu,"Profile"],[/(?<![\p{L}\p{N}_])Tasarruf(?![\p{L}\p{N}_])/gu,"Eco"],[/(?<![\p{L}\p{N}_])Dengeli(?![\p{L}\p{N}_])/gu,"Balanced"],[/(?<![\p{L}\p{N}_])Sinematik(?![\p{L}\p{N}_])/gu,"Cinematic"],
+    [/(?<![\p{L}\p{N}_])Çizim(?![\p{L}\p{N}_])/gu,"Drawing"],[/(?<![\p{L}\p{N}_])Renk(?![\p{L}\p{N}_])/gu,"Color"],[/(?<![\p{L}\p{N}_])Palet(?![\p{L}\p{N}_])/gu,"Palette"],[/(?<![\p{L}\p{N}_])Önizle(?![\p{L}\p{N}_])/gu,"Preview"],
+    [/(?<![\p{L}\p{N}_])Yıl(?![\p{L}\p{N}_])/gu,"Year"],[/(?<![\p{L}\p{N}_])Gün(?![\p{L}\p{N}_])/gu,"Day"],[/(?<![\p{L}\p{N}_])Saat(?![\p{L}\p{N}_])/gu,"Hour"],[/(?<![\p{L}\p{N}_])Dakika(?![\p{L}\p{N}_])/gu,"Minutes"],
+    [/(?<![\p{L}\p{N}_])Kronometre(?![\p{L}\p{N}_])/gu,"Stopwatch"],[/(?<![\p{L}\p{N}_])Zamanlayıcı(?![\p{L}\p{N}_])/gu,"Timer"],[/(?<![\p{L}\p{N}_])Odak(?![\p{L}\p{N}_])/gu,"Focus"],[/(?<![\p{L}\p{N}_])Mola(?![\p{L}\p{N}_])/gu,"Break"],
+    [/(?<![\p{L}\p{N}_])Mühür(?![\p{L}\p{N}_])/gu,"Seal"],[/(?<![\p{L}\p{N}_])Kronik(?![\p{L}\p{N}_])/gu,"Chronicle"],[/(?<![\p{L}\p{N}_])Kök(?![\p{L}\p{N}_])/gu,"Root"],[/(?<![\p{L}\p{N}_])Bağlar(?![\p{L}\p{N}_])/gu,"Relations"],[/(?<![\p{L}\p{N}_])Mevcudat(?![\p{L}\p{N}_])/gu,"Entity"],
+    [/(?<![\p{L}\p{N}_])Açık(?![\p{L}\p{N}_])/gu,"Open"],[/(?<![\p{L}\p{N}_])Kapalı(?![\p{L}\p{N}_])/gu,"Closed"],[/(?<![\p{L}\p{N}_])Tümü(?![\p{L}\p{N}_])/gu,"All"],[/(?<![\p{L}\p{N}_])Özel(?![\p{L}\p{N}_])/gu,"Special"],[/(?<![\p{L}\p{N}_])Diğer(?![\p{L}\p{N}_])/gu,"Other"],
+    [/(?<![\p{L}\p{N}_])Tide(?![\p{L}\p{N}_])/gu,"Connections"],[/(?<![\p{L}\p{N}_])AI(?![\p{L}\p{N}_])/gu,"Assistant"],
+    [/(?<![\p{L}\p{N}_])Ayarlar(?![\p{L}\p{N}_])/gu,"Settings"],[/(?<![\p{L}\p{N}_])Ayarı(?![\p{L}\p{N}_])/gu,"Setting"],[/(?<![\p{L}\p{N}_])Kütüphane(?![\p{L}\p{N}_])/gu,"Library"],
+    [/(?<![\p{L}\p{N}_])Görsel(?![\p{L}\p{N}_])/gu,"Visual"],[/(?<![\p{L}\p{N}_])Görseller(?![\p{L}\p{N}_])/gu,"Visuals"],[/(?<![\p{L}\p{N}_])Medya(?![\p{L}\p{N}_])/gu,"Media"],
+    [/(?<![\p{L}\p{N}_])Ekle(?![\p{L}\p{N}_])/gu,"Add"],[/(?<![\p{L}\p{N}_])Düzenle(?![\p{L}\p{N}_])/gu,"Edit"],[/(?<![\p{L}\p{N}_])Yenile(?![\p{L}\p{N}_])/gu,"Refresh"],[/(?<![\p{L}\p{N}_])Oluştur(?![\p{L}\p{N}_])/gu,"Create"],
+    [/(?<![\p{L}\p{N}_])Seçili(?![\p{L}\p{N}_])/gu,"Selected"],[/(?<![\p{L}\p{N}_])Etkin(?![\p{L}\p{N}_])/gu,"Active"],[/(?<![\p{L}\p{N}_])Pasif(?![\p{L}\p{N}_])/gu,"Inactive"]
+]);
+const __alekTranslateUiString=value=>{
+    if(value==null)return value;
+    const raw=String(value);const trimmed=raw.trim();if(!trimmed)return raw;
+    let next=__alekEnglishUiExact.get(trimmed)||__alekEnglishUiExactMore.get(trimmed)||__alekEnglishUiExactMore2.get(trimmed)||__alekEnglishUiExactMore3.get(trimmed)||__alekEnglishUiExactMore4.get(trimmed)||__alekEnglishUiExactMore5.get(trimmed)||__alekEnglishUiExactMore6.get(trimmed)||__alekEnglishUiExactMore7.get(trimmed)||__alekEnglishUiExactMore8.get(trimmed)||__alekEnglishUiExactMore9.get(trimmed)||__alekEnglishUiExactMore10.get(trimmed)||__alekEnglishUiExactMore11.get(trimmed)||__alekEnglishUiExactMore12.get(trimmed)||__alekEnglishUiExactMore13.get(trimmed)||trimmed;
+    for(const [pattern,replacer] of __alekEnglishUiRegex){if(pattern.test(next)){next=next.replace(pattern,replacer);break;}}
+    if(next===trimmed){for(const [source,target] of __alekEnglishUiFragments){if(next.includes(source))next=next.split(source).join(target);}}
+    if(next===trimmed){for(const [pattern,target] of __alekEnglishUiWordRules)next=next.replace(pattern,target);}
+    if(next===trimmed)return raw;
+    return raw===trimmed?next:raw.replace(trimmed,next);
+};
+const __alekTranslateUiTree=root=>{
+    if(!root||typeof document==="undefined")return;
+    const skipSelectors='textarea,input[type="text"],input[type="search"],input[type="number"],[contenteditable="true"],.cm-content,.reverie-story-editor';
+    const walk=node=>{
+        if(!node)return;
+        if(node.nodeType===Node.TEXT_NODE){
+            const parent=node.parentElement;if(!parent||parent.closest(skipSelectors))return;
+            const translated=__alekTranslateUiString(node.textContent);if(translated!==node.textContent)node.textContent=translated;return;
+        }
+        if(node.nodeType!==Node.ELEMENT_NODE)return;
+        const el=node;
+        ["title","aria-label","placeholder"].forEach(attr=>{if(el.hasAttribute(attr)){const current=el.getAttribute(attr);const translated=__alekTranslateUiString(current);if(translated!==current)el.setAttribute(attr,translated);}});
+        if((el.tagName==="INPUT"&&(el.type==="button"||el.type==="submit"))||el.tagName==="BUTTON"){if(el.value){const translated=__alekTranslateUiString(el.value);if(translated!==el.value)el.value=translated;}}
+        Array.from(el.childNodes||[]).forEach(walk);
+    };
+    walk(root);
+};
+let __alekEnglishUiInstalled=false;
+const __alekInstallEnglishUi=()=>{
+    if(__alekEnglishUiInstalled||typeof document==="undefined")return;__alekEnglishUiInstalled=true;
+    const apply=()=>{try{__alekTranslateUiTree(document.body||document.documentElement);}catch(_){}};
+    const queue=()=>{try{requestAnimationFrame(apply);}catch(_){apply();}};
+    if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",apply,{once:true});else apply();
+    window.addEventListener("load",apply,{once:true});
+    const observer=new MutationObserver(queue);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:["title","aria-label","placeholder","value"]});
+    window.__alekTranslateUiNow=apply;
+};
+__alekInstallEnglishUi();
 const defaultMapLibraryData = { meta: { schemaVersion: 1, app: "Alekrythae Map Library" }, selectedPath: "", selectedName: "", defaultSize: 280 };
 const defaultHarmonizerData = {
     meta: { schemaVersion: 2, app: "Alekrythae Harmonizer" },
@@ -618,7 +2401,8 @@ const defaultHarmonizerData = {
         pauseWhenHidden: true,
         gpuPreference: "high-performance",
         selectedAdapterId: "",
-        optimizationRevision: 8
+        gpuUserSelected: false,
+        optimizationRevision: 9
     },
     harmonizer: {}
 };
@@ -934,10 +2718,10 @@ const normalizeGameRuntime = (data=storyData,record=activeAdventure) => {
 };
 const otherRealmSeasonInfo = month => {
     const safe=Math.max(1,Math.min(12,Number(month)||1)),seasonIndex=Math.floor((safe-1)/3);
-    return{season:["İlkbahar","Yaz","Sonbahar","Kış"][seasonIndex],seasonKey:["ilkbahar","yaz","sonbahar","kis"][seasonIndex],monthIndex:(safe-1)%3+1};
+    return{season:["Spring","Summer","Autumn","Winter"][seasonIndex],seasonKey:["spring","summer","autumn","winter"][seasonIndex],monthIndex:(safe-1)%3+1};
 };
-const TURKISH_MONTHS=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
-const TURKISH_WEEKDAYS=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+const TURKISH_MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const TURKISH_WEEKDAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const ALEK_SECONDS_PER_MINUTE=24;
 const ALEK_MINUTES_PER_HOUR=240;
 const ALEK_HOURS_PER_DAY=36;
@@ -1150,7 +2934,7 @@ const updateElapsedGameTime = () => {
 };
 const formatGameTime = () => {
     const game=normalizeGameRuntime();
-    if(game.mode==="real_world")return new Intl.DateTimeFormat("tr-TR",{dateStyle:"medium",timeStyle:"medium"}).format(new Date());
+    if(game.mode==="real_world")return new Intl.DateTimeFormat("en-US",{dateStyle:"medium",timeStyle:"medium"}).format(new Date());
     const time=game.time;
     if(game.mode==="other_realm"){
         const clock=`${String(Math.floor(Number(time.hour)||0)).padStart(2,"0")}:${String(Math.floor(Number(time.minute)||0)).padStart(2,"0")}:${String(Math.floor(Number(time.second)||0)).padStart(2,"0")}`;
@@ -1281,45 +3065,45 @@ const genderIconOf = entity => {
 // 24 Evrensel Stat, 2×2×2×3 çarpımsal taksonomiyle tanımlanır.
 // Aynı eksenler bütün dallarda tekrar eder: Öz/Çevre × Yapı/İşleyiş × Alım/Çıktı × Kuvvet/İncelik/Kapsam.
 const ALEK_CHARACTER_STAT_GROUPS = Object.freeze([
-    {id:"self-structure-input",root:"Öz",layer:"Yapı",flow:"Alım",tone:"self",stats:[
-        {key:"durability",label:"Dayanım",sigil:"⛨",measure:"Kuvvet",desc:"Varlığın kendi yapısına ulaşan baskı, hasar, yorgunluk ve aşınma karşısında bozulmadan kalabilme gücü."},
-        {key:"balance",label:"Denge",sigil:"⚖",measure:"İncelik",desc:"Varlığın kendi yapısındaki parçaları ve kuvvetleri ölçülü, kararlı ve uyumlu biçimde tutabilme niteliği."},
-        {key:"capacity",label:"Kapasite",sigil:"⌛",measure:"Kapsam",desc:"Varlığın kendi bünyesinde taşıyabildiği, barındırabildiği, depolayabildiği veya destekleyebildiği toplam miktar."}
+    {id:"self-structure-input",root:"Self",layer:"Structure",flow:"Input",tone:"self",stats:[
+        {key:"durability",label:"Durability",sigil:"⛨",measure:"Power",desc:"The ability to remain intact against pressure, damage, fatigue, and wear reaching the entity's own structure."},
+        {key:"balance",label:"Balance",sigil:"⚖",measure:"Finesse",desc:"The ability to keep parts and forces within the entity's own structure measured, stable, and harmonious."},
+        {key:"capacity",label:"Capacity",sigil:"⌛",measure:"Scope",desc:"The total amount the entity can carry, contain, store, or support within itself."}
     ]},
-    {id:"self-structure-output",root:"Öz",layer:"Yapı",flow:"Çıktı",tone:"self",stats:[
-        {key:"potency",label:"Kudret",sigil:"✦",measure:"Kuvvet",desc:"Varlığın kendi yapısından doğrudan ortaya çıkarabildiği fiziksel, maddi veya yapısal kuvvet."},
-        {key:"agility",label:"Çeviklik",sigil:"⋔",measure:"İncelik",desc:"Varlığın yapısal hareketlerini süratli, ölçülü ve yön değişimlerine açık biçimde gerçekleştirebilmesi."},
-        {key:"mobility",label:"Hareketlilik",sigil:"⇄",measure:"Kapsam",desc:"Varlığın konumunu, duruşunu veya biçimini değiştirmek için sahip olduğu hareket seçeneklerinin genişliği."}
+    {id:"self-structure-output",root:"Self",layer:"Structure",flow:"Output",tone:"self",stats:[
+        {key:"potency",label:"Potency",sigil:"✦",measure:"Power",desc:"The physical, material, or structural force the entity can directly produce from its own structure."},
+        {key:"agility",label:"Agility",sigil:"⋔",measure:"Finesse",desc:"The ability to perform structural movement quickly, precisely, and with responsive changes of direction."},
+        {key:"mobility",label:"Mobility",sigil:"⇄",measure:"Scope",desc:"The breadth of movement options available to change position, posture, or form."}
     ]},
-    {id:"self-process-input",root:"Öz",layer:"İşleyiş",flow:"Alım",tone:"self",stats:[
-        {key:"comprehension",label:"Kavrayış",sigil:"◉",measure:"Kuvvet",desc:"Varlığın kendi işleyişine ulaşan bilgi ve durumların anlamını, nedenini ve ilişkilerini çözebilmesi."},
-        {key:"focus",label:"Odak",sigil:"⌖",measure:"İncelik",desc:"Varlığın dikkatini veya çalışma gücünü seçilmiş bir konu üzerinde kesintisiz ve seçici biçimde tutabilmesi."},
-        {key:"memory",label:"Bellek",sigil:"▤",measure:"Kapsam",desc:"Varlığın bilgi, deneyim, durum veya örüntüleri saklayıp gerektiğinde yeniden kullanabilme genişliği."}
+    {id:"self-process-input",root:"Self",layer:"Process",flow:"Input",tone:"self",stats:[
+        {key:"comprehension",label:"Comprehension",sigil:"◉",measure:"Power",desc:"The ability to understand the meaning, cause, and relationships of information and situations reaching the entity's own processes."},
+        {key:"focus",label:"Focus",sigil:"⌖",measure:"Finesse",desc:"The ability to keep attention or working power selectively and continuously on a chosen subject."},
+        {key:"memory",label:"Memory",sigil:"▤",measure:"Scope",desc:"The breadth with which information, experience, situations, and patterns can be retained and reused when needed."}
     ]},
-    {id:"self-process-output",root:"Öz",layer:"İşleyiş",flow:"Çıktı",tone:"self",stats:[
-        {key:"will",label:"İrade",sigil:"♢",measure:"Kuvvet",desc:"Varlığın kendi kararını baskı altında koruyarak eyleme dönüştürme ve sürdürme gücü."},
-        {key:"control",label:"Kontrol",sigil:"⌬",measure:"İncelik",desc:"Varlığın kendi davranışını, gücünü, enerjisini veya süreçlerini istenen ölçüde düzenleyebilmesi."},
-        {key:"productivity",label:"Üretkenlik",sigil:"✣",measure:"Kapsam",desc:"Varlığın kendi işleyişinden yeni, kullanışlı ve çoğaltılabilir sonuçlar ortaya çıkarabilme genişliği."}
+    {id:"self-process-output",root:"Self",layer:"Process",flow:"Output",tone:"self",stats:[
+        {key:"will",label:"Will",sigil:"♢",measure:"Power",desc:"The ability to preserve a decision under pressure, turn it into action, and sustain it."},
+        {key:"control",label:"Control",sigil:"⌬",measure:"Finesse",desc:"The ability to regulate behavior, power, energy, or processes to the intended degree."},
+        {key:"productivity",label:"Productivity",sigil:"✣",measure:"Scope",desc:"The breadth with which the entity can produce new, useful, and repeatable results from its own processes."}
     ]},
-    {id:"environment-structure-input",root:"Çevre",layer:"Yapı",flow:"Alım",tone:"environment",stats:[
-        {key:"absorption",label:"Soğurma",sigil:"◌",measure:"Kuvvet",desc:"Çevreden gelen darbe, enerji, madde veya kaynağı bünyesine alıp etkisini içine dağıtabilme gücü."},
-        {key:"deflection",label:"Saptırma",sigil:"↷",measure:"İncelik",desc:"Çevreden gelen yapısal etkiyi karşılamadan önce yönünden çıkarma, başka yöne aktarma veya dağıtma becerisi."},
-        {key:"protection",label:"Koruma",sigil:"⬡",measure:"Kapsam",desc:"Varlığın kendi dışındaki kişi, nesne veya alanları yapısal tehditlere karşı muhafaza edebildiği genişlik."}
+    {id:"environment-structure-input",root:"Environment",layer:"Structure",flow:"Input",tone:"environment",stats:[
+        {key:"absorption",label:"Absorption",sigil:"◌",measure:"Power",desc:"The ability to take in impacts, energy, matter, or resources from the environment and distribute their effect internally."},
+        {key:"deflection",label:"Deflection",sigil:"↷",measure:"Finesse",desc:"The ability to redirect, transfer, or disperse incoming structural effects before receiving them directly."},
+        {key:"protection",label:"Protection",sigil:"⬡",measure:"Scope",desc:"The breadth with which the entity can protect external people, objects, or areas from structural threats."}
     ]},
-    {id:"environment-structure-output",root:"Çevre",layer:"Yapı",flow:"Çıktı",tone:"environment",stats:[
-        {key:"impact",label:"Etki",sigil:"✺",measure:"Kuvvet",desc:"Varlığın çevresindeki maddi veya fiziksel durumda oluşturduğu değişimin şiddeti."},
-        {key:"accuracy",label:"İsabet",sigil:"◎",measure:"İncelik",desc:"Varlığın dışarı yönelttiği yapısal etkinin seçilmiş hedefe, noktaya veya sonuca ulaşma doğruluğu."},
-        {key:"reach",label:"Erişim",sigil:"⇥",measure:"Kapsam",desc:"Varlığın dışarı yönelttiği yapısal etkinin ulaşabildiği mesafe, alan veya hedef sayısı."}
+    {id:"environment-structure-output",root:"Environment",layer:"Structure",flow:"Output",tone:"environment",stats:[
+        {key:"impact",label:"Impact",sigil:"✺",measure:"Power",desc:"The intensity of material or physical change the entity produces in its surroundings."},
+        {key:"accuracy",label:"Accuracy",sigil:"◎",measure:"Finesse",desc:"The precision with which an outward structural effect reaches the selected target, point, or result."},
+        {key:"reach",label:"Reach",sigil:"⇥",measure:"Scope",desc:"The distance, area, or number of targets an outward structural effect can reach."}
     ]},
-    {id:"environment-process-input",root:"Çevre",layer:"İşleyiş",flow:"Alım",tone:"environment",stats:[
-        {key:"perception",label:"Algı",sigil:"◉",measure:"Kuvvet",desc:"Varlığın çevredeki işaret, hareket, varlık ve değişimlerin mevcudiyetini fark edebilme gücü."},
-        {key:"sensitivity",label:"Hassasiyet",sigil:"⊙",measure:"İncelik",desc:"Varlığın çevresel girdilerdeki çok küçük farkları, zayıf izleri ve ince ayrıntıları ayırt edebilmesi."},
-        {key:"awareness",label:"Farkındalık",sigil:"☼",measure:"Kapsam",desc:"Varlığın aynı anda izleyebildiği çevresel olay, unsur ve ilişki bütününün genişliği."}
+    {id:"environment-process-input",root:"Environment",layer:"Process",flow:"Input",tone:"environment",stats:[
+        {key:"perception",label:"Perception",sigil:"◉",measure:"Power",desc:"The ability to notice the presence of signs, movement, entities, and changes in the environment."},
+        {key:"sensitivity",label:"Sensitivity",sigil:"⊙",measure:"Finesse",desc:"The ability to distinguish very small differences, weak traces, and fine details in environmental input."},
+        {key:"awareness",label:"Awareness",sigil:"☼",measure:"Scope",desc:"The breadth of environmental events, elements, and relationships the entity can track at the same time."}
     ]},
-    {id:"environment-process-output",root:"Çevre",layer:"İşleyiş",flow:"Çıktı",tone:"environment",stats:[
-        {key:"expression",label:"İfade",sigil:"≋",measure:"Kuvvet",desc:"Varlığın bilgi, niyet, emir veya durumunu çevresine anlaşılır ve belirgin biçimde aktarabilme gücü."},
-        {key:"influence",label:"Nüfuz",sigil:"♕",measure:"İncelik",desc:"Varlığın başka varlıkların karar, tutum veya davranışlarında yönlü değişim oluşturabilme niteliği."},
-        {key:"coordination",label:"Eşgüdüm",sigil:"⌘",measure:"Kapsam",desc:"Varlığın birden fazla kişi, parça veya sistemi ortak bir amaç doğrultusunda birlikte çalıştırabilme genişliği."}
+    {id:"environment-process-output",root:"Environment",layer:"Process",flow:"Output",tone:"environment",stats:[
+        {key:"expression",label:"Expression",sigil:"≋",measure:"Power",desc:"The ability to communicate information, intent, commands, or state to the surroundings clearly and distinctly."},
+        {key:"influence",label:"Influence",sigil:"♕",measure:"Finesse",desc:"The ability to produce directed change in the decisions, attitudes, or behavior of other entities."},
+        {key:"coordination",label:"Coordination",sigil:"⌘",measure:"Scope",desc:"The breadth with which multiple people, parts, or systems can be made to work together toward a shared purpose."}
     ]}
 ]);
 const ALEK_CHARACTER_STAT_KEYS = Object.freeze(ALEK_CHARACTER_STAT_GROUPS.flatMap(group=>group.stats.map(stat=>stat.key)));
@@ -1535,26 +3319,26 @@ const ALEK_MOUNT_TYPES = Object.freeze([
     "Zeplin","Hava Gemisi","Uçan Gemi","Uçan Platform","Uzay Gemisi","Portal Taşıyıcısı","Diğer"
 ]);
 const ALEK_GENERIC_ENTITY_DEFS=Object.freeze({
-    being:{type:"being",label:"VARLIK",title:"Varlık / Yaratık",shortcut:"N",leaf:true,behavior:"individual",accent:"#8fe3b5",bucket:"Beings"},
-    species:{type:"species",label:"TÜR",title:"Tür",leaf:false,behavior:"reference",accent:"#c99cff",bucket:"Species"},
-    people:{type:"people",label:"HALK",title:"Halk",leaf:false,behavior:"reference",accent:"#d9a8ff",bucket:"Peoples"},
-    dynasty:{type:"dynasty",label:"HANEDAN",title:"Hanedan",shortcut:"H",leaf:false,behavior:"institution",accent:"#e4c478",bucket:"Dynasties",rosterLabel:"Hanedan Mensupları"},
-    society:{type:"society",label:"CEMİYET",title:"Cemiyet / Oluşum",shortcut:"C",leaf:false,behavior:"institution",accent:"#c99cff",bucket:"Societies",rosterLabel:"Mensuplar ve Bağlı Oluşumlar"},
-    settlement:{type:"settlement",label:"YERLEŞKE",title:"Yerleşke",shortcut:"Y",leaf:false,behavior:"collective",accent:"#9bd277",bucket:"Settlements"},
-    realm:{type:"realm",label:"UÇAN ADA",title:"Uçan Ada",shortcut:"U",leaf:false,behavior:"collective",accent:"#79d8d2",bucket:"Realms"},
-    land:{type:"land",label:"DİYAR",title:"Diyar",shortcut:"L",leaf:false,behavior:"collective",accent:"#77c8ff",bucket:"Lands"},
-    sovereignty:{type:"sovereignty",label:"HÜKÜMRANLIK",title:"Hükümranlık",leaf:false,behavior:"reference",accent:"#dfb15a",bucket:"Sovereignties"},
-    civilization:{type:"civilization",label:"MEDENİYET",title:"Medeniyet",leaf:false,behavior:"reference",accent:"#edc978",bucket:"Civilizations"},
-    plane:{type:"plane",label:"ÂLEM",title:"Âlem",leaf:false,behavior:"reference",accent:"#67d9dd",bucket:"Planes"},
-    structure:{type:"structure",label:"YAPI",title:"Yapı",leaf:false,behavior:"reference",accent:"#5ddbd4",bucket:"Structures"},
-    geography:{type:"geography",label:"COĞRAFYA",title:"Coğrafya",leaf:false,behavior:"reference",accent:"#4ad5df",bucket:"Geographies"},
-    habitat:{type:"habitat",label:"YAŞAM ALANI",title:"Yaşam Alanı",leaf:false,behavior:"reference",accent:"#77d8c1",bucket:"Habitats"},
-    celestial:{type:"celestial",label:"GÖKSEL OLUŞUM",title:"Göksel Oluşum",leaf:false,behavior:"reference",accent:"#73b9ff",bucket:"Celestials"},
-    item:{type:"item",label:"ÖĞE",title:"Öğe",leaf:false,behavior:"reference",accent:"#769dff",bucket:"Items"},
-    mechanism:{type:"mechanism",label:"DÜZENEK",title:"Düzenek",leaf:false,behavior:"reference",accent:"#628fff",bucket:"Mechanisms"},
-    facility:{type:"facility",label:"TESİS",title:"Tesis",leaf:false,behavior:"reference",accent:"#5e8bed",bucket:"Facilities"},
-    resource:{type:"resource",label:"KAYNAK",title:"Kaynak",leaf:false,behavior:"reference",accent:"#719fff",bucket:"Resources"},
-    network:{type:"network",label:"AĞ",title:"Ağ",leaf:false,behavior:"reference",accent:"#8aa9ff",bucket:"Networks"}
+    being:{type:"being",label:"BEING",title:"Being / Creature",shortcut:"N",leaf:true,behavior:"individual",accent:"#8fe3b5",bucket:"Beings"},
+    species:{type:"species",label:"TYPE",title:"Type",leaf:false,behavior:"reference",accent:"#c99cff",bucket:"Species"},
+    people:{type:"people",label:"PEOPLE",title:"People",leaf:false,behavior:"reference",accent:"#d9a8ff",bucket:"Peoples"},
+    dynasty:{type:"dynasty",label:"DYNASTY",title:"Dynasty",shortcut:"H",leaf:false,behavior:"institution",accent:"#e4c478",bucket:"Dynasties",rosterLabel:"Dynasty Members"},
+    society:{type:"society",label:"SOCIETY",title:"Society / Formation",shortcut:"C",leaf:false,behavior:"institution",accent:"#c99cff",bucket:"Societies",rosterLabel:"Members & Linked Formations"},
+    settlement:{type:"settlement",label:"SETTLEMENT",title:"Settlement",shortcut:"Y",leaf:false,behavior:"collective",accent:"#9bd277",bucket:"Settlements"},
+    realm:{type:"realm",label:"FLYING ISLE",title:"Flying Isle",shortcut:"U",leaf:false,behavior:"collective",accent:"#79d8d2",bucket:"Realms"},
+    land:{type:"land",label:"LAND",title:"Land",shortcut:"L",leaf:false,behavior:"collective",accent:"#77c8ff",bucket:"Lands"},
+    sovereignty:{type:"sovereignty",label:"SOVEREIGNTY",title:"Sovereignty",leaf:false,behavior:"reference",accent:"#dfb15a",bucket:"Sovereignties"},
+    civilization:{type:"civilization",label:"CIVILIZATION",title:"Civilization",leaf:false,behavior:"reference",accent:"#edc978",bucket:"Civilizations"},
+    plane:{type:"plane",label:"PLANE",title:"Plane",leaf:false,behavior:"reference",accent:"#67d9dd",bucket:"Planes"},
+    structure:{type:"structure",label:"STRUCTURE",title:"Structure",leaf:false,behavior:"reference",accent:"#5ddbd4",bucket:"Structures"},
+    geography:{type:"geography",label:"GEOGRAPHY",title:"Geography",leaf:false,behavior:"reference",accent:"#4ad5df",bucket:"Geographies"},
+    habitat:{type:"habitat",label:"HABITAT",title:"Habitat",leaf:false,behavior:"reference",accent:"#77d8c1",bucket:"Habitats"},
+    celestial:{type:"celestial",label:"CELESTIAL",title:"Celestial Formation",leaf:false,behavior:"reference",accent:"#73b9ff",bucket:"Celestials"},
+    item:{type:"item",label:"ITEM",title:"Item",leaf:false,behavior:"reference",accent:"#769dff",bucket:"Items"},
+    mechanism:{type:"mechanism",label:"MECHANISM",title:"Mechanism",leaf:false,behavior:"reference",accent:"#628fff",bucket:"Mechanisms"},
+    facility:{type:"facility",label:"FACILITY",title:"Facility",leaf:false,behavior:"reference",accent:"#5e8bed",bucket:"Facilities"},
+    resource:{type:"resource",label:"RESOURCE",title:"Resource",leaf:false,behavior:"reference",accent:"#719fff",bucket:"Resources"},
+    network:{type:"network",label:"NETWORK",title:"Network",leaf:false,behavior:"reference",accent:"#8aa9ff",bucket:"Networks"}
 });
 // Kart kimliğinin tek renk kaynağı Taksonomi Dairesindeki gerçek P/S/T/M
 // geçişidir. Journey, ayrıntı yüzü ve daire aynı hücre rengini kullanır.
@@ -1747,7 +3531,7 @@ const livingOriginCoreMarkup=(entity,isLocked,inpStyle)=>{
             <label><span>Tür Kartı</span><select id="i_species_card" ${isLocked?'disabled':''} style="${inpStyle}">${livingOriginSelectOptions("species",entity.speciesCardId,entity)}</select></label>
             <label><span>Halk Kartı</span><select id="i_people_card" ${isLocked?'disabled':''} style="${inpStyle}">${livingOriginSelectOptions("people",entity.peopleCardId,entity)}</select></label>
         </div>
-        ${alekHybrid?`<section id="livingHybridRacePanel" class="living-hybrid-race-panel" style="display:none" aria-hidden="true"><header><strong>🧬 Melez Kökler</strong><span id="livingHybridRaceStatus"></span></header><div class="living-hybrid-race-list">${hybridChecks}</div><footer class="living-hybrid-race-actions"><button type="button" id="livingHybridCancelBtn" class="living-hybrid-secondary">İptal Et</button><button type="button" id="livingHybridResetBtn" class="living-hybrid-secondary">Sıfırla</button><button type="button" id="livingHybridConfirmBtn" class="living-hybrid-confirm">Onayla</button></footer></section>`:""}
+        ${alekHybrid?`<section id="livingHybridRacePanel" class="living-hybrid-race-panel" style="display:none" aria-hidden="true"><header><strong>🧬 Melez Kökler</strong><span id="livingHybridRaceStatus"></span></header><div class="living-hybrid-race-list">${hybridChecks}</div><footer class="living-hybrid-race-actions"><button type="button" id="livingHybridCancelBtn" class="living-hybrid-secondary">İptal Et</button><button type="button" id="livingHybridResetBtn" class="living-hybrid-secondary">Reset</button><button type="button" id="livingHybridConfirmBtn" class="living-hybrid-confirm">Onayla</button></footer></section>`:""}
         <div class="living-inherited-traits">${inheritedMarkup}</div>
         <label class="living-personal-traits"><span>Kendine Has Nitelikler</span><small>Her satır ayrı bir niteliktir.</small><textarea id="i_unique_traits" ${isLocked?'disabled':''} style="${inpStyle}min-height:116px;resize:vertical;">${escapeHtmlValue(normalizeNarrativeTraitList(entity.uniqueTraits).join("\n"))}</textarea></label>
     </section>`;
@@ -1851,7 +3635,7 @@ const prepareDataModelForPersistence = () => {
     storyData.settings = currentState.settings || {};
     storyData.meta = Object.assign({}, storyData.meta || {}, { schemaVersion:32, app:"Alekrythae DM Master", storage:"portable-sqlite", gameMode:normalizeGameRuntime().mode, journeyName:String(activeAdventure?.name||DEFAULT_ADVENTURE_NAME), adventureId:String(activeAdventure?.id||""), updatedAt:new Date().toISOString() });
     mapData.meta = Object.assign({}, mapData.meta || {}, { schemaVersion:25, app:"Alekrythae Map Realms" });
-    tideData.meta = Object.assign({}, tideData.meta || {}, { schemaVersion:21, app:"Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ" });
+    tideData.meta = Object.assign({}, tideData.meta || {}, { schemaVersion:21, app:"Alekrythae Connections" });
     loreData.meta = Object.assign({}, loreData.meta || {}, { schemaVersion:21, app:"Alekrythae Lore" });
     groupData.meta = Object.assign({}, groupData.meta || {}, { schemaVersion:1, app:"Alekrythae Journey Groups" });
     mountData.meta = Object.assign({}, mountData.meta || {}, { schemaVersion:1, app:"Alekrythae Journey Mounts" });
@@ -2614,8 +4398,8 @@ const restoreScrollPosition = (element, value) => {
             }
             return char;
         };
-        const stateRibbonMarkup=char=>char?.isDead?`<div class="alek-state-ribbon dead"><div class="main">ÖLDÜ</div><div class="sub">Yaşam bağı koptu</div></div>`:char?.isUnconscious?`<div class="alek-state-ribbon unconscious"><div class="main">BAYGIN</div><div class="sub">Yaşam akışı sürüyor</div></div>`:"";
-        const immortalChipMarkup=char=>char?.isImmortal&&!char?.isDead?`<div class="alek-immortal-chip">∞ ÖLÜMSÜZ</div>`:"";
+        const stateRibbonMarkup=char=>char?.isDead?`<div class="alek-state-ribbon dead"><div class="main">DEAD</div><div class="sub">Life has ended</div></div>`:char?.isUnconscious?`<div class="alek-state-ribbon unconscious"><div class="main">UNCONSCIOUS</div><div class="sub">Life signs continue</div></div>`:"";
+        const immortalChipMarkup=char=>char?.isImmortal&&!char?.isDead?`<div class="alek-immortal-chip">∞ IMMORTAL</div>`:"";
         const filterForCharacterState=char=>char?.isDead?"grayscale(100%) brightness(0.4) contrast(1.03)":char?.isUnconscious?"brightness(0.7) saturate(0.82)":"";
         const applyCharacterVisualState=(shell,char,{imageSelector="#activeAvatarImg"}={})=>{
             if(!shell||!char)return;
@@ -2646,11 +4430,11 @@ const applyCharacterOperationalState=(scope,char)=>{
     const locked=!!char.isStaminaExhausted&&!char.isDead;
     scope.classList.toggle("is-takat-exhausted",locked);
     let banner=scope.querySelector(".takat-exhaustion-lock");
-    if(locked&&!banner){banner=document.createElement("div");banner.className="takat-exhaustion-lock";banner.innerHTML='<strong>TAKAT TÜKENDİ</strong><span>Karakter fiziksel olarak durdu. Kamp Kurma veya Yatak / Han uykusu, iksir ya da bar girdisiyle Takat %100 olmadan menüler açılmaz.</span>';scope.querySelector(".character-detail-content")?.prepend(banner);}
+    if(locked&&!banner){banner=document.createElement("div");banner.className="takat-exhaustion-lock";banner.innerHTML='<strong>STAMINA DEPLETED</strong><span>The character is physically exhausted. Menus remain locked until Stamina returns to 100% through Camp, Bed / Inn rest, a potion, or a bar input.</span>';scope.querySelector(".character-detail-content")?.prepend(banner);}
     if(!locked&&banner)banner.remove();
 };
 
-        const showSealWordModal=({title="Kozmik Mühür",message="Kelimeyi yaz.",hint="",keyword="24",confirmText="Mührü Aç",accent="#ff4c4c",placeholder="••",onSuccess}={})=>{const overlay=document.createElement("div");overlay.className="seal-modal-overlay";overlay.innerHTML=`<div class="seal-modal" style="--seal-accent:${accent};"><h3>${title}</h3><p>${message}</p>${hint?`<p class="seal-hint">${hint}</p>`:""}<input type="password" autocomplete="off" placeholder="${placeholder}"><div class="seal-modal-actions"><button type="button" class="cancel">İptal</button><button type="button" class="confirm">${confirmText}</button></div></div>`;mainPanel.appendChild(overlay);const box=overlay.querySelector(".seal-modal"),input=overlay.querySelector("input"),cancel=overlay.querySelector(".cancel"),confirm=overlay.querySelector(".confirm");const close=()=>overlay.remove();const tryWord=async()=>{if(String(input.value??"").trim().normalize("NFC")!==String(keyword).normalize("NFC")){new Notice("🛑 Hatalı kelime!");input.focus();input.select?.();return;}await onSuccess?.();close();};cancel.onclick=close;confirm.onclick=()=>{tryWord().catch(err=>{console.error(err);new Notice("🛑 Mühür açılamadı.");});};overlay.onclick=e=>{if(e.target===overlay)close();};input.onkeydown=e=>{e.stopPropagation();if(e.key==="Enter"){e.preventDefault();confirm.click();}else if(e.key==="Escape"){e.preventDefault();close();}};overlay.tabIndex=-1;overlay.addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();e.preventDefault();close();}});requestAnimationFrame(()=>input.focus());return {overlay,box,input};};
+        const showSealWordModal=({title="Password Verification",message="Enter the confirmation word.",hint="",keyword="24",confirmText="Confirm",accent="#ff4c4c",placeholder="••",onSuccess}={})=>{const overlay=document.createElement("div");overlay.className="seal-modal-overlay";overlay.innerHTML=`<div class="seal-modal" style="--seal-accent:${accent};"><h3>${title}</h3><p>${message}</p>${hint?`<p class="seal-hint">${hint}</p>`:""}<input type="password" autocomplete="off" placeholder="${placeholder}"><div class="seal-modal-actions"><button type="button" class="cancel">Cancel</button><button type="button" class="confirm">${confirmText}</button></div></div>`;mainPanel.appendChild(overlay);const box=overlay.querySelector(".seal-modal"),input=overlay.querySelector("input"),cancel=overlay.querySelector(".cancel"),confirm=overlay.querySelector(".confirm");const close=()=>overlay.remove();const tryWord=async()=>{if(String(input.value??"").trim().normalize("NFC")!==String(keyword).normalize("NFC")){new Notice("🛑 Incorrect confirmation word.");input.focus();input.select?.();return;}await onSuccess?.();close();};cancel.onclick=close;confirm.onclick=()=>{tryWord().catch(err=>{console.error(err);new Notice("🛑 Verification failed.");});};overlay.onclick=e=>{if(e.target===overlay)close();};input.onkeydown=e=>{e.stopPropagation();if(e.key==="Enter"){e.preventDefault();confirm.click();}else if(e.key==="Escape"){e.preventDefault();close();}};overlay.tabIndex=-1;overlay.addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();e.preventDefault();close();}});requestAnimationFrame(()=>input.focus());return {overlay,box,input};};
 
         const ensureCharacterHealth = char => {
             enforceDeadResourceLock(char);
@@ -2668,17 +4452,17 @@ const applyCharacterOperationalState=(scope,char)=>{
             if (ratio >= .4) return 5;if (ratio >= .3) return 4;if (ratio >= .2) return 3;if (ratio >= .1) return 2;return 1;
         };
         const healthStatusMessages = Object.freeze({
-            0: "A̤ɐ͜ɨǣ́ꞎ͡ƣ akışı bedenin en derin katmanlarına çekildi; yaşam bağı kopmadı, fakat bilincin bütün kapıları kapanarak karakter sessizce yere yığıldı ve yeniden güç bulana dek baygın kalacak.",
-            10: "Yaşam kıvılcımı sönmenin kıyısında titriyor; her nefes ağır bir mühür gibi göğse çökerken beden, ayakta kalabilmek için kalan son A̤ɐ͜ɨǣ́ꞎ͡ƣ zerrelerini birbirine kenetliyor.",
-            20: "Kızıl akış derin yarıklar arasından güçlükle ilerliyor; irade hâlâ çözülmedi, ancak bedenin her hareketi yaklaşan baygınlığın soğuk gölgesini omuzlarında taşıyor.",
-            30: "Yaşam düzeni ağır biçimde sarsılmış durumda; A̤ɐ͜ɨǣ́ꞎ͡ƣ damarları kesik kesik parlıyor ve karakter, acının içinden geçebilmek için gücünden çok kararlılığına yaslanıyor.",
-            40: "Beden savaşın izlerini açıkça taşıyor; nabız hâlâ dirençli, fakat her darbe yaşam akışından yeni bir parça koparıyor ve toparlanma artık dikkat istiyor.",
-            50: "Yaşam terazisi tam orta çizgide duruyor; karakter ne çökmüş ne de bütünüyle güvende, A̤ɐ͜ɨǣ́ꞎ͡ƣ akışı yaralarını örerken sonucun hangi yana gelişeceğini bekliyor.",
-            60: "Yaralar gücü yavaşlatmış olsa da bedenin iç düzeni hâlâ sağlam; nabız, kızıl bir nehir gibi akmaya devam ediyor ve irade yeniden yükselmek için alan arıyor.",
-            70: "Yaşam akışı güçlü ve dengeli biçimde sürüyor; alınan darbeler yalnız yüzeyde yankı bırakmış, karakterin içindeki direnç ise hâlâ savaş meydanını terk etmeyi reddediyor.",
-            80: "Beden canlılığının büyük bölümünü koruyor; A̤ɐ͜ɨǣ́ꞎ͡ƣ damarları parlak bir ritimle dolaşırken küçük yaralar, kudretin çevresinde dağılan soluk gölgeler gibi kalıyor.",
-            90: "Yaşam özü neredeyse kusursuz bir uyum içinde akıyor; nabız güçlü, adımlar kararlı ve bedenin çevresindeki kızıl ışıltı yaklaşan tehlikeye meydan okuyan bir mühür gibi yanıyor.",
-            100: "Bedenin A̤ɐ͜ɨǣ́ꞎ͡ƣ akışı eksiksiz bir döngü kurdu; nabız berrak, irade keskin ve yaşam kudreti hiçbir çatlak bırakmadan karakterin bütün varlığını görkemli bir zırh gibi sarıyor."
+            0: "The A̤ɐ͜ɨǣ́ꞎ͡ƣ flow has withdrawn into the deepest layers of the body; life has not ended, but consciousness has shut down and the character will remain unconscious until strength returns.",
+            10: "Vitality trembles at the edge of collapse; every breath is heavy while the body gathers its remaining A̤ɐ͜ɨǣ́ꞎ͡ƣ to stay upright.",
+            20: "The crimson flow struggles through deep wounds; resolve remains intact, but every movement carries the cold warning of approaching unconsciousness.",
+            30: "The body's life systems are badly shaken; A̤ɐ͜ɨǣ́ꞎ͡ƣ channels flicker unevenly and the character relies on determination to push through the pain.",
+            40: "The body clearly bears the marks of battle; the pulse remains resilient, but every blow drains more vitality and recovery now demands care.",
+            50: "Vitality stands at the midpoint; the character has neither collapsed nor reached safety while A̤ɐ͜ɨǣ́ꞎ͡ƣ works through the wounds.",
+            60: "Wounds have slowed the body, but its inner order remains sound; the pulse continues steadily and resolve searches for room to rise again.",
+            70: "Life flows strongly and evenly; the damage is mostly superficial and the character's endurance remains ready for the field.",
+            80: "The body retains most of its vitality; A̤ɐ͜ɨǣ́ꞎ͡ƣ circulates in a bright rhythm while smaller wounds fade into the background.",
+            90: "Vitality is almost fully restored; the pulse is strong, steps are steady, and the character is prepared for approaching danger.",
+            100: "The body's A̤ɐ͜ɨǣ́ꞎ͡ƣ flow has formed a complete cycle; pulse, resolve, and vitality are fully restored."
         });
         const healthStatusStepOf = (current, maximum) => {
             if (current <= 0 || maximum <= 0) return 0;
@@ -3393,14 +5177,17 @@ const applyCharacterOperationalState=(scope,char)=>{
 
 
 
-        let bgStates = { outer: { index: 0, timeout: null }, inner: { index: 0, timeout: null } };
+        let bgStates = {
+            outer: { index:0, timeout:null, token:0, hydrated:false, started:false, deadlineAt:0, remainingMs:null, mediaTime:0, mediaPath:"", pendingDelayUntil:0, pendingDelayMs:null },
+            inner: { index:0, timeout:null, token:0, hydrated:false, started:false, deadlineAt:0, remainingMs:null, mediaTime:0, mediaPath:"", pendingDelayUntil:0, pendingDelayMs:null }
+        };
 
         // Harmonizer bir kontrol merkezi, medya hedefi değildir. Bu yüzden beş bağımsız hedef kanal vardır.
         const ALEK_MEDIA_CHANNEL_DEFS = [
             { id: "tavern", label: "Vakayiname", short: "Vakayiname" },
             { id: "journey", label: "Journey of Adventurer", short: "Adventurer" },
             { id: "map", label: "Cartographer’s Table", short: "Table" },
-            { id: "connections", label: "Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ", short: "Tide" },
+            { id: "connections", label: "Connections", short: "Connections" },
             { id: "lore", label: "Lore", short: "Lore" }
         ];
         const ALEK_MEDIA_CHANNEL_IDS = ALEK_MEDIA_CHANNEL_DEFS.map(channel => channel.id);
@@ -3413,17 +5200,25 @@ const applyCharacterOperationalState=(scope,char)=>{
         const LEGACY_ATMOS_PATHS = ["Data/Ambiance.json", "Ałek’ryŧhæ_Atmosfer.md"];
         const defaultAtmosRuntime = {
             schemaVersion: "8.0",
-            interval: 5,
-            innerInterval: 5,
-            outerInterval: 8,
-            innerTransition: 1.5,
-            outerTransition: 2.5,
+            interval: 10,
+            innerInterval: 10,
+            outerInterval: 10,
+            innerTransition: 1.8,
+            outerTransition: 1.8,
             global: { inner: [], outer: [] },
             meggy: { inner: [], outer: [] },
             main: { inner: [], outer: [] },
             npc: { inner: [], outer: [] },
             channels: {}
         };
+        // Ambience timing is internal from r143 onward. Images stay for 10 seconds.
+        // Indoor starts immediately; Outdoor starts 5 seconds later so full-screen
+        // crossfades do not normally hit the GPU at the same moment.
+        const ALEK_AMBIANCE_IMAGE_HOLD_SECONDS = 10;
+        const ALEK_AMBIANCE_PHASE_OFFSET_MS = 5000;
+        const ALEK_AMBIANCE_PHASE_DRIFT_TOLERANCE_MS = 220;
+        const ALEK_AMBIANCE_PHASE_WATCHDOG_MS = 2500;
+        const ALEK_AMBIANCE_TRANSITION_SECONDS = Object.freeze({eco:0,balanced:1.8,cinematic:2.4});
         let legacyAtmosData = null;
         let legacyAtmosSource = null;
         for (const legacyPath of LEGACY_ATMOS_PATHS) {
@@ -3445,10 +5240,11 @@ const applyCharacterOperationalState=(scope,char)=>{
         atmosData.global = atmosData.global && typeof atmosData.global === "object"
             ? atmosData.global
             : { inner: [], outer: [] };
-        atmosData.innerInterval = Number(atmosData.innerInterval || atmosData.interval || 5);
-        atmosData.outerInterval = Number(atmosData.outerInterval || atmosData.interval || 8);
-        atmosData.innerTransition = Number(atmosData.innerTransition || 1.5);
-        atmosData.outerTransition = Number(atmosData.outerTransition || 2.5);
+        atmosData.interval = ALEK_AMBIANCE_IMAGE_HOLD_SECONDS;
+        atmosData.innerInterval = ALEK_AMBIANCE_IMAGE_HOLD_SECONDS;
+        atmosData.outerInterval = ALEK_AMBIANCE_IMAGE_HOLD_SECONDS;
+        atmosData.innerTransition = ALEK_AMBIANCE_TRANSITION_SECONDS.balanced;
+        atmosData.outerTransition = ALEK_AMBIANCE_TRANSITION_SECONDS.balanced;
 
         const uniqueMediaPaths = values => [...new Set((values || []).filter(value => typeof value === "string" && value.trim()))];
         const normalizedAtmosProfile = profile => ({
@@ -3462,27 +5258,126 @@ const applyCharacterOperationalState=(scope,char)=>{
             if (msg) new Notice(msg);
         };
 
+        // r144 · MEDIA CONTINUITY
+        // Ambience and Bard are runtime streams, not view state. Rendering/GPU/profile changes,
+        // app deactivation, minimization and normal close must never rewind them to zero.
+        const ambianceRuntimeStore = () => {
+            const hz=storyData.settings?.harmonizer;
+            const store=hz?.globalAmbiance;
+            if(!store)return null;
+            if(!store.runtime||typeof store.runtime!=="object")store.runtime={};
+            for(const key of ["inner","outer"]){
+                store.runtime[key]=Object.assign({index:0,mediaPath:"",mediaTime:0,remainingMs:null,started:false,pendingDelayMs:null},store.runtime[key]||{});
+            }
+            if(!Number.isFinite(Number(store.runtime.__phaseLockRevision)))store.runtime.__phaseLockRevision=0;
+            if(!Number.isFinite(Number(store.runtime.__phaseEpochAt)))store.runtime.__phaseEpochAt=0;
+            return store.runtime;
+        };
+        const ambianceContainerFor=key=>key==="outer"?outerBgContainer:bgContainer;
+        const currentAmbianceNode=key=>Array.from(ambianceContainerFor(key)?.children||[]).find(node=>!node.classList?.contains("bg-overlay"))||null;
+        const snapshotAmbianceRuntime=({persist=false}={})=>{
+            const runtime=ambianceRuntimeStore();
+            const now=Date.now();
+            for(const key of ["inner","outer"]){
+                const state=bgStates[key],node=currentAmbianceNode(key);
+                if(state.deadlineAt>0)state.remainingMs=Math.max(0,state.deadlineAt-now);
+                if(state.pendingDelayUntil>0)state.pendingDelayMs=Math.max(0,state.pendingDelayUntil-now);
+                if(node?.tagName==="VIDEO"&&Number.isFinite(node.currentTime))state.mediaTime=Math.max(0,node.currentTime);
+                const path=String(node?.dataset?.alekAmbiancePath||state.mediaPath||"");
+                state.mediaPath=path;
+                if(runtime)runtime[key]={
+                    index:Math.max(0,Number(state.index)||0),mediaPath:path,mediaTime:Math.max(0,Number(state.mediaTime)||0),
+                    remainingMs:Number.isFinite(Number(state.remainingMs))?Math.max(0,Number(state.remainingMs)):null,
+                    started:!!state.started,pendingDelayMs:Number.isFinite(Number(state.pendingDelayMs))?Math.max(0,Number(state.pendingDelayMs)):null
+                };
+            }
+            if(persist)scheduleAutoSave(null,60);
+        };
+        const hydrateAmbianceState=(key,mediaList)=>{
+            const state=bgStates[key];if(state.hydrated)return state;
+            const saved=ambianceRuntimeStore()?.[key];
+            if(saved){
+                const savedPath=String(saved.mediaPath||"");
+                const pathIndex=savedPath?mediaList.indexOf(savedPath):-1;
+                state.index=pathIndex>=0?pathIndex:Math.max(0,Math.min(Math.max(0,mediaList.length-1),Number(saved.index)||0));
+                state.mediaPath=savedPath;state.mediaTime=Math.max(0,Number(saved.mediaTime)||0);
+                state.remainingMs=Number.isFinite(Number(saved.remainingMs))?Math.max(0,Number(saved.remainingMs)):null;
+                state.started=!!saved.started;state.pendingDelayMs=Number.isFinite(Number(saved.pendingDelayMs))?Math.max(0,Number(saved.pendingDelayMs)):null;
+            }
+            state.hydrated=true;return state;
+        };
+        const checkpointAmbianceState=()=>{snapshotAmbianceRuntime({persist:true});};
+        const ALEK_AMBIANCE_PERIOD_MS=ALEK_AMBIANCE_IMAGE_HOLD_SECONDS*1000;
+        let ambiancePhaseWatchdog=null;
+        let ambiancePhasePlan={inner:null,outer:null};
+        const ambiancePhaseOffsetFor=key=>key==="outer"?ALEK_AMBIANCE_PHASE_OFFSET_MS:0;
+        const ensureAmbiancePhaseEpoch=(anchorRemainingMs=null, now=Date.now())=>{
+            const runtime=ambianceRuntimeStore();
+            if(!runtime)return now;
+            const saved=Number(runtime.__phaseEpochAt);
+            if(Number.isFinite(saved)&&saved>0)return saved;
+            const anchor=Number.isFinite(Number(anchorRemainingMs))&&Number(anchorRemainingMs)>120
+                ? Math.max(120,Math.min(ALEK_AMBIANCE_PERIOD_MS,Number(anchorRemainingMs)))
+                : ALEK_AMBIANCE_PERIOD_MS;
+            runtime.__phaseEpochAt=now-(ALEK_AMBIANCE_PERIOD_MS-anchor);
+            return runtime.__phaseEpochAt;
+        };
+        const nextAmbiancePhaseBoundaryAt=(key, now=Date.now())=>{
+            const epoch=ensureAmbiancePhaseEpoch(null, now),base=epoch+ambiancePhaseOffsetFor(key);
+            if(now<base)return base;
+            const elapsed=Math.max(0,now-base),steps=Math.floor(elapsed/ALEK_AMBIANCE_PERIOD_MS)+1;
+            return base+(steps*ALEK_AMBIANCE_PERIOD_MS);
+        };
+        const nextAmbiancePhaseDelayMs=(key, now=Date.now())=>Math.max(120,nextAmbiancePhaseBoundaryAt(key,now)-now);
+        const scheduleAmbianceAdvance=(container,mediaList,interval,stateKey,transitionSeconds,delayMs)=>{
+            const state=bgStates[stateKey],safeDelay=Math.max(120,Math.round(Number(delayMs)||0));
+            clearTimeout(state.timeout);
+            state.deadlineAt=Date.now()+safeDelay;state.remainingMs=null;state.pendingDelayMs=null;state.pendingDelayUntil=0;
+            state.timeout=setTimeout(()=>{
+                state.timeout=null;state.deadlineAt=0;state.remainingMs=null;
+                if(!ambianceCanRun()||!Array.isArray(mediaList)||!mediaList.length)return;
+                state.index=(state.index+1)%mediaList.length;
+                state.mediaPath=mediaList[state.index]||"";state.mediaTime=0;
+                checkpointAmbianceState();
+                playBgLoop(container,mediaList,interval,stateKey,transitionSeconds);
+            },safeDelay);
+            checkpointAmbianceState();
+            return safeDelay;
+        };
+        const stopAmbiancePhaseWatchdog=()=>{if(ambiancePhaseWatchdog){clearInterval(ambiancePhaseWatchdog);ambiancePhaseWatchdog=null;}};
+        const reconcileAmbiancePhase=()=>{
+            if(!ambianceCanRun())return;
+            const now=Date.now();
+            for(const key of ["inner","outer"]){
+                const plan=ambiancePhasePlan[key];if(!plan||!Array.isArray(plan.mediaList)||!plan.mediaList.length)continue;
+                const state=hydrateAmbianceState(key,plan.mediaList),node=currentAmbianceNode(key);
+                if(!state.started||!node||node.tagName==="VIDEO")continue;
+                const expected=nextAmbiancePhaseBoundaryAt(key,now),actual=Number(state.deadlineAt)||0;
+                if(!actual||Math.abs(actual-expected)>ALEK_AMBIANCE_PHASE_DRIFT_TOLERANCE_MS){
+                    scheduleAmbianceAdvance(plan.container,plan.mediaList,plan.interval,key,plan.transition,expected-now);
+                }
+            }
+        };
+        const startAmbiancePhaseWatchdog=()=>{
+            if(ambiancePhaseWatchdog)return;
+            ambiancePhaseWatchdog=setInterval(reconcileAmbiancePhase,ALEK_AMBIANCE_PHASE_WATCHDOG_MS);
+        };
+
         // --- TAŞINABİLİR PERFORMANS / GPU TERCİHİ ---
         // Ayarlar aktif maceranın game.db içindeki harmonizer belgesinde tutulur.
         const defaultPerformanceConfig = {...defaultHarmonizerData.performance};
-        let r106GpuMigrationPending = false;
         const loadPerformanceConfig = () => {
             const stored = harmonizerData.performance && typeof harmonizerData.performance === "object" ? harmonizerData.performance : {};
             const merged = Object.assign({}, defaultPerformanceConfig, stored);
             const optimizationRevision = Number(merged.optimizationRevision) || 0;
             if (!["eco","balanced","cinematic"].includes(String(merged.profile || ""))) merged.profile = "cinematic";
-            if (!["system","power-saving","high-performance","software"].includes(String(merged.gpuPreference || ""))) merged.gpuPreference = "high-performance";
-            // tam animasyonu Sinematik profilde korur; adaptör seçimini iki ayrı
-            // mekanizmayla zorlamak yerine Windows'un tek güç sınıfı kararına bırakır.
-            // Bu geçiş yalnız bir kez yapılır; sonraki kullanıcı seçimi korunur.
-            if (optimizationRevision < 8) {
-                // Yeni kurulum ve ilk yükseltme: Sinematik profil + Windows'un en güçlü GPU sınıfı.
-                // Kullanıcı daha sonra Harmonizer içinden dilediği profile dönebilir.
-                merged.profile = "cinematic";
-                merged.gpuPreference = "high-performance";
-                merged.selectedAdapterId = "";
-                merged.optimizationRevision = 8;
-                r106GpuMigrationPending = true;
+            // GPU power classes are now an internal Core detail. The UI stores only the
+            // adapter the user selected. With no manual choice, Core chooses the strongest
+            // detected adapter automatically at startup.
+            if (typeof merged.gpuUserSelected !== "boolean") merged.gpuUserSelected = !!String(stored.selectedAdapterId || "");
+            if (optimizationRevision < 9) {
+                merged.gpuUserSelected = typeof stored.gpuUserSelected === "boolean" ? stored.gpuUserSelected : !!String(stored.selectedAdapterId || "");
+                merged.optimizationRevision = 9;
                 harmonizerMigrationPending = true;
             }
             harmonizerData.performance = {...merged};
@@ -3508,9 +5403,13 @@ const applyCharacterOperationalState=(scope,char)=>{
             try { video.removeAttribute("src"); video.load(); } catch (_) {}
         };
         const pauseAmbianceRuntime = ({release=false}={}) => {
+            snapshotAmbianceRuntime({persist:true});
+            stopAmbiancePhaseWatchdog();
             for (const key of ["outer","inner"]) {
                 clearTimeout(bgStates[key].timeout);
                 bgStates[key].timeout = null;
+                bgStates[key].deadlineAt = 0;
+                bgStates[key].pendingDelayUntil = 0;
                 bgStates[key].token = Number(bgStates[key].token || 0) + 1;
             }
             [outerBgContainer,bgContainer].forEach(container => container?.querySelectorAll?.("video").forEach(video => release ? releaseVideo(video) : (()=>{try{video.pause();}catch(_){}})()));
@@ -3544,7 +5443,7 @@ const applyCharacterOperationalState=(scope,char)=>{
                 const vendor = ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : gl.getParameter(gl.VENDOR);
                 const version = gl.getParameter(gl.VERSION) || "WebGL";
                 gl.getExtension("WEBGL_lose_context")?.loseContext?.();
-                return {renderer:String(renderer||"Bilinmiyor"),vendor:String(vendor||""),api:String(version||"WebGL")};
+                return {renderer:String(renderer||"Unknown"),vendor:String(vendor||""),api:String(version||"WebGL")};
             } catch (error) { return {renderer:"Algılanamadı",vendor:"",api:"",error:String(error?.message||error)}; }
             finally { canvas?.remove?.(); }
         };
@@ -3556,8 +5455,9 @@ const applyCharacterOperationalState=(scope,char)=>{
                 return {ok:false,unsupported:true,error:"Core bu grafik işlemini desteklemiyor"};
             } catch (error) { return {ok:false,error:String(error?.message||error)}; }
         };
-        if(r106GpuMigrationPending)void nativeGraphicsCall("setGraphicsPreference",{preference:"high-performance",adapterId:""});
-        else if(performanceConfig.gpuPreference==="high-performance")void nativeGraphicsCall("setGraphicsPreference",{preference:"high-performance",adapterId:String(performanceConfig.selectedAdapterId||"")});
+        // GPU selection is applied by Core before WebView2 is created. Do not rewrite it
+        // while the application is already running; doing so would only create confusing
+        // adapter churn and could disturb media continuity.
         applyPerformanceProfile();
 
         const playBgLoop = (container, mediaList, interval, stateKey, transitionSeconds = 1.5) => {
@@ -3569,44 +5469,82 @@ const applyCharacterOperationalState=(scope,char)=>{
             if(!ambianceCanRun())return;
 
             if(!mediaList || mediaList.length === 0) {
-                Array.from(container.children).forEach(c => { if(!c.classList.contains('bg-overlay')) c.remove(); });
+                Array.from(container.children).forEach(c => { if(!c.classList.contains('bg-overlay')) { if(c.tagName === "VIDEO") releaseVideo(c); c.remove(); } });
                 return;
             }
 
+            const runtimeState=hydrateAmbianceState(stateKey,mediaList);
             if(bgStates[stateKey].index >= mediaList.length) bgStates[stateKey].index = 0;
             const mediaPath = mediaList[bgStates[stateKey].index];
+            bgStates[stateKey].started=true;bgStates[stateKey].pendingDelayMs=null;bgStates[stateKey].pendingDelayUntil=0;bgStates[stateKey].mediaPath=mediaPath;
             const mediaUrl = getDynamicUrl(mediaPath);
             const isVideo = isVideoMediaPath(mediaPath);
+            const profile = performanceProfile();
+            const singleItem = mediaList.length === 1;
             let advanced = false;
+
+            // Balanced keeps only a short opacity crossfade. No blur/filter/scale animation,
+            // and compositing hints are removed as soon as the fade ends so the GPU can idle.
+            const effectiveTransitionSeconds = ALEK_AMBIANCE_TRANSITION_SECONDS[profile] ?? ALEK_AMBIANCE_TRANSITION_SECONDS.balanced;
+            const fadeMs = Math.max(0, Math.round(effectiveTransitionSeconds * 1000));
 
             const advance = () => {
                 if (advanced || !isCurrent()) return;
                 advanced = true;
                 clearTimeout(bgStates[stateKey].timeout);
                 bgStates[stateKey].index = (bgStates[stateKey].index + 1) % mediaList.length;
+                bgStates[stateKey].mediaPath=mediaList[bgStates[stateKey].index]||"";bgStates[stateKey].mediaTime=0;bgStates[stateKey].remainingMs=null;bgStates[stateKey].deadlineAt=0;
+                checkpointAmbianceState();
                 playBgLoop(container, mediaList, interval, stateKey, transitionSeconds);
             };
 
-            const mount = newMedia => {
-                if (!isCurrent()) return;
+            const currentMediaNodes = () => Array.from(container.children).filter(child => !child.classList.contains('bg-overlay'));
+            const retireNode = node => {
+                if(!node)return;
+                if(node.tagName === "VIDEO") releaseVideo(node);
+                try{node.remove();}catch(_){}
+            };
+            const mount = (newMedia,{startPlayback=null}={}) => {
+                if (!isCurrent()) { retireNode(newMedia); return; }
+                const oldNodes=currentMediaNodes();
+                newMedia.dataset.alekAmbiancePath=mediaPath;newMedia.dataset.alekAmbianceZone=stateKey;
                 Object.assign(newMedia.style, {
                     position: "absolute", inset: "0", width: "100%", height: "100%",
-                    opacity: "0", transition: `opacity ${performanceProfile()==="cinematic"?Math.max(.1,Number(transitionSeconds)||1.5):.18}s ease-out`,
-                    objectFit: "cover", zIndex: "1", contain: "strict"
+                    opacity: fadeMs ? "0" : "1",
+                    transition: fadeMs ? `opacity ${effectiveTransitionSeconds}s cubic-bezier(.22,.61,.36,1)` : "none",
+                    objectFit: "cover", zIndex: "1", contain: "strict",
+                    willChange: fadeMs ? "opacity" : "auto",
+                    transform: "translateZ(0)"
                 });
                 const overlayNode = container.querySelector('.bg-overlay');
                 if(overlayNode) container.insertBefore(newMedia, overlayNode); else container.appendChild(newMedia);
-                void newMedia.offsetWidth;
-                newMedia.style.opacity = "1";
-                setTimeout(() => {
+
+                // Start the incoming video only when it is ready and mounted. This avoids a black
+                // flash while also limiting dual video decoding to the short crossfade window.
+                try{startPlayback?.();}catch(_){}
+
+                if(!fadeMs){
+                    oldNodes.forEach(retireNode);
+                    newMedia.style.willChange="auto";
+                    newMedia.style.transform="none";
+                    return;
+                }
+                oldNodes.forEach(old=>{
+                    old.style.transition=`opacity ${effectiveTransitionSeconds}s cubic-bezier(.22,.61,.36,1)`;
+                    old.style.willChange="opacity";
+                });
+                requestAnimationFrame(()=>requestAnimationFrame(()=>{
+                    if(!isCurrent())return;
+                    newMedia.style.opacity="1";
+                    oldNodes.forEach(old=>{old.style.opacity="0";});
+                }));
+                window.setTimeout(() => {
                     if (!isCurrent()) return;
-                    Array.from(container.children).forEach(child => {
-                        if(child !== newMedia && !child.classList.contains('bg-overlay')) {
-                            try { if (child.tagName === "VIDEO") child.pause(); } catch (_) {}
-                            child.remove();
-                        }
-                    });
-                }, Math.max(100, Number(transitionSeconds || 1.5) * 1000));
+                    oldNodes.forEach(retireNode);
+                    newMedia.style.transition="none";
+                    newMedia.style.willChange="auto";
+                    newMedia.style.transform="none";
+                }, fadeMs + 70);
             };
 
             if(!mediaUrl) {
@@ -3618,29 +5556,44 @@ const applyCharacterOperationalState=(scope,char)=>{
             if(isVideo) {
                 const video = document.createElement("video");
                 video.src = mediaUrl;
-                const profile = performanceProfile();
-                video.autoplay = profile !== "eco" && ambianceCanRun();
+                video.autoplay = false;
                 video.muted = true;
                 video.playsInline = true;
-                video.preload = profile === "eco" ? "metadata" : "auto";
-                video.onended = profile === "eco" ? null : advance;
+                video.loop = singleItem && profile !== "eco";
+                // Balanced preloads only enough to guarantee the first frame before crossfading.
+                // Cinematic may preload fully; Eco holds a static first frame.
+                video.preload = profile === "cinematic" ? "auto" : "metadata";
+                video.onended = (!singleItem && profile !== "eco") ? advance : null;
                 video.onerror = () => {
                     console.warn("Ambiance videosu açılamadı:", mediaPath, video.error);
-                    advance();
+                    retireNode(video);
+                    if(!singleItem)advance();
                 };
-                mount(video);
-                if (profile === "eco") {
-                    video.addEventListener("loadeddata",()=>{try{video.currentTime=Math.min(.05,video.duration||.05);video.pause();}catch(_){}},{once:true});
-                } else if (ambianceCanRun()) {
-                    video.play().catch(error => {
-                        console.warn("Ambiance videosu oynatılamadı:", mediaPath, error);
-                        advance();
-                    });
-                }
+                const readyAndMount=()=>{
+                    if(!isCurrent()){retireNode(video);return;}
+                    const resumeTime=bgStates[stateKey].mediaPath===mediaPath?Math.max(0,Number(bgStates[stateKey].mediaTime)||0):0;
+                    if(resumeTime>0){try{video.currentTime=Math.min(resumeTime,Number.isFinite(video.duration)?Math.max(0,video.duration-.05):resumeTime);}catch(_){}}
+                    video.ontimeupdate=()=>{if(isCurrent()&&Number.isFinite(video.currentTime))bgStates[stateKey].mediaTime=Math.max(0,video.currentTime);};
+                    if(profile === "eco"){
+                        try{video.currentTime=Math.min(.05,Number.isFinite(video.duration)?video.duration:.05);}catch(_){}
+                        mount(video,{startPlayback:()=>{try{video.pause();}catch(_){}}});
+                        return;
+                    }
+                    mount(video,{startPlayback:()=>{
+                        if(!ambianceCanRun())return;
+                        video.play().catch(error=>{
+                            console.warn("Ambiance videosu oynatılamadı:", mediaPath, error);
+                            if(!singleItem)advance();
+                        });
+                    }});
+                };
+                if(video.readyState >= 2)readyAndMount();
+                else video.addEventListener("loadeddata",readyAndMount,{once:true});
+                video.load();
                 return;
             }
 
-            // CSS background hataları olay üretmediği için resmi önce gerçekten yükle.
+            // Images are decoded before the crossfade so Balanced never flashes an empty frame.
             const probe = new Image();
             probe.onload = () => {
                 if (!isCurrent()) return;
@@ -3650,22 +5603,23 @@ const applyCharacterOperationalState=(scope,char)=>{
                 imageLayer.style.backgroundPosition = "center center";
                 imageLayer.style.backgroundRepeat = "no-repeat";
                 mount(imageLayer);
-                if (performanceProfile() !== "eco" && ambianceCanRun()) bgStates[stateKey].timeout = setTimeout(advance, Math.max(.1, Number(interval) || 5) * 1000);
+                // A single still image stays completely static: no pointless reload every few seconds.
+                if (!singleItem && profile !== "eco" && ambianceCanRun()) {
+                    const holdMs=nextAmbiancePhaseDelayMs(stateKey);
+                    bgStates[stateKey].remainingMs=null;
+                    scheduleAmbianceAdvance(container,mediaList,interval,stateKey,transitionSeconds,holdMs);
+                }
             };
             probe.onerror = () => {
                 console.warn("Ambiance görseli açılamadı:", mediaPath);
-                advance();
+                if(!singleItem)advance();
             };
+            probe.decoding = "async";
             probe.src = mediaUrl;
         };
 
         // Tek global Ambiance iç/dış çerçevesini yalnız Story.json üzerinden oynatır.
         const updateAtmosphereDisplay = async () => {
-            clearTimeout(bgStates.outer.timeout);
-            clearTimeout(bgStates.inner.timeout);
-            bgStates.outer.index = 0;
-            bgStates.inner.index = 0;
-
             if(!ambianceCanRun()){
                 pauseAmbianceRuntime({release:false});
                 return;
@@ -3676,11 +5630,10 @@ const applyCharacterOperationalState=(scope,char)=>{
                 inner:(globalAmbiance?.items || []).filter(item => item.zone === "inner").map(item => item.path),
                 outer:(globalAmbiance?.items || []).filter(item => item.zone === "outer").map(item => item.path)
             });
-            const timings = globalAmbiance?.timings || {};
-            const innerInterval = Number(timings.innerInterval || 5);
-            const outerInterval = Number(timings.outerInterval || 8);
-            const innerTransition = Number(timings.innerTransition || 1.5);
-            const outerTransition = Number(timings.outerTransition || 2.5);
+            const innerInterval = ALEK_AMBIANCE_IMAGE_HOLD_SECONDS;
+            const outerInterval = ALEK_AMBIANCE_IMAGE_HOLD_SECONDS;
+            const innerTransition = ALEK_AMBIANCE_TRANSITION_SECONDS[performanceProfile()] ?? ALEK_AMBIANCE_TRANSITION_SECONDS.balanced;
+            const outerTransition = innerTransition;
 
             const allAmbiancePaths = [...globalData.inner,...globalData.outer];
             await Promise.all(allAmbiancePaths.map(path => {
@@ -3688,14 +5641,62 @@ const applyCharacterOperationalState=(scope,char)=>{
                 if (isAbsoluteExternalPath(path)) return probeExternalMediaPath(path).catch(()=>null);
                 return Promise.resolve(null);
             }));
-            playBgLoop(outerBgContainer, globalData.outer, outerInterval, "outer", outerTransition);
-            playBgLoop(bgContainer, globalData.inner, innerInterval, "inner", innerTransition);
+
+            const resumeOrStart=(key,container,list,interval,transition,initialDelay=0)=>{
+                const state=hydrateAmbianceState(key,list);
+                if(!list.length){clearTimeout(state.timeout);state.timeout=null;Array.from(container.children).filter(n=>!n.classList.contains("bg-overlay")).forEach(n=>{if(n.tagName==="VIDEO")releaseVideo(n);n.remove();});return;}
+                if(state.index>=list.length)state.index=0;
+                const desired=list[state.index],node=currentAmbianceNode(key),nodePath=String(node?.dataset?.alekAmbiancePath||"");
+                if(node&&nodePath===desired){
+                    state.mediaPath=desired;state.started=true;
+                    if(node.tagName==="VIDEO"){
+                        if(Number.isFinite(node.currentTime))state.mediaTime=node.currentTime;
+                        if(node.paused)node.play().catch(()=>{});
+                    }else if(!state.timeout){
+                        const hold=nextAmbiancePhaseDelayMs(key);
+                        state.remainingMs=null;
+                        scheduleAmbianceAdvance(container,list,interval,key,transition,hold);
+                    }
+                    return;
+                }
+                if(!state.started&&initialDelay>0){
+                    if(state.timeout)return;
+                    const savedDelay=Number(state.pendingDelayMs),delay=Number.isFinite(savedDelay)?Math.max(0,Math.min(initialDelay,savedDelay)):initialDelay;
+                    state.pendingDelayMs=null;state.pendingDelayUntil=Date.now()+delay;
+                    state.timeout=setTimeout(()=>{state.timeout=null;state.pendingDelayUntil=0;state.started=true;checkpointAmbianceState();playBgLoop(container,list,interval,key,transition);},delay);
+                    return;
+                }
+                playBgLoop(container,list,interval,key,transition);
+            };
+
+            // r147 · HARD PHASE LOCK
+            // Indoor and Outdoor must keep a permanent 5 second phase difference.
+            // Instead of letting each lane drift on its own accumulated timeouts,
+            // both lanes now follow one shared phase clock. A watchdog checks them
+            // periodically and gently snaps the next image boundary back onto the clock
+            // if loading delays or resume timing caused drift.
+            const phaseRuntime=ambianceRuntimeStore();
+            const innerState=hydrateAmbianceState("inner",globalData.inner),outerState=hydrateAmbianceState("outer",globalData.outer);
+            const innerAnchor=Number(innerState.remainingMs);
+            if(phaseRuntime)ensureAmbiancePhaseEpoch(innerAnchor,Date.now());
+            if(phaseRuntime&&Number(phaseRuntime.__phaseLockRevision||0)<2&&globalData.inner.length&&globalData.outer.length){
+                innerState.remainingMs=nextAmbiancePhaseDelayMs("inner");
+                outerState.remainingMs=nextAmbiancePhaseDelayMs("outer");
+                outerState.pendingDelayMs=null;
+                phaseRuntime.__phaseLockRevision=2;
+                snapshotAmbianceRuntime({persist:true});
+            }
+
+            // Crucial: no index reset here. Profile/GPU/focus changes only resume the current stream.
+            ambiancePhasePlan.inner={container:bgContainer,mediaList:globalData.inner,interval:innerInterval,transition:innerTransition};
+            ambiancePhasePlan.outer={container:outerBgContainer,mediaList:globalData.outer,interval:outerInterval,transition:outerTransition};
+            resumeOrStart("inner",bgContainer,globalData.inner,innerInterval,innerTransition,0);
+            resumeOrStart("outer",outerBgContainer,globalData.outer,outerInterval,outerTransition,ALEK_AMBIANCE_PHASE_OFFSET_MS);
+            startAmbiancePhaseWatchdog();
             bgContainer.dataset.innerMediaCount = String(globalData.inner.length);
             if (typeof v9Backdrop !== "undefined") v9Backdrop.style.opacity = globalData.inner.length ? "0" : "1";
             bgContainer.style.opacity = globalData.inner.length ? "1" : "0";
         };
-
-
 
 
 
@@ -3794,12 +5795,50 @@ const applyCharacterOperationalState=(scope,char)=>{
             currentState.settings.bgMusic = runtime.list.slice();
             currentState.settings.musicState = runtime.state;
         };
+        let __alekBardFadeToken=0;
+        let __alekBardFadeBusy=false;
+        const __alekBardFadeProfile=()=>{
+            const profile=performanceProfile();
+            if(profile==="balanced")return{outMs:980,inMs:1420};
+            if(profile==="cinematic")return{outMs:650,inMs:850};
+            return{outMs:0,inMs:0};
+        };
+        const __alekBardRampVolume=(target,duration,token)=>new Promise(resolve=>{
+            const safeTarget=clamp(Number(target)||0,0,1),safeDuration=Math.max(0,Math.round(Number(duration)||0));
+            if(!safeDuration){try{audioPlayer.volume=safeTarget;}catch(_){}resolve();return;}
+            const start=clamp(Number(audioPlayer.volume)||0,0,1),started=performance.now();
+            const tick=()=>{
+                if(token!==__alekBardFadeToken){resolve();return;}
+                const t=Math.min(1,(performance.now()-started)/safeDuration),ease=t*t*(3-2*t);
+                try{audioPlayer.volume=start+(safeTarget-start)*ease;}catch(_){}
+                if(t>=1){resolve();return;}
+                setTimeout(tick,32);
+            };
+            tick();
+        });
         const snapshotActiveBard = () => {
             const runtime = getActiveBardRuntime();
             runtime.state.time = Number.isFinite(audioPlayer.currentTime) ? audioPlayer.currentTime : Number(runtime.state.time || 0);
             runtime.state.playing = !audioPlayer.paused && !audioPlayer.ended;
-            runtime.state.volume = audioPlayer.volume;
+            if(!__alekBardFadeBusy)runtime.state.volume = audioPlayer.volume;
             mirrorActiveBardToLegacy();
+        };
+
+        let __alekLastMediaCheckpointAt=0;
+        const checkpointMediaContinuity=(force=false)=>{
+            snapshotActiveBard();snapshotAmbianceRuntime({persist:false});
+            const now=Date.now();if(force||now-__alekLastMediaCheckpointAt>=2500){__alekLastMediaCheckpointAt=now;scheduleAutoSave(null,80);}
+        };
+        const pauseBardForPowerState=()=>{
+            const runtime=getActiveBardRuntime();
+            const wasPlaying=!!runtime.list.length&&!audioPlayer.paused&&!audioPlayer.ended;
+            snapshotActiveBard();
+            if(wasPlaying){runtime.state.playing=true;suppressAudioStateEvents=true;try{audioPlayer.pause();}catch(_){}setTimeout(()=>{suppressAudioStateEvents=false;},0);}
+            checkpointMediaContinuity(true);
+        };
+        const resumeBardFromPowerState=()=>{
+            const runtime=getActiveBardRuntime();
+            if(runtime.list.length&&runtime.state.playing&&audioPlayer.paused)void playMusicLogic({requestPermission:false});
         };
 
         const playMusicLogic = async ({requestPermission=false}={}) => {
@@ -3821,7 +5860,7 @@ const applyCharacterOperationalState=(scope,char)=>{
             state.idx = clamp(Number(state.idx || 0), 0, musicList.length - 1);
             const mediaPath = musicList[state.idx];
             const trackUrl = await resolveMediaPathUrl(mediaPath,{requestPermission,force:isLinkedMediaRef(mediaPath)});
-            audioPlayer.volume = clamp(Number(state.volume ?? 1), 0, 1);
+            const targetVolume=clamp(Number(state.volume ?? 1),0,1);
 
             if (!trackUrl) {
                 state.playing = false;
@@ -3835,6 +5874,13 @@ const applyCharacterOperationalState=(scope,char)=>{
             }
 
             const sourceChanged = audioPlayer.dataset.mediaPath !== mediaPath;
+            const fadeProfile=__alekBardFadeProfile();
+            const smoothSwitch=sourceChanged&&state.playing&&fadeProfile.inMs>0;
+            const fadeToken=++__alekBardFadeToken;
+            if(sourceChanged&&fadeProfile.outMs>0&&!audioPlayer.paused&&!audioPlayer.ended){
+                __alekBardFadeBusy=true;
+                await __alekBardRampVolume(0,fadeProfile.outMs,fadeToken);
+            }
             if (sourceChanged) {
                 audioPlayer.pause();
                 audioPlayer.src = trackUrl;
@@ -3854,7 +5900,12 @@ const applyCharacterOperationalState=(scope,char)=>{
 
             if (state.playing) {
                 try {
+                    if(smoothSwitch)audioPlayer.volume=0;else audioPlayer.volume=targetVolume;
                     await audioPlayer.play();
+                    if(smoothSwitch){
+                        __alekBardFadeBusy=true;
+                        await __alekBardRampVolume(targetVolume,fadeProfile.inMs,fadeToken);
+                    }
                 } catch (error) {
                     state.playing = false;
                     console.warn("Bard oynatma hatası", mediaPath, error);
@@ -3862,7 +5913,9 @@ const applyCharacterOperationalState=(scope,char)=>{
                 }
             } else {
                 audioPlayer.pause();
+                audioPlayer.volume=targetVolume;
             }
+            if(fadeToken===__alekBardFadeToken){audioPlayer.volume=targetVolume;__alekBardFadeBusy=false;}
             setTimeout(() => suppressAudioStateEvents = false, 0);
         };
 
@@ -3883,6 +5936,7 @@ const applyCharacterOperationalState=(scope,char)=>{
             const runtime = getActiveBardRuntime();
             runtime.state.time = audioPlayer.currentTime;
             currentState.settings.musicState = runtime.state;
+            checkpointMediaContinuity(false);
             const elapsed=v2Content?.querySelector?.(".bard-v19 .bard-elapsed");
             if(elapsed){const t=Math.max(0,Math.floor(audioPlayer.currentTime||0));elapsed.textContent=`${String(Math.floor(t/60)).padStart(2,"0")}:${String(t%60).padStart(2,"0")}`;}
         };
@@ -4238,12 +6292,13 @@ bgStates.outer.index = 0; bgStates.inner.index = 0;
 if (!currentState.settings) currentState.settings = { bgInner: [], bgOuter: [], bgInterval: 5, bgMusic: [], musicState: {idx:0, time:0} };
 playBgLoop(outerBgContainer, currentState.settings.bgOuter, atmosData.outerInterval, 'outer', atmosData.outerTransition);
 playBgLoop(bgContainer, currentState.settings.bgInner, atmosData.innerInterval, 'inner', atmosData.innerTransition);
-if(typeof audioPlayer !== 'undefined') { 
-    audioPlayer.pause(); 
-    audioPlayer.removeAttribute('src'); // ZORLA SIFIRLA
-    audioPlayer.load();                 // ZORLA YENİLE
-    currentState.settings.musicState.time = 0; 
-    playMusicLogic(); 
+if(typeof audioPlayer !== 'undefined') {
+    checkpointMediaContinuity(true);
+    suppressAudioStateEvents=true;
+    audioPlayer.pause();
+    audioPlayer.removeAttribute('src');
+    audioPlayer.load();
+    setTimeout(()=>{suppressAudioStateEvents=false;playMusicLogic();},0);
 }
 
 
@@ -4708,14 +6763,16 @@ meggyContainer.querySelector("#rollbackBtn").onclick = async () => {
         };
         const masterCardIdentityOf=(char,record)=>{
             const requestedType=String(record?.type||char?.entityType||(char?.__being?"being":"character"));
-            const type=requestedType==="being"?"being":"character";
-            const isBeing=type==="being";
+            const isBeing=requestedType==="being";
+            const label=isBeing?"VARLIK":entityTypeDisplayLabel(requestedType);
+            const titleCaseLabel=isBeing?"Varlık":String(label||"Karakter").toLocaleLowerCase("tr").replace(/(^|\s)(\S)/g,(m,p1,p2)=>`${p1}${p2.toLocaleUpperCase("tr")}`);
             return Object.freeze({
-                type,
+                type:requestedType,
+                requestedType,
                 isBeing,
                 isCharacter:!isBeing,
-                label:isBeing?"VARLIK":"KARAKTER",
-                sheetLabel:isBeing?"Varlık Kağıdı":"Karakter Kağıdı"
+                label,
+                sheetLabel:`${titleCaseLabel} Kağıdı`
             });
         };
         const masterCardIdentityPlaqueMarkup=()=>"";
@@ -4736,10 +6793,10 @@ meggyContainer.querySelector("#rollbackBtn").onclick = async () => {
 
             const detailRecord=unifiedDetailRecordOf(char);
             const masterCardIdentity=masterCardIdentityOf(char,detailRecord);
-            const useNativeCharacterTemplate=!detailRecord||detailRecord?.type==="being"||detailRecord?.type==="character";
-            const allowLifeActions=useNativeCharacterTemplate;
+            const useNativeCharacterTemplate=!detailRecord||detailRecord?.type!=="being";
+            const allowLifeActions=masterCardIdentity.requestedType==="character";
             const focusedAvatar = document.createElement("div");
-            if(useNativeCharacterTemplate)ensureCharacterFlags(char);
+            if(useNativeCharacterTemplate){ensureEntitySheetFields(char,detailRecord?.type==="location"?"location":"character");ensureCharacterFlags(char);}
             else{
                 ensureNarrativeCardFields(char);
                 if(isInstitutionEntityType(detailRecord?.type))ensureInstitutionResources(char);
@@ -4895,7 +6952,7 @@ meggyContainer.querySelector("#rollbackBtn").onclick = async () => {
             detailPanel.classList.toggle("being-master-detail",useNativeCharacterTemplate&&masterCardIdentity.isBeing);
             detailPanel.classList.toggle("narrative-entity-detail-panel",!useNativeCharacterTemplate);
             const nativeTabs=`
-                        <button data-dead-allowed="true" class="tabBtn" data-tab="sheet" style="flex:1; padding:10px; background:#1a1a1a; border:1px solid #7e57ff; color:white; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s;">📜 ${masterCardIdentity.isCharacter?"Karakter":"Varlık"}</button>
+                        <button data-dead-allowed="true" class="tabBtn" data-tab="sheet" style="flex:1; padding:10px; background:#1a1a1a; border:1px solid #7e57ff; color:white; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s;">📜 ${masterCardIdentity.label}</button>
                         <button data-dead-allowed="true" class="tabBtn" data-tab="envanter" style="flex:1; padding:10px; background:#1a1a1a; border:1px solid #7e57ff; color:white; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s;">🎒 Çanta</button>
                         <button data-dead-allowed="true" class="tabBtn" data-tab="yetenek" style="flex:1; padding:10px; background:#1a1a1a; border:1px solid #7e57ff; color:white; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s;">🧬 Yetenekler</button>
                         <button data-dead-allowed="true" class="tabBtn" data-tab="journal" style="flex:1; padding:10px; background:#1a1a1a; border:1px solid #7e57ff; color:white; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s;">📖 Journal</button>
@@ -5039,7 +7096,7 @@ meggyContainer.querySelector("#rollbackBtn").onclick = async () => {
 
         const showPasswordModal24 = (onSuccess) => showSealWordModal({
             title:"Kozmik Mühür",
-            message:"Düzenleme mührünü çözmek için kutsal kelimeyi yaz.",
+            message:"Enter the confirmation word to unlock editing.",
             hint:"Onay kelimesi: 24",
             keyword:"24",
             confirmText:"Mührü Aç",
@@ -5878,7 +7935,7 @@ const renderSkillTreeV2 = (char, container) => {
                                 <span style="color: #555; font-size: 0.7em;">[ ${sRem.toLocaleString()} / 240.000 ]</span>
                                 <div style="display: flex; gap: 4px;">
                                     <input type="number" min="0" step="1" id="splExp_${fam.id}_${sIdx}" placeholder="EXP" title="Ekle: mevcut EXP üzerine ekler. Ayarla: toplam EXP'yi bu değere eşitler." style="width: 70px; background: #0a0a0f; color: #dcdcdc; border: 1px solid #1a2a3a; border-radius: 2px; padding: 2px; outline:none; text-align:center; font-size:0.7em;">
-                                    <button class="addSplExpBtn" data-fid="${fam.id}" data-sidx="${sIdx}" title="Girilen EXP'yi mevcut büyü EXP'sine ekler" style="background: linear-gradient(45deg, #051930, #020a14); color: #4dc3ff; border: 1px solid #1a8cff; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.7em;">Ekle</button>
+                                    <button class="addSplExpBtn" data-fid="${fam.id}" data-sidx="${sIdx}" title="Girilen EXP'yi mevcut büyü EXP'sine ekler" style="background: linear-gradient(45deg, #051930, #020a14); color: #4dc3ff; border: 1px solid #1a8cff; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.7em;">Add</button>
                                     <button class="setSplExpBtn" data-fid="${fam.id}" data-sidx="${sIdx}" title="Büyünün toplam EXP'sini girilen değere eşitler" style="background: #020a14; color: #1a8cff; border: 1px solid #004d99; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.7em;">Ayarla</button>
                                 </div>
                             </div>
@@ -5907,7 +7964,7 @@ const renderSkillTreeV2 = (char, container) => {
                 let imageTitle = skill.isLocked ? "Görseli değiştirmek veya kaldırmak için kilidi aç." : (skill.image ? "Yetenek görselini değiştir" : "Yetenek görseli ekle");
                 let clearImageHtml = (!skill.isLocked && skill.image) ? `<button class="clearSkillImgBtn" data-idx="${idx}" title="Yetenek görselini kaldır" style="position:absolute; top:-4px; right:-4px; background:#a63535; color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:0.6em; cursor:pointer; font-weight:bold; box-shadow:0 0 4px black;">X</button>` : "";
                 let imgHtml = skill.image ? `<div style="position:relative; flex-shrink:0;"><div class="skillImgBtn" data-idx="${idx}" title="${imageTitle}" style="width:45px; height:45px; border-radius:4px; border:1px solid #6b5a3e; background-image:url('${actImg}'); background-size:cover; background-position:center; cursor:${imageCursor};"></div>${clearImageHtml}</div>` : `<div class="skillImgBtn" data-idx="${idx}" title="${imageTitle}" style="width:45px; height:45px; border-radius:4px; border:1px dashed #3d2b24; background:#100b09; display:flex; justify-content:center; align-items:center; cursor:${imageCursor}; font-size:1.2em; flex-shrink:0;">🖼️</div>`;
-                html += `<div class="skill-card-row skill-progress-card" style="background: #121212; border: 1px solid #1f1f1f; border-left: 2px solid #5c2a2a; border-radius: 4px; padding: 8px; display: flex; gap: 10px; position:relative; flex-shrink:0;">${!skill.isLocked && !deadSkillStructureLock ? `<button class="delSkillBtn" data-idx="${idx}" style="position:absolute; top:-6px; right:-6px; background:#a63535; border:none; color:white; border-radius:50%; width:20px; height:20px; cursor:pointer; font-weight:bold; font-size:0.7em;">X</button>` : ''}${imgHtml}<div style="flex-grow:1; display:flex; flex-direction:column; gap:4px;"><div style="display: flex; justify-content: space-between; align-items: center;">${skill.isLocked ? `<span style="font-weight: bold; color: #dcdcdc; font-size: 0.9em;">${skill.name}</span>` : `<input type="text" class="editName" data-idx="${idx}" value="${skill.name}" style="background:#0a0a0a; color:#dcdcdc; border:1px solid #3d2b24; border-radius:2px; padding:2px 4px; flex-grow:1; margin-right:8px; font-size:0.8em; outline:none;">`}<span style="color: #c4a25a; font-weight: bold; white-space:nowrap; font-size:0.85em;">Sv. ${sLevel}</span></div>${skill.isLocked ? `<div style="color:#7a7a7a; font-size:0.75em; font-style:italic;">${skill.desc}</div>` : `<input type="text" class="editDesc" data-idx="${idx}" value="${skill.desc}" style="background:#0a0a0a; color:#888; border:1px solid #3d2b24; border-radius:2px; padding:2px 4px; width:100%; box-sizing:border-box; font-size:0.75em; outline:none;">`}<div class="talent-energy-track" aria-label="${skill.name} seviye ilerlemesi"><div class="talent-energy-fill" data-progress-key="${safeProgressKey(skillProgressKey)}" data-target="${Number(sPct)}" style="width:${skillPreviousPct}%">${energyFlowSvg('skill')}</div></div><div style="display: flex; justify-content: space-between; align-items: center; margin-top:2px;"><span style="color: #555; font-size: 0.7em;">[ ${sRem.toLocaleString()} / 240.000 ]</span><div style="display: flex; gap: 4px;"><button class="lockBtn" data-idx="${idx}" style="background:none; border:none; color:${skill.isLocked?'#a63535':'#a3b19b'}; cursor:pointer; font-size:1em;">${skill.isLocked?'🔒':'💾'}</button><input type="number" min="0" step="1" id="expInp_${idx}" placeholder="EXP" value="${skill.isLocked?'':skill.exp}" title="Ekle: mevcut EXP üzerine ekler. Ayarla: toplam EXP'yi bu değere eşitler." style="width: 75px; background: #0a0a0f; color: #dcdcdc; border: 1px solid #2b1b17; border-radius: 2px; padding: 2px; outline:none; text-align:center; font-size:0.75em;">${skill.isLocked ? `<button class="addExpBtn" data-idx="${idx}" title="Girilen EXP'yi mevcut yetenek EXP'sine ekler" style="background: linear-gradient(45deg, #2b1b17, #1a1110); color: #c4a25a; border: 1px solid #4a3324; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.75em;">Ekle</button>` : `<button class="setExpBtn" data-idx="${idx}" title="Yeteneğin toplam EXP'sini girilen değere eşitler" style="background: #1c2b1c; color: #a3b19b; border: 1px solid #2d4a2d; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.75em;">Ayarla</button>`}</div></div></div></div>`;
+                html += `<div class="skill-card-row skill-progress-card" style="background: #121212; border: 1px solid #1f1f1f; border-left: 2px solid #5c2a2a; border-radius: 4px; padding: 8px; display: flex; gap: 10px; position:relative; flex-shrink:0;">${!skill.isLocked && !deadSkillStructureLock ? `<button class="delSkillBtn" data-idx="${idx}" style="position:absolute; top:-6px; right:-6px; background:#a63535; border:none; color:white; border-radius:50%; width:20px; height:20px; cursor:pointer; font-weight:bold; font-size:0.7em;">X</button>` : ''}${imgHtml}<div style="flex-grow:1; display:flex; flex-direction:column; gap:4px;"><div style="display: flex; justify-content: space-between; align-items: center;">${skill.isLocked ? `<span style="font-weight: bold; color: #dcdcdc; font-size: 0.9em;">${skill.name}</span>` : `<input type="text" class="editName" data-idx="${idx}" value="${skill.name}" style="background:#0a0a0a; color:#dcdcdc; border:1px solid #3d2b24; border-radius:2px; padding:2px 4px; flex-grow:1; margin-right:8px; font-size:0.8em; outline:none;">`}<span style="color: #c4a25a; font-weight: bold; white-space:nowrap; font-size:0.85em;">Sv. ${sLevel}</span></div>${skill.isLocked ? `<div style="color:#7a7a7a; font-size:0.75em; font-style:italic;">${skill.desc}</div>` : `<input type="text" class="editDesc" data-idx="${idx}" value="${skill.desc}" style="background:#0a0a0a; color:#888; border:1px solid #3d2b24; border-radius:2px; padding:2px 4px; width:100%; box-sizing:border-box; font-size:0.75em; outline:none;">`}<div class="talent-energy-track" aria-label="${skill.name} seviye ilerlemesi"><div class="talent-energy-fill" data-progress-key="${safeProgressKey(skillProgressKey)}" data-target="${Number(sPct)}" style="width:${skillPreviousPct}%">${energyFlowSvg('skill')}</div></div><div style="display: flex; justify-content: space-between; align-items: center; margin-top:2px;"><span style="color: #555; font-size: 0.7em;">[ ${sRem.toLocaleString()} / 240.000 ]</span><div style="display: flex; gap: 4px;"><button class="lockBtn" data-idx="${idx}" style="background:none; border:none; color:${skill.isLocked?'#a63535':'#a3b19b'}; cursor:pointer; font-size:1em;">${skill.isLocked?'🔒':'💾'}</button><input type="number" min="0" step="1" id="expInp_${idx}" placeholder="EXP" value="${skill.isLocked?'':skill.exp}" title="Ekle: mevcut EXP üzerine ekler. Ayarla: toplam EXP'yi bu değere eşitler." style="width: 75px; background: #0a0a0f; color: #dcdcdc; border: 1px solid #2b1b17; border-radius: 2px; padding: 2px; outline:none; text-align:center; font-size:0.75em;">${skill.isLocked ? `<button class="addExpBtn" data-idx="${idx}" title="Girilen EXP'yi mevcut yetenek EXP'sine ekler" style="background: linear-gradient(45deg, #2b1b17, #1a1110); color: #c4a25a; border: 1px solid #4a3324; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.75em;">Add</button>` : `<button class="setExpBtn" data-idx="${idx}" title="Yeteneğin toplam EXP'sini girilen değere eşitler" style="background: #1c2b1c; color: #a3b19b; border: 1px solid #2d4a2d; border-radius: 2px; cursor: pointer; padding: 2px 6px; font-weight: bold; font-size:0.75em;">Ayarla</button>`}</div></div></div></div>`;
             });
             html += deadSkillStructureLock
                 ? `<div class="dead-readonly-note" style="margin-top:6px;">☠️ Ölüm hâlinde yeni yetenek ekleme ve silme kapalıdır.</div>`
@@ -6766,7 +8823,7 @@ const renderQuestJournalUI = (char, key, container) => {
                 <div id="edTasksList" style="display:flex; flex-direction:column; gap:4px; margin-bottom: 8px; max-height:100px; overflow-y:auto;">
             `;
             tempTasks.forEach((t, tIdx) => { edHtml += `<div style="display:flex; gap:6px; align-items:center;"><input type="checkbox" class="cbTask" data-tidx="${tIdx}" ${t.done ? 'checked' : ''} style="width:14px; height:14px;"><input type="text" class="txtTask" data-tidx="${tIdx}" value="${t.desc}" style="flex-grow:1; background:transparent; border:none; border-bottom:1px solid #2b1b17; color:${t.done?'#666':'#dcdcdc'}; text-decoration:${t.done?'line-through':'none'}; outline:none; font-size:0.8em;"><button class="delTaskBtn" data-tidx="${tIdx}" style="background:none; border:none; color:#a63535; cursor:pointer; font-size:0.8em;">❌</button></div>`; });
-            edHtml += `</div><div style="display:flex; gap:6px; margin-bottom:12px;"><input type="text" id="newTskInp" placeholder="Yeni..." style="flex-grow:1; background:#140d0a; color:#e0d8c0; border:1px solid #3d2b24; border-radius:2px; padding:4px; font-size:0.8em;"><button id="addTskBtn" style="background:#2b1b17; color:#c4a25a; border:1px solid #4a3324; border-radius:2px; padding:0 8px; cursor:pointer; font-weight:bold; font-size:0.8em;">Ekle</button></div><button id="edSaveBtn" style="width:100%; padding:6px; background:linear-gradient(45deg, #2b1b17, #1a1110); color:#c4a25a; border:1px solid #4a3324; border-radius:2px; font-weight:bold; cursor:pointer; font-size:0.85em;">💠 Mührü Akışa İşle</button>`;
+            edHtml += `</div><div style="display:flex; gap:6px; margin-bottom:12px;"><input type="text" id="newTskInp" placeholder="Yeni..." style="flex-grow:1; background:#140d0a; color:#e0d8c0; border:1px solid #3d2b24; border-radius:2px; padding:4px; font-size:0.8em;"><button id="addTskBtn" style="background:#2b1b17; color:#c4a25a; border:1px solid #4a3324; border-radius:2px; padding:0 8px; cursor:pointer; font-weight:bold; font-size:0.8em;">Add</button></div><button id="edSaveBtn" style="width:100%; padding:6px; background:linear-gradient(45deg, #2b1b17, #1a1110); color:#c4a25a; border:1px solid #4a3324; border-radius:2px; font-weight:bold; cursor:pointer; font-size:0.85em;">💠 Mührü Akışa İşle</button>`;
             container.innerHTML = edHtml;
             container.querySelectorAll("input, textarea, select").forEach(el => el.onkeydown = e => e.stopPropagation());
             const saveCurrentInputs = () => {
@@ -7347,11 +9404,15 @@ await refreshPinTypesFromFolder();
 ALEK_VOICE_SPEAKERS = []; // Voice özelliği ayrı uygulamadadır.
 const syncMediaPowerState=()=>{
     if(!ambianceCanRun()){
+        snapshotAmbianceRuntime({persist:true});
+        pauseBardForPowerState();
         if(performanceConfig.pauseWhenHidden)pauseAmbianceRuntime({release:false});
         v2Content?.querySelectorAll?.("video").forEach(video=>{try{video.pause();}catch(_){}});
+        void saveToDB(null);
         return;
     }
     updateAtmosphereDisplay();
+    resumeBardFromPowerState();
     if(activeV2View==="performer")v2Content?.querySelectorAll?.("video[autoplay]").forEach(video=>video.play().catch(()=>{}));
 };
 document.addEventListener("visibilitychange",syncMediaPowerState);
@@ -7409,15 +9470,15 @@ v9Masthead.innerHTML = `
             <small>World Builder & Færa’Th</small>
         </span>
     </div>
-    <div class="v9-masthead-center"><span class="v9-view-label">Takvim</span><span class="v9-active-adventure"></span></div>
+    <div class="v9-masthead-center"><span class="v9-view-label">Calendar</span><span class="v9-active-adventure"></span></div>
     <div class="v9-edition">
-        <span>WORLD BUILDER & FÆRA’TH</span><b>v0.1.0</b>
-        <div class="v9-data-vault" role="group" aria-label="Veri taşıma kasası">
-            <button type="button" class="v9-data-vault-button export" data-data-transfer="export" title="Bütün oyun verisini sürümden bağımsız .alekdata kasasına aktar">
-                <i aria-hidden="true">↥</i><span>Dışarı Aktar</span>
+        <span>WORLD BUILDER & FÆRA’TH</span><b>v0.1.1</b>
+        <div class="v9-data-vault" role="group" aria-label="Data vault">
+            <button type="button" class="v9-data-vault-button export" data-data-transfer="export" title="Export all application data into a version-independent .alekdata vault.">
+                <i aria-hidden="true">↥</i><span>Export</span>
             </button>
-            <button type="button" class="v9-data-vault-button import" data-data-transfer="import" title="Eski veya yeni sürüm verisini güvenle içeri al">
-                <i aria-hidden="true">↧</i><span>İçeri Aktar</span>
+            <button type="button" class="v9-data-vault-button import" data-data-transfer="import" title="Import data safely from an older or newer version.">
+                <i aria-hidden="true">↧</i><span>Import</span>
             </button>
         </div>
     </div>
@@ -7426,27 +9487,27 @@ v9Masthead.innerHTML = `
 const v2Nav = document.createElement("div");
 v2Nav.className = "alek-v2-nav";
 v2Nav.innerHTML = `
-    <button data-view="ai">AI</button>
-    <button data-view="calendar">Takvim</button>
+    <button data-view="ai">Assistant</button>
+    <button data-view="calendar">Calendar</button>
     <button data-view="map">Cartographer’s Table</button>
-    <button data-view="connections">Tide</button>
+    <button data-view="connections">Connections</button>
     <button data-view="lore">Lore</button>
     <button data-view="reverie">Reverie</button>
     <button data-view="performer">Harmonizer</button>
-    <button data-action="emoji-keyboard" class="emoji-nav-key">✧ A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti</button>
+    <button data-action="emoji-keyboard" class="emoji-nav-key">✧ A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette</button>
 `;
 const v9NavGlyphs = {
     ai:"✧", calendar:"▦", reverie:"☾", map:"◇", connections:"∞", lore:"▤", performer:"♫"
 };
 const v9ViewTitles = {
-    ai:"AI", calendar:"Takvim", reverie:"Reverie", map:"Cartographer’s Table",
-    connections:"Tide", lore:"Lore", performer:"Harmonizer"
+    ai:"Assistant", calendar:"Calendar", reverie:"Reverie", map:"Cartographer’s Table",
+    connections:"Connections", lore:"Lore", performer:"Harmonizer"
 };
 v2Nav.querySelectorAll("button[data-view]").forEach(button => button.dataset.glyph = v9NavGlyphs[button.dataset.view] || "✧");
 const v9AdventureButton = v2Nav.querySelector('[data-action="adventure-manager"]');
 if(v9AdventureButton){v9AdventureButton.dataset.glyph="◈";v9AdventureButton.title=`Adventure kayıtları · Aktif: ${activeAdventure?.name||DEFAULT_ADVENTURE_NAME}`;}
 const v9PaletteButton = v2Nav.querySelector('[data-action="emoji-keyboard"]');
-if (v9PaletteButton) { v9PaletteButton.dataset.glyph = "✧"; v9PaletteButton.title = "A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti · Alt+G"; }
+if (v9PaletteButton) { v9PaletteButton.dataset.glyph = "✧"; v9PaletteButton.title = "A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette · Alt+G"; }
 const v21ForgottenButton=v2Nav.querySelector('[data-action="forgotten-vault"]');if(v21ForgottenButton){v21ForgottenButton.dataset.glyph="◌";v21ForgottenButton.title="Geri çağrılabilir mevcudatın tutulduğu Unutulmuşlar Mahzeni";}
 const v2Content = document.createElement("div");
 v2Content.className = "alek-v2-content";
@@ -7737,7 +9798,7 @@ const renderSafeAiView = () => {
             waiting.querySelector("p").textContent =
                 result?.error === "unknown_op"
                     ? "Bu Meggy revizyonu için paketteki AI uyumlu Core sürümünü kur."
-                    : `Core yanıtı: ${result?.error || "bilinmeyen hata"}`;
+                    : `Core yanıtı: ${result?.error || "unknown error"}`;
             return;
         }
 
@@ -8164,7 +10225,7 @@ const createPortableJsonVault=async({prefix="Alekrythae-Meggy-Veri"}={})=>{
     }
     const stamp=new Date().toISOString().replace(/[:T]/g,"-").replace(/\.\d+Z$/,""),fileName=`${prefix}-${stamp}.alekdata`;
     const packageData={
-        format:"alekrythae.meggy.data-json",formatVersion:2,appVersion:"0.1.0",architectureRevision:3,
+        format:"alekrythae.meggy.data-json",formatVersion:2,appVersion:"0.1.1",architectureRevision:3,
         createdUtc:new Date().toISOString(),storage:"portable-raw-sqlite-and-media",migrationPolicy:"preserve-known-and-unknown-fields",forwardCompatible:true,files
     };
     const blob=new Blob([JSON.stringify(packageData)],{type:"application/x-alekrythae-data+json"});
@@ -8682,7 +10743,7 @@ const renderReverieSheet=entry=>{
     const clearImage=document.createElement("button");clearImage.type="button";clearImage.textContent="Kapak ×";clearImage.title="Kapak görselini kaldır";clearImage.disabled=!editable||!entry.image;
     const addStoryImage=document.createElement("button");addStoryImage.type="button";addStoryImage.textContent="＋ Hikâye Görseli";addStoryImage.title="Görseli hikâye imlecinin bulunduğu yere ekler";addStoryImage.disabled=!editable;
     const seal=document.createElement("button");seal.type="button";seal.className="seal";seal.textContent=entry.sealed?(editable?"Mührü Yenile":"Mührü Çöz"):"Hikâyeyi Mühürle";
-    const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Sil";
+    const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Delete";
     const save=document.createElement("button");save.type="button";save.className="primary";save.textContent=entry.sealed?"Kaydet ve Mühürle":"Akışa Kaydet";save.disabled=!editable;
     const actions=document.createElement("div");actions.className="reverie-header-actions";actions.append(clearImage,addStoryImage,seal,del,save);
     bar.append(back,titleInput,dateBox);if(status)bar.appendChild(status);bar.appendChild(actions);root.appendChild(bar);
@@ -8785,7 +10846,7 @@ const createAdventureRecord=()=>{
         adventureRegistry.adventures.push(record);await seedAdventureFolder(record,{migrateLegacy:false});await initializeAdventureModeData(record);adventureRegistry.activeId=record.id;await writeAdventureRegistry();adventureManagerShade?.remove();adventureManagerShade=null;await loadAdventureRuntime(record,{persistCurrent:false,notice:false});renderAdventureManager();if(coverChoice.value==="choose")replaceAdventureCover(record);new Notice(`${record.name} oluşturuldu.`);return true;
     }});requestAnimationFrame(()=>{input.focus();input.select();});return modal;
 };
-const renameAdventureRecord=record=>{if(!record)return;const wrap=document.createElement("div"),input=document.createElement("input");input.value=record.name;wrap.append(makeLabeledField("Yeni ad",input));showV2Modal({title:"Macera Adını Değiştir",body:wrap,saveText:"Adı Değiştir",onSave:async()=>{const name=normalizeAdventureName(input.value);if(!name){new Notice("Geçerli bir ad yaz.");return false;}if(adventureNameExists(name,record.id)){new Notice("Bu macera adı veya klasör adı zaten kullanılıyor.");return false;}const oldBase=adventureBasePath(record),oldFolder=record.folder,newFolder=normalizeAdventureFolder(name),newBase=`Games/${newFolder}`;if(oldFolder!==newFolder){const moved=await window.__alekGameRename(oldFolder,newFolder);if(!moved?.ok){new Notice(`Macera klasörü taşınamadı: ${moved?.error||"bilinmeyen hata"}`);return false;}if(String(record.cover||"").startsWith(oldBase+"/"))record.cover=newBase+String(record.cover).slice(oldBase.length);}record.name=name;record.folder=newFolder;record.updatedAt=new Date().toISOString();if(record.id===activeAdventure?.id){activeAdventure=record;configureAdventurePaths(record);}await writeAdventureRegistry();updateAdventureNavButton();renderAdventureManager();return true;}});};
+const renameAdventureRecord=record=>{if(!record)return;const wrap=document.createElement("div"),input=document.createElement("input");input.value=record.name;wrap.append(makeLabeledField("Yeni ad",input));showV2Modal({title:"Macera Adını Değiştir",body:wrap,saveText:"Adı Değiştir",onSave:async()=>{const name=normalizeAdventureName(input.value);if(!name){new Notice("Geçerli bir ad yaz.");return false;}if(adventureNameExists(name,record.id)){new Notice("Bu macera adı veya klasör adı zaten kullanılıyor.");return false;}const oldBase=adventureBasePath(record),oldFolder=record.folder,newFolder=normalizeAdventureFolder(name),newBase=`Games/${newFolder}`;if(oldFolder!==newFolder){const moved=await window.__alekGameRename(oldFolder,newFolder);if(!moved?.ok){new Notice(`Macera klasörü taşınamadı: ${moved?.error||"unknown error"}`);return false;}if(String(record.cover||"").startsWith(oldBase+"/"))record.cover=newBase+String(record.cover).slice(oldBase.length);}record.name=name;record.folder=newFolder;record.updatedAt=new Date().toISOString();if(record.id===activeAdventure?.id){activeAdventure=record;configureAdventurePaths(record);}await writeAdventureRegistry();updateAdventureNavButton();renderAdventureManager();return true;}});};
 const resetRuntimeWithoutAdventure=()=>{
     activeAdventure=null;adventureRegistry.activeId="";adventureManagerSelectionId=null;Object.keys(DATA_PATHS).forEach(key=>delete DATA_PATHS[key]);activeJourneyPath="";activeSavePath="";journeyNotes=[];allSaveFiles=[];
     activeV2View="calendar";currentJourneyContainerKey="root";currentJourneyLocationId=null;journeySelected.clear();selectedLoreKey=null;activeReverieId=null;loreScrollState={nav:0,reader:0};
@@ -8794,7 +10855,7 @@ const resetRuntimeWithoutAdventure=()=>{
 };
 const deleteAdventureRecord=record=>{if(!record)return;showAlekrythaePasswordModal(async()=>{
     const wasActive=record.id===activeAdventure?.id;if(wasActive&&__dataBaselineReady)await persistNewDataModel();
-    const removed=await window.__alekGameDelete(record.folder);if(!removed?.ok){new Notice(`Macera silinemedi: ${removed?.error||"bilinmeyen hata"}`);return;}
+    const removed=await window.__alekGameDelete(record.folder);if(!removed?.ok){new Notice(`Macera silinemedi: ${removed?.error||"unknown error"}`);return;}
     adventureRegistry.adventures=adventureRegistry.adventures.filter(item=>item.id!==record.id);const fallback=adventureRegistry.adventures[0]||null;adventureRegistry.activeId=wasActive?(fallback?.id||""):(activeAdventure?.id||"");await writeAdventureRegistry();
     if(wasActive){if(fallback)await loadAdventureRuntime(fallback,{persistCurrent:false,notice:false});else resetRuntimeWithoutAdventure();}
     adventureManagerSelectionId=activeAdventure?.id||fallback?.id||null;renderAdventureManager();new Notice(`${record.name} ve Games/${record.folder} klasörü silindi.`);
@@ -9093,7 +11154,7 @@ const renderNotesModal = () => {
     const textarea=document.createElement("textarea");textarea.placeholder="Bu güne yeni not...";wrap.appendChild(textarea);
     const add=document.createElement("button");add.textContent="Not Ekle";add.className="inline-primary";wrap.appendChild(add);
     const syncCalendarBadge=()=>{const cell=v2Content.querySelector(`.calendar-day-v2[data-day="${d.day}"]`);if(!cell)return;const count=Array.isArray(day.notes)?day.notes.length:0;let badge=cell.querySelector(".calendar-note-badge");cell.classList.toggle("has-story",count>0);cell.classList.toggle("has-notes",count>0);if(count){if(!badge){badge=document.createElement("em");badge.className="calendar-note-badge";cell.appendChild(badge);}badge.textContent=`✎ ${count} not`;}else badge?.remove();};
-    const draw=()=>{list.innerHTML="";(day.notes||[]).forEach(note=>{const row=document.createElement("div");row.className="note-row";const txt=document.createElement("div");txt.textContent=note.text;const del=document.createElement("button");del.textContent="Sil";del.onclick=()=>{showPasswordModal24(async()=>{day.notes=day.notes.filter(n=>n.id!==note.id);await saveToDB(null);syncCalendarBadge();draw();new Notice("🗑️ Takvim notu silindi.");});};row.append(txt,del);list.appendChild(row);});if(!day.notes.length){const e=document.createElement("div");e.className="empty-state";e.textContent="Bu güne henüz not düşülmedi.";list.appendChild(e);}};
+    const draw=()=>{list.innerHTML="";(day.notes||[]).forEach(note=>{const row=document.createElement("div");row.className="note-row";const txt=document.createElement("div");txt.textContent=note.text;const del=document.createElement("button");del.textContent="Delete";del.onclick=()=>{showPasswordModal24(async()=>{day.notes=day.notes.filter(n=>n.id!==note.id);await saveToDB(null);syncCalendarBadge();draw();new Notice("🗑️ Takvim notu silindi.");});};row.append(txt,del);list.appendChild(row);});if(!day.notes.length){const e=document.createElement("div");e.className="empty-state";e.textContent="Bu güne henüz not düşülmedi.";list.appendChild(e);}};
     draw();
     add.onclick=async()=>{const val=textarea.value.trim();if(!val)return;day.notes.push({id:makeId("note"),text:val,createdAt:new Date().toISOString()});textarea.value="";await saveToDB(null);syncCalendarBadge();draw();};
     showV2Modal({title:`${d.day} ${calendarMonthLabel(d.month)} ${d.year} · Notlar`,body:wrap,onSave:async()=>true,saveText:"Kapat",wide:true});
@@ -9114,7 +11175,7 @@ const renderAllCalendarNotes=()=>{
     const list=document.createElement("div");list.className="all-calendar-notes-list";root.appendChild(list);
     const collect=()=>Object.entries(storyData.days||{}).flatMap(([key,day])=>{const match=/^(\d+)-(\d{2})-(\d{2})$/.exec(key);if(!match||!Array.isArray(day?.notes))return[];const year=Number(match[1]),month=Number(match[2]),date=Number(match[3]);return day.notes.map((note,index)=>({key,day,year,month,date,note,index}));}).sort((a,b)=>a.year-b.year||a.month-b.month||a.date-b.date||String(a.note?.createdAt||"").localeCompare(String(b.note?.createdAt||""))||a.index-b.index);
     const returnToCalendar=()=>{storyData.calendar.view="calendar";v2Content.classList.remove("alek-notes-mode");scheduleAutoSave(null,60);if(viewTitle)viewTitle.textContent="Takvim";renderFantasyCalendar();};
-    const draw=()=>{const entries=collect();summary.textContent=`${entries.length} not`;list.replaceChildren();if(!entries.length){const empty=document.createElement("div");empty.className="all-calendar-notes-empty";empty.innerHTML="<strong>Henüz not yok.</strong><span>Takvimde bir güne not düştüğünde burada kronolojik olarak görünecek.</span>";list.appendChild(empty);return;}entries.forEach(entry=>{const card=document.createElement("article");card.className="all-calendar-note-card";const date=document.createElement("div");date.className="all-calendar-note-date";date.innerHTML=`<strong>${entry.date} ${calendarMonthLabel(entry.month)} ${entry.year}</strong><small>${entry.note?.createdAt?new Date(entry.note.createdAt).toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"}):"Takvim notu"}</small>`;const text=document.createElement("p");text.textContent=String(entry.note?.text||"");const actions=document.createElement("div");actions.className="all-calendar-note-actions";const open=document.createElement("button");open.type="button";open.textContent="Günü Aç";open.onclick=()=>{storyData.calendar.currentYear=entry.year;storyData.calendar.currentMonth=entry.month;storyData.calendar.selectedDay=entry.date;returnToCalendar();requestAnimationFrame(()=>renderNotesModal());};const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Sil";del.onclick=()=>showPasswordModal24(async()=>{entry.day.notes=entry.day.notes.filter(n=>entry.note?.id?String(n?.id||"")!==String(entry.note.id):n!==entry.note);await saveToDB(null);draw();new Notice("🗑️ Takvim notu silindi.");});actions.append(open,del);card.append(date,text,actions);list.appendChild(card);});};
+    const draw=()=>{const entries=collect();summary.textContent=`${entries.length} not`;list.replaceChildren();if(!entries.length){const empty=document.createElement("div");empty.className="all-calendar-notes-empty";empty.innerHTML="<strong>Henüz not yok.</strong><span>Takvimde bir güne not düştüğünde burada kronolojik olarak görünecek.</span>";list.appendChild(empty);return;}entries.forEach(entry=>{const card=document.createElement("article");card.className="all-calendar-note-card";const date=document.createElement("div");date.className="all-calendar-note-date";date.innerHTML=`<strong>${entry.date} ${calendarMonthLabel(entry.month)} ${entry.year}</strong><small>${entry.note?.createdAt?new Date(entry.note.createdAt).toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}):"Takvim notu"}</small>`;const text=document.createElement("p");text.textContent=String(entry.note?.text||"");const actions=document.createElement("div");actions.className="all-calendar-note-actions";const open=document.createElement("button");open.type="button";open.textContent="Günü Aç";open.onclick=()=>{storyData.calendar.currentYear=entry.year;storyData.calendar.currentMonth=entry.month;storyData.calendar.selectedDay=entry.date;returnToCalendar();requestAnimationFrame(()=>renderNotesModal());};const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Delete";del.onclick=()=>showPasswordModal24(async()=>{entry.day.notes=entry.day.notes.filter(n=>entry.note?.id?String(n?.id||"")!==String(entry.note.id):n!==entry.note);await saveToDB(null);draw();new Notice("🗑️ Takvim notu silindi.");});actions.append(open,del);card.append(date,text,actions);list.appendChild(card);});};
     calendarGate.onclick=returnToCalendar;
     v2Content.replaceChildren(root);draw();
 };
@@ -9135,7 +11196,7 @@ const renderTavernHistory = () => {
     if(!encounters.length){const empty=document.createElement("div");empty.className="empty-state";empty.textContent="Bu günde karşılaşma üst bilgisi bulunmuyor.";meta.appendChild(empty);}root.appendChild(meta);
     const log=document.createElement("div");log.className="tavern-history-log";
     const messages=getMessagesForSelectedDay();
-    messages.forEach(msg=>{const row=document.createElement("article");row.className=`tavern-history-message ${msg.speakerType==="meggy"?"meggy":"speaker"}`;const who=document.createElement("div");who.innerHTML=`<strong>${escapeHtmlValue(msg.speakerName||"Bilinmeyen")}</strong><small>${escapeHtmlValue(msg.timeStartedAt||msg.createdAt||"")}</small>`;const edit=document.createElement("textarea");edit.value=String(msg.text||"");const actions=document.createElement("div");const save=document.createElement("button");save.textContent="Kaydet";const del=document.createElement("button");del.textContent="Sil";del.className="danger";save.onclick=async()=>{msg.text=edit.value.trim();msg.updatedAt=new Date().toISOString();await saveToDB(null);new Notice("Konuşma kaydı güncellendi.");};del.onclick=async()=>{storyData.messages=storyData.messages.filter(item=>msg.id?String(item.id)!==String(msg.id):item!==msg);getMessagesForSelectedDay().forEach((item,index)=>item.order=index+1);await saveToDB(null);renderTavernHistory();};actions.append(save,del);row.append(who,edit,actions);log.appendChild(row);});
+    messages.forEach(msg=>{const row=document.createElement("article");row.className=`tavern-history-message ${msg.speakerType==="meggy"?"meggy":"speaker"}`;const who=document.createElement("div");who.innerHTML=`<strong>${escapeHtmlValue(msg.speakerName||"Bilinmeyen")}</strong><small>${escapeHtmlValue(msg.timeStartedAt||msg.createdAt||"")}</small>`;const edit=document.createElement("textarea");edit.value=String(msg.text||"");const actions=document.createElement("div");const save=document.createElement("button");save.textContent="Kaydet";const del=document.createElement("button");del.textContent="Delete";del.className="danger";save.onclick=async()=>{msg.text=edit.value.trim();msg.updatedAt=new Date().toISOString();await saveToDB(null);new Notice("Konuşma kaydı güncellendi.");};del.onclick=async()=>{storyData.messages=storyData.messages.filter(item=>msg.id?String(item.id)!==String(msg.id):item!==msg);getMessagesForSelectedDay().forEach((item,index)=>item.order=index+1);await saveToDB(null);renderTavernHistory();};actions.append(save,del);row.append(who,edit,actions);log.appendChild(row);});
     if(!messages.length){const empty=document.createElement("div");empty.className="empty-state";empty.textContent="Bu güne ait kayıtlı konuşma yok.";log.appendChild(empty);}root.appendChild(log);
     v2Content.innerHTML="";v2Content.appendChild(root);
     back.onclick=()=>{storyData.calendar.view="calendar";scheduleAutoSave(null,60);renderFantasyCalendar();};notes.onclick=renderNotesModal;
@@ -9859,8 +11920,8 @@ function alekCardStateFilter(item){
     return "";
 }
 function alekCardStateRibbon(item){
-    if(item&&item.isDead)return '<div class="alek-state-ribbon dead"><div class="main">ÖLDÜ</div><div class="sub">Yaşam bağı koptu</div></div>';
-    if(alekComputeIsUnconscious(item))return '<div class="alek-state-ribbon unconscious"><div class="main">BAYGIN</div><div class="sub">Yaşam akışı sürüyor</div></div>';
+    if(item&&item.isDead)return '<div class="alek-state-ribbon dead"><div class="main">DEAD</div><div class="sub">Life has ended</div></div>';
+    if(alekComputeIsUnconscious(item))return '<div class="alek-state-ribbon unconscious"><div class="main">UNCONSCIOUS</div><div class="sub">Life signs continue</div></div>';
     return "";
 }
 function alekApplyJourneyCardState(card,item){
@@ -9873,7 +11934,7 @@ function alekApplyJourneyCardState(card,item){
     card.querySelectorAll(".alek-state-ribbon,.alek-immortal-chip").forEach(n=>n.remove());
     const imgWrap=card.querySelector(".journey-image");
     if(imgWrap)imgWrap.style.filter=alekCardStateFilter(item);
-    if(immortal)card.insertAdjacentHTML("beforeend",'<div class="alek-immortal-chip">∞ ÖLÜMSÜZ</div>');
+    if(immortal)card.insertAdjacentHTML("beforeend",'<div class="alek-immortal-chip">∞ IMMORTAL</div>');
     const rib=alekCardStateRibbon(item);
     if(rib)card.insertAdjacentHTML("beforeend",rib);
 }
@@ -9895,9 +11956,9 @@ function alekApplyJourneyCardState(card,item){
 .journey-selection-carry button{min-height:31px;padding:5px 9px;border-radius:8px;cursor:pointer;font-weight:800}
 .journey-selection-cancel{border:1px solid rgba(112,126,136,.58);background:#101920;color:#a9bac2}
 .journey-grid.journey-drop-here{position:relative;outline:1px dashed rgba(104,207,242,.46);outline-offset:-7px;background:radial-gradient(circle at 50% 44%,rgba(33,114,147,.075),transparent 58%)}
-.journey-grid.journey-drop-here:after{content:"W + tık · seçili kartları bu kümeye bırak";position:sticky;left:50%;bottom:12px;z-index:30;align-self:flex-end;transform:translateX(-50%);padding:7px 11px;border:1px solid rgba(96,198,235,.52);border-radius:999px;background:rgba(5,17,24,.92);color:#aee8fa;font-size:.68rem;pointer-events:none;box-shadow:0 7px 20px rgba(0,0,0,.38)}
+.journey-grid.journey-drop-here:after{content:"W + click · drop selected cards into this set";position:sticky;left:50%;bottom:12px;z-index:30;align-self:flex-end;transform:translateX(-50%);padding:7px 11px;border:1px solid rgba(96,198,235,.52);border-radius:999px;background:rgba(5,17,24,.92);color:#aee8fa;font-size:.68rem;pointer-events:none;box-shadow:0 7px 20px rgba(0,0,0,.38)}
 .journey-card.group.journey-drop-target{border-color:#70d8fa!important;box-shadow:0 0 0 3px rgba(75,190,231,.14),0 18px 38px rgba(0,0,0,.48)!important}
-.journey-card.group.journey-drop-target:after{content:"SEÇİLİLERİ BURAYA BIRAK";position:absolute;z-index:18;left:50%;top:50%;transform:translate(-50%,-50%);width:78%;padding:9px 8px;border:1px solid rgba(128,224,255,.8);border-radius:10px;background:rgba(5,24,34,.9);color:#d4f6ff;text-align:center;font-size:.66rem;font-weight:950;letter-spacing:.08em;pointer-events:none;box-shadow:0 0 24px rgba(66,190,233,.24)}
+.journey-card.group.journey-drop-target:after{content:"DROP SELECTED HERE";position:absolute;z-index:18;left:50%;top:50%;transform:translate(-50%,-50%);width:78%;padding:9px 8px;border:1px solid rgba(128,224,255,.8);border-radius:10px;background:rgba(5,24,34,.9);color:#d4f6ff;text-align:center;font-size:.66rem;font-weight:950;letter-spacing:.08em;pointer-events:none;box-shadow:0 0 24px rgba(66,190,233,.24)}
 .journey-card.character{width:230px!important;height:310px!important;border:0!important;border-radius:22px!important;background:#020b13!important;box-shadow:0 16px 38px rgba(0,0,0,.5),0 0 22px rgba(28,144,211,.13)!important}
 .journey-card.character:hover{transform:translateY(-7px) scale(1.01);box-shadow:0 23px 48px rgba(0,0,0,.58),0 0 28px rgba(50,186,244,.2)!important}
 .journey-card.character:before{display:none!important}
@@ -10204,7 +12265,7 @@ const openForgottenVault = () => {
             return {batchId,items,root:items.find(item=>item.root)||items[0]};
         }).filter(batch=>batch.root).sort((a,b)=>String(b.root.forgottenAt).localeCompare(String(a.root.forgottenAt)));
         if(!batches.length){const empty=document.createElement("div");empty.className="empty-state large";empty.innerHTML="<strong>Mahzen sessiz.</strong><span>Q + tık ile seçip Delete dediğin mevcudatlar burada mühürlü kümeler hâlinde saklanır.</span>";list.appendChild(empty);return;}
-        batches.forEach(batch=>{const entry=batch.root,row=document.createElement("article");row.className="forgotten-card";const rootNames=batch.items.filter(item=>item.root).map(item=>item.name).filter(Boolean);const summary=rootNames.slice(0,3).join(", ")+(rootNames.length>3?` +${rootNames.length-3}`:"");row.title=batch.items.map(item=>item.name).filter(Boolean).join("\n");row.innerHTML=`<div class="forgotten-card-icon">${entry.type==="character"?"🍃":entry.type==="location"?"🌱":entry.type==="group"?"👥":entry.type==="mount"?"⛵":entry.type==="being"?"✥":entry.type==="dynasty"?"♜":entry.type==="society"?"⌘":"◇"}</div><div class="forgotten-card-copy"><strong>${escapeHtmlValue(summary||entry.name||"İsimsiz Mevcudat")}</strong><small>${batch.items.length} mevcudatlık mühür · ${new Date(entry.forgottenAt).toLocaleString("tr-TR")}</small></div>`;const actions=document.createElement("div");actions.className="forgotten-card-actions";const restore=document.createElement("button");restore.textContent="Geri Çağır";const purge=document.createElement("button");purge.className="danger";purge.textContent="Sonsuza Sil";actions.append(restore,purge);row.appendChild(actions);
+        batches.forEach(batch=>{const entry=batch.root,row=document.createElement("article");row.className="forgotten-card";const rootNames=batch.items.filter(item=>item.root).map(item=>item.name).filter(Boolean);const summary=rootNames.slice(0,3).join(", ")+(rootNames.length>3?` +${rootNames.length-3}`:"");row.title=batch.items.map(item=>item.name).filter(Boolean).join("\n");row.innerHTML=`<div class="forgotten-card-icon">${entry.type==="character"?"🍃":entry.type==="location"?"🌱":entry.type==="group"?"👥":entry.type==="mount"?"⛵":entry.type==="being"?"✥":entry.type==="dynasty"?"♜":entry.type==="society"?"⌘":"◇"}</div><div class="forgotten-card-copy"><strong>${escapeHtmlValue(summary||entry.name||"İsimsiz Mevcudat")}</strong><small>${batch.items.length} mevcudatlık mühür · ${new Date(entry.forgottenAt).toLocaleString("en-US")}</small></div>`;const actions=document.createElement("div");actions.className="forgotten-card-actions";const restore=document.createElement("button");restore.textContent="Geri Çağır";const purge=document.createElement("button");purge.className="danger";purge.textContent="Sonsuza Sil";actions.append(restore,purge);row.appendChild(actions);
             restore.onclick=async()=>{const restored=[...batch.items].sort((a,b)=>Number(!!b.root)-Number(!!a.root));for(const item of restored)restoreEntitySnapshot(item);const restoredKeys=new Set(restored.map(item=>item.key));for(const item of restored){const record=entityFromSpatialKey(item.key);if(!record)continue;const parent=String(item.originalContainerKey||"root");record.entity.containerKey=parent==="root"||entityFromSpatialKey(parent)||restoredKeys.has(parent)?parent:"root";}forgottenData.entries=(forgottenData.entries||[]).filter(item=>String(item.batchId||item.id)!==String(batch.batchId));await saveToDB(`${restored.length} mevcudat mahzenden geri çağrıldı.`);draw();if(activeV2View==="journey")renderJourney();};
             purge.onclick=()=>showAlekrythaePasswordModal(async()=>{forgottenData.entries=(forgottenData.entries||[]).filter(item=>String(item.batchId||item.id)!==String(batch.batchId));await saveToDB(`${batch.items.length} mevcudat kalıcı olarak unutuldu.`);draw();},{title:"Sonsuz Unutuş",message:`${batch.items.length} mevcudatlık bu mühür artık geri döndürülemeyecek biçimde silinecek. Parola: Ałek’ryŧhæ`});list.appendChild(row);
         });
@@ -11590,7 +13651,7 @@ const openTideLinkEditor=(rel,data,onDone)=>{
     drawDirection();direction.onclick=()=>{directionValue=directionValue==="one-way"?"two-way":"one-way";drawDirection();};
     eventName.value=rel.eventName||"";eventName.placeholder="Örn. Feryat Buhranı, evlilik, ihanet...";note.value=rel.note||"";note.placeholder="Bağın orta noktasında gösterilecek açıklama";reverse.type="button";reverse.className="tide-reverse-link";reverse.textContent="⇄ Bağın yönünü ters çevir";reverse.onclick=()=>{const from=rel.from;rel.from=rel.to;rel.to=from;new Notice("Bağın yönü ters çevrildi.");};
     wrap.append(makeLabeledField("Bağ türü",direction),makeLabeledField("Olay",eventName),makeLabeledField("Not",note),reverse);
-    const modal=showV2Modal({title:"Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ Bağı",body:wrap,saveText:"Bağı Kaydet",dangerText:"Bağı Sil",onSave:async()=>{rel.direction=directionValue;rel.eventName=eventName.value.trim();rel.note=note.value.trim();rel.updatedAt=new Date().toISOString();await saveToDB(null);onDone();}});
+    const modal=showV2Modal({title:"Connection",body:wrap,saveText:"Save Relation",dangerText:"Delete Relation",onSave:async()=>{rel.direction=directionValue;rel.eventName=eventName.value.trim();rel.note=note.value.trim();rel.updatedAt=new Date().toISOString();await saveToDB(null);onDone();}});
     if(modal.danger)modal.danger.onclick=async()=>{data.links=data.links.filter(item=>item.id!==rel.id);modal.shade.remove();await saveToDB(null);onDone();};
 };
 const nextTideSketchNumber=()=>{const root=storyData.connections;return Math.max(Number(root.lastSketchNumber)||0,...(root.sketches||[]).map(s=>Number(s.number)||0))+1;};
@@ -11609,7 +13670,7 @@ const createTideSketch=async()=>{const root=ensureTideSketchSystem(),number=next
 const renderConnections = () => {
     ensureV4Data();const rootData=ensureTideSketchSystem(),data=ensureActiveTideSketch();let selectedImageId=null;
     const root=document.createElement("div");root.className="board-root tide-root";const tools=document.createElement("div");tools.className="board-tools board-tools-stacked";
-    const top=document.createElement("div");top.className="board-top-row";const title=document.createElement("div");title.className="board-title";title.innerHTML="<strong>Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ</strong><small>İlişkilerin, ipuçlarının ve A̤ɐ͜ɨǣ́ꞎ͡ƣ bağlarının yaşayan tahtası</small>";
+    const top=document.createElement("div");top.className="board-top-row";const title=document.createElement("div");title.className="board-title";title.innerHTML="<strong>Connections</strong><small>A living board for relations, clues, and A̤ɐ͜ɨǣ́ꞎ͡ƣ links</small>";
     const actions=document.createElement("div");actions.className="board-action-row";
     const sketchSelect=document.createElement("select");rootData.sketches.forEach(item=>{const option=document.createElement("option");option.value=item.id;option.textContent=item.name;option.selected=item.id===data.id;sketchSelect.appendChild(option);});
     const addSketch=document.createElement("button");addSketch.textContent="＋ Realm";addSketch.title="Yeni Realm";const renameSketch=document.createElement("button");renameSketch.textContent="Adı";renameSketch.title="Realm adını değiştir";const deleteSketch=document.createElement("button");deleteSketch.textContent="Sil";deleteSketch.title="Realm'i sil";
@@ -11639,12 +13700,12 @@ const renderConnections = () => {
         linkLayer.replaceChildren();const defs=document.createElementNS(svgNS,"defs"),marker=document.createElementNS(svgNS,"marker"),arrow=document.createElementNS(svgNS,"path");marker.id="tideArrowHead";marker.setAttribute("viewBox","0 0 10 10");marker.setAttribute("refX","8.4");marker.setAttribute("refY","5");marker.setAttribute("markerWidth","9");marker.setAttribute("markerHeight","9");marker.setAttribute("markerUnits","strokeWidth");marker.setAttribute("orient","auto-start-reverse");arrow.setAttribute("d","M 0 0 L 10 5 L 0 10 z");arrow.setAttribute("fill","#8ec5f0");marker.appendChild(arrow);defs.appendChild(marker);linkLayer.appendChild(defs);
         data.links.forEach(rel=>{const a=data.pins.find(p=>p.id===rel.from),b=data.pins.find(p=>p.id===rel.to);if(!a||!b)return;rel.direction=rel.direction||"two-way";const group=document.createElementNS(svgNS,"g");group.classList.add("tide-link-group");const lineEl=document.createElementNS(svgNS,"line");lineEl.setAttribute("x1",a.x);lineEl.setAttribute("y1",a.y);lineEl.setAttribute("x2",b.x);lineEl.setAttribute("y2",b.y);lineEl.setAttribute("class","nexus-link");lineEl.setAttribute("marker-end","url(#tideArrowHead)");if(rel.direction==="two-way")lineEl.setAttribute("marker-start","url(#tideArrowHead)");const hit=document.createElementNS(svgNS,"line");hit.setAttribute("x1",a.x);hit.setAttribute("y1",a.y);hit.setAttribute("x2",b.x);hit.setAttribute("y2",b.y);hit.setAttribute("class","nexus-link-hit");hit.onclick=e=>{e.stopPropagation();openTideLinkEditor(rel,data,renderConnections);};hit.oncontextmenu=e=>{e.preventDefault();openTideLinkEditor(rel,data,renderConnections);};group.append(lineEl,hit);const labelText=tideLinkText(rel);if(labelText){const midX=(a.x+b.x)/2,midY=(a.y+b.y)/2,foreign=document.createElementNS(svgNS,"foreignObject");foreign.setAttribute("x",String(midX-120));foreign.setAttribute("y",String(midY-34));foreign.setAttribute("width","240");foreign.setAttribute("height","68");const label=document.createElement("div");label.className="tide-link-label";if(rel.eventName){const event=document.createElement("strong");event.textContent=rel.eventName;label.appendChild(event);}if(rel.note){const noteEl=document.createElement("span");noteEl.textContent=rel.note;label.appendChild(noteEl);}label.onclick=e=>{e.stopPropagation();openTideLinkEditor(rel,data,renderConnections);};foreign.appendChild(label);group.appendChild(foreign);}linkLayer.appendChild(group);});
     };refreshLinks();
-    data.pins.forEach(pin=>{if(!pin.imagePath)pin.imagePath=ALEK_PIN_FILES.get(pin.pinType)||selectedPinCatalogItem()?.path||"";const el=makePinVisual(pin);if(connectionLinkStartId===pin.id)el.classList.add("link-source");pinLayer.appendChild(el);let moved=false,start=null;el.addEventListener("pointerdown",e=>{if(e.button!==0||connectionLinkMode)return;e.stopPropagation();moved=false;const world=workspace.screenToWorld(e.clientX,e.clientY);start={clientX:e.clientX,clientY:e.clientY,worldX:world.x,worldY:world.y,x:pin.x,y:pin.y};el.setPointerCapture?.(e.pointerId);});el.addEventListener("pointermove",e=>{if(!start)return;const world=workspace.screenToWorld(e.clientX,e.clientY),raw={x:start.x+world.x-start.worldX,y:start.y+world.y-start.worldY},next=snapPoint(raw);if(Math.abs(e.clientX-start.clientX)+Math.abs(e.clientY-start.clientY)>2)moved=true;pin.x=next.x;pin.y=next.y;el.style.left=`${pin.x}px`;el.style.top=`${pin.y}px`;refreshLinks();});el.addEventListener("pointerup",async e=>{if(!start)return;start=null;el.releasePointerCapture?.(e.pointerId);if(moved)await saveToDB(null);});el.onclick=async e=>{e.stopPropagation();if(connectionLinkMode){if(!connectionLinkStartId){connectionLinkStartId=pin.id;el.classList.add("link-source");return;}if(connectionLinkStartId===pin.id){connectionLinkStartId=null;renderConnections();return;}if(!data.links.some(l=>(l.from===connectionLinkStartId&&l.to===pin.id)||(l.to===connectionLinkStartId&&l.from===pin.id)))data.links.push({id:makeId("link"),from:connectionLinkStartId,to:pin.id,direction:connectionLinkDirection,eventName:"",note:"",createdAt:new Date().toISOString()});connectionLinkStartId=null;await saveToDB(null);renderConnections();return;}if(!moved)openPinEditor({pin,pins:data.pins,links:data.links,onDone:renderConnections,title:"Tide Of A̤ɐ͜ɨǣ́ꞎ͡ƣ Raptiyesi"});};el.oncontextmenu=async e=>{e.preventDefault();data.pins=data.pins.filter(p=>p.id!==pin.id);data.links=data.links.filter(l=>l.from!==pin.id&&l.to!==pin.id);await saveToDB(null);renderConnections();};});
+    data.pins.forEach(pin=>{if(!pin.imagePath)pin.imagePath=ALEK_PIN_FILES.get(pin.pinType)||selectedPinCatalogItem()?.path||"";const el=makePinVisual(pin);if(connectionLinkStartId===pin.id)el.classList.add("link-source");pinLayer.appendChild(el);let moved=false,start=null;el.addEventListener("pointerdown",e=>{if(e.button!==0||connectionLinkMode)return;e.stopPropagation();moved=false;const world=workspace.screenToWorld(e.clientX,e.clientY);start={clientX:e.clientX,clientY:e.clientY,worldX:world.x,worldY:world.y,x:pin.x,y:pin.y};el.setPointerCapture?.(e.pointerId);});el.addEventListener("pointermove",e=>{if(!start)return;const world=workspace.screenToWorld(e.clientX,e.clientY),raw={x:start.x+world.x-start.worldX,y:start.y+world.y-start.worldY},next=snapPoint(raw);if(Math.abs(e.clientX-start.clientX)+Math.abs(e.clientY-start.clientY)>2)moved=true;pin.x=next.x;pin.y=next.y;el.style.left=`${pin.x}px`;el.style.top=`${pin.y}px`;refreshLinks();});el.addEventListener("pointerup",async e=>{if(!start)return;start=null;el.releasePointerCapture?.(e.pointerId);if(moved)await saveToDB(null);});el.onclick=async e=>{e.stopPropagation();if(connectionLinkMode){if(!connectionLinkStartId){connectionLinkStartId=pin.id;el.classList.add("link-source");return;}if(connectionLinkStartId===pin.id){connectionLinkStartId=null;renderConnections();return;}if(!data.links.some(l=>(l.from===connectionLinkStartId&&l.to===pin.id)||(l.to===connectionLinkStartId&&l.from===pin.id)))data.links.push({id:makeId("link"),from:connectionLinkStartId,to:pin.id,direction:connectionLinkDirection,eventName:"",note:"",createdAt:new Date().toISOString()});connectionLinkStartId=null;await saveToDB(null);renderConnections();return;}if(!moved)openPinEditor({pin,pins:data.pins,links:data.links,onDone:renderConnections,title:"Connections Pin"});};el.oncontextmenu=async e=>{e.preventDefault();data.pins=data.pins.filter(p=>p.id!==pin.id);data.links=data.links.filter(l=>l.from!==pin.id&&l.to!==pin.id);await saveToDB(null);renderConnections();};});
     root.appendChild(workspace.viewport);v2Content.replaceChildren(root);activeConnectionRuntime={workspace,data,imageLayer,pinLayer,linkLayer};
     sketchSelect.onchange=async()=>{rootData.activeSketchId=sketchSelect.value;connectionLinkStartId=null;connectionLinkMode=false;await saveToDB(null);renderConnections();};
     addSketch.onclick=async()=>{await createTideSketch();connectionLinkStartId=null;connectionLinkMode=false;renderConnections();};
-    renameSketch.onclick=()=>{const wrap=document.createElement("div"),input=document.createElement("input");input.value=data.name;wrap.appendChild(input);showV2Modal({title:"Tide Realm Adı",body:wrap,onSave:async()=>{data.name=input.value.trim()||`Realm-${data.number}`;await saveToDB(null);renderConnections();}});};
-    deleteSketch.onclick=()=>{const wrap=document.createElement("div");wrap.textContent=`${data.name} silinecek.`;showV2Modal({title:"Tide Realm Sil",body:wrap,saveText:"Sil",onSave:async()=>{rootData.sketches=rootData.sketches.filter(item=>item.id!==data.id);if(!rootData.sketches.length){const fresh=blankTideSketch(1);rootData.sketches.push(fresh);rootData.activeSketchId=fresh.id;rootData.lastSketchNumber=1;}else rootData.activeSketchId=rootData.sketches[rootData.sketches.length-1].id;connectionLinkMode=false;connectionLinkStartId=null;await saveToDB(null);renderConnections();}});};
+    renameSketch.onclick=()=>{const wrap=document.createElement("div"),input=document.createElement("input");input.value=data.name;wrap.appendChild(input);showV2Modal({title:"Connections Realm Name",body:wrap,onSave:async()=>{data.name=input.value.trim()||`Realm-${data.number}`;await saveToDB(null);renderConnections();}});};
+    deleteSketch.onclick=()=>{const wrap=document.createElement("div");wrap.textContent=`${data.name} silinecek.`;showV2Modal({title:"Delete Connections Realm",body:wrap,saveText:"Sil",onSave:async()=>{rootData.sketches=rootData.sketches.filter(item=>item.id!==data.id);if(!rootData.sketches.length){const fresh=blankTideSketch(1);rootData.sketches.push(fresh);rootData.activeSketchId=fresh.id;rootData.lastSketchNumber=1;}else rootData.activeSketchId=rootData.sketches[rootData.sketches.length-1].id;connectionLinkMode=false;connectionLinkStartId=null;await saveToDB(null);renderConnections();}});};
     link.onclick=()=>{connectionLinkMode=!connectionLinkMode;connectionLinkStartId=null;renderConnections();};
     historyUndo.onclick=()=>applyViewHistory("tide","undo");historyRedo.onclick=()=>applyViewHistory("tide","redo");
     addImage.onclick=()=>showCustomImagePicker("avatar",async paths=>{const list=(Array.isArray(paths)?paths:[paths]).filter(Boolean);const origin=snapPoint(workspace.currentPointer());let zBase=Math.max(0,...data.images.map(i=>Number(i.z)||0));for(let index=0;index<list.length;index++){const path=list[index];const column=index%4,row=Math.floor(index/4),size=await probeWorkspaceImageSize(path,380);const point=snapPoint({x:origin.x-size.width/2+column*52,y:origin.y-size.height/2+row*52});data.images.push({id:makeId("tide_image"),path,x:point.x,y:point.y,width:size.width,height:size.height,rotation:0,defaultRotation:0,opacity:1,z:zBase+index+1,locked:false,createdAt:new Date().toISOString()});}if(list.length){await saveToDB(null);renderConnections();}},{multiple:true,bucket:"Map"});
@@ -11890,31 +13951,31 @@ const trimMapStrokeAtPoint=(sketch,shape,clickPoint,silent=false)=>{
 };
 
 const MAP_TOOL_DEFS=[
-{id:"select",icon:"⌖",title:"Seç ve düzenle",description:"Resim ve raptiyeleri tek tek seçer.",group:"Temel"},
-{id:"boxselect",icon:"⬚",title:"Kare Seçim",description:"Çizim ve metinleri dikdörtgen alanla seçer; seçim bitince taşıma kipine geçer.",group:"Seçim"},
-{id:"lassoselect",icon:"➰",title:"Kement Seçim",description:"Çizim ve metinleri serbest bir sınırla seçer; seçim bitince taşıma kipine geçer.",group:"Seçim"},
-{id:"freehand",icon:"✎",title:"Serbest çizim",description:"Fareyi sürükleyerek serbest çizgi oluşturur.",group:"Temel"},
-{id:"line",icon:"╱",title:"Düz çizgi",description:"İki nokta arasında düz çizgi çizer.",group:"Çizgiler"},
-{id:"polyline",icon:"⌁",title:"Polyline",description:"Ardışık düz parçalardan açık çizgi oluşturur. Space veya çift tık bitirir.",group:"Çizgiler"},
-{id:"centerline",icon:"┄",title:"Merkez çizgisi",description:"Kesik çizgi biçiminde yardımcı eksen oluşturur.",group:"Çizgiler"},
-{id:"ray",icon:"↗",title:"Işın",description:"Başlangıç noktasından seçilen yönde uzun yardımcı çizgi oluşturur.",group:"Çizgiler"},
-{id:"xline",icon:"↔",title:"Sonsuz çizgi",description:"Seçilen iki nokta doğrultusunda iki yöne uzanan yardımcı çizgi oluşturur.",group:"Çizgiler"},
-{id:"box",icon:"▭",title:"2 noktalı dikdörtgen",description:"İki köşeden eksene paralel dikdörtgen çizer.",group:"Geometri"},
-{id:"rect",icon:"▱",title:"Döndürülebilir dikdörtgen",description:"İlk iki nokta taban, üçüncü nokta yüksekliktir. Shift kare yapar.",group:"Geometri"},
-{id:"ellipse",icon:"◯",title:"2 noktalı elips",description:"Sürükleyerek eksene paralel elips veya daire çizer.",group:"Geometri"},
-{id:"circle",icon:"◉",title:"3 noktalı elips",description:"İlk iki nokta ana eksen, üçüncü nokta genişliktir. Shift daire yapar.",group:"Geometri"},
-{id:"triangle",icon:"△",title:"Üçgen",description:"Üç noktayla üçgen çizer. Shift eşkenar kısıtı uygular.",group:"Geometri"},
-{id:"polygon",icon:"⬡",title:"Çokgen",description:"Noktalarla kapalı çokgen oluşturur. Space veya çift tık bitirir.",group:"Geometri"},
-{id:"arc",icon:"⌒",title:"2 noktalı yay",description:"İki nokta arasında yarım çember yayı çizer.",group:"Eğriler"},
-{id:"arc3",icon:"◔",title:"3 noktalı yay",description:"İki uç ve bir kontrol noktasıyla yay çizer.",group:"Eğriler"},
-{id:"spline",icon:"〰",title:"Spline",description:"Kontrol noktalarıyla yumuşak eğri oluşturur. Space veya çift tık bitirir.",group:"Eğriler"},
-{id:"point",icon:"·",title:"Nokta",description:"Haritaya referans noktası ekler.",group:"Açıklama"},
-{id:"text",icon:"T",title:"Metin",description:"Haritaya açıklama metni ekler.",group:"Açıklama"},
-{id:"dimension",icon:"↔̇",title:"Ölçü",description:"İki nokta arasındaki mesafeyi ölçü çizgisiyle gösterir.",group:"Açıklama"},
-{id:"trim",icon:"✂",title:"Trim",description:"Kesişimler arasındaki çizgi parçasını keser.",group:"Düzenleme"},
-{id:"eraser",icon:"⌫",title:"Silgi",description:"Çizim öğelerini sürükleyerek siler.",group:"Düzenleme"},
-{id:"pin",icon:"✦",title:"Raptiye",description:"Seçili raptiyeyi haritaya yerleştirir.",group:"Açıklama"}
-];
+{id:"select",icon:"⌖",title:"Select & Edit",description:"Select images and pins individually.",group:"Basic"},
+{id:"boxselect",icon:"⬚",title:"Box Selection",description:"Select drawings and text with a rectangular area, then move the selection.",group:"Selection"},
+{id:"lassoselect",icon:"➰",title:"Lasso Selection",description:"Select drawings and text with a freeform boundary, then move the selection.",group:"Selection"},
+{id:"freehand",icon:"✎",title:"Freehand",description:"Draw a free line by dragging the pointer.",group:"Basic"},
+{id:"line",icon:"╱",title:"Line",description:"Draw a straight line between two points.",group:"Lines"},
+{id:"polyline",icon:"⌁",title:"Polyline",description:"Create an open path from consecutive straight segments. Finish with Space or double-click.",group:"Lines"},
+{id:"centerline",icon:"┄",title:"Centerline",description:"Create a dashed construction axis.",group:"Lines"},
+{id:"ray",icon:"↗",title:"Ray",description:"Create a long construction line from a start point in the chosen direction.",group:"Lines"},
+{id:"xline",icon:"↔",title:"Infinite Line",description:"Create a construction line extending both ways through two selected points.",group:"Lines"},
+{id:"box",icon:"▭",title:"2-Point Rectangle",description:"Draw an axis-aligned rectangle from two corners.",group:"Geometry"},
+{id:"rect",icon:"▱",title:"Rotated Rectangle",description:"First two points define the base, the third defines height. Hold Shift for a square.",group:"Geometry"},
+{id:"ellipse",icon:"◯",title:"2-Point Ellipse",description:"Drag to draw an axis-aligned ellipse or circle.",group:"Geometry"},
+{id:"circle",icon:"◉",title:"3-Point Ellipse",description:"First two points define the major axis, the third defines width. Hold Shift for a circle.",group:"Geometry"},
+{id:"triangle",icon:"△",title:"Triangle",description:"Draw a triangle with three points. Hold Shift for an equilateral constraint.",group:"Geometry"},
+{id:"polygon",icon:"⬡",title:"Polygon",description:"Create a closed polygon from points. Finish with Space or double-click.",group:"Geometry"},
+{id:"arc",icon:"⌒",title:"2-Point Arc",description:"Draw a semicircular arc between two points.",group:"Curves"},
+{id:"arc3",icon:"◔",title:"3-Point Arc",description:"Draw an arc from two endpoints and one control point.",group:"Curves"},
+{id:"spline",icon:"〰",title:"Spline",description:"Create a smooth curve from control points. Finish with Space or double-click.",group:"Curves"},
+{id:"point",icon:"·",title:"Point",description:"Add a reference point to the map.",group:"Annotation"},
+{id:"text",icon:"T",title:"Text",description:"Add annotation text to the map.",group:"Annotation"},
+{id:"dimension",icon:"↔̇",title:"Dimension",description:"Show the distance between two points with a dimension line.",group:"Annotation"},
+{id:"trim",icon:"✂",title:"Trim",description:"Trim a line segment between intersections.",group:"Editing"},
+{id:"eraser",icon:"⌫",title:"Eraser",description:"Delete drawing elements by dragging over them.",group:"Editing"},
+{id:"pin",icon:"✦",title:"Pin",description:"Place the selected pin on the map.",group:"Annotation"}
+]
 const MAP_TOOL_BY_ID=new Map(MAP_TOOL_DEFS.map(item=>[item.id,item]));
 const mapAreaSelectionStyle=document.createElement("style");
 mapAreaSelectionStyle.id="alekMapAreaSelectionStyle";
@@ -11931,6 +13992,24 @@ mapAreaSelectionStyle.textContent=`
 `;
 document.head.appendChild(mapAreaSelectionStyle);
 const MAP_QUICK_TOOL_IDS=["select","freehand","line","trim","eraser"];
+const MAP_DRAW_SWATCHES=[
+    {name:"Blue Moon",value:"#5ec7ff"},{name:"Golden Glow",value:"#e4d6ae"},{name:"Emerald Garden",value:"#69c37d"},{name:"Crystal Turquoise",value:"#6ee7d7"},
+    {name:"Flower Pink",value:"#f08cc7"},{name:"Epic Violet",value:"#9a7cff"},{name:"Flame Amber",value:"#ffb15a"},{name:"Deep Sky",value:"#4d8cff"},
+    {name:"Silver Mist",value:"#b8c6d1"},{name:"Coral Red",value:"#ff7b7b"}
+];
+const WORLD_SURFACE_THEME_OPTIONS=[
+    {id:"light-fantasy",label:"Light Fantasy",icon:"☀"},
+    {id:"epic-fantasy",label:"Epic Fantasy",icon:"♛"},
+    {id:"dark-fantasy",label:"Dark Fantasy",icon:"☾"},
+    {id:"cosmic-fantasy",label:"Cosmic Fantasy",icon:"✦"},
+    {id:"magical-fantasy",label:"Magical Fantasy",icon:"❈"},
+    {id:"nautical-fantasy",label:"Nautical Fantasy",icon:"⚓"},
+    {id:"high-fantasy",label:"High Fantasy",icon:"🜂"},
+    {id:"progress-fantasy",label:"Progress Fantasy",icon:"➹"}
+];
+const normalizeWorldSurfaceTheme=value=>{const fallback="epic-fantasy",raw=String(value||fallback).trim().toLocaleLowerCase("tr");return WORLD_SURFACE_THEME_OPTIONS.some(item=>item.id===raw)?raw:fallback;};
+const activeWorldSurfaceTheme=()=>normalizeWorldSurfaceTheme(storyData?.settings?.worldSurfaceTheme||window.__alekWorldSurfaceTheme||window.AlekrythaeWorldMap?.resolveThemeId?.()||"epic-fantasy");
+const persistWorldSurfaceTheme=id=>{const theme=normalizeWorldSurfaceTheme(id);window.__alekWorldSurfaceTheme=theme;if(storyData?.settings)storyData.settings.worldSurfaceTheme=theme;window.dispatchEvent(new CustomEvent("alek-world-surface-theme-changed",{detail:{theme}}));scheduleAutoSave?.(null,100);return theme;};
 let alekMapTooltipTimer=0,alekMapTooltip=null,alekMapTooltipTarget=null;
 function closeAlekMapTooltip(){clearTimeout(alekMapTooltipTimer);alekMapTooltipTimer=0;alekMapTooltip?.remove();alekMapTooltip=null;alekMapTooltipTarget=null;}
 function getAlekMapTooltipText(target){return String(target?.dataset?.tip||target?.getAttribute?.("aria-label")||target?.getAttribute?.("title")||"").trim();}
@@ -11964,7 +14043,7 @@ if(!window.__alekMapTooltipWatcherInstalled){
 const finishSpline=async(cancel=false,rerender=false)=>{if(!mapSplineDraft)return null;const d=mapSplineDraft;mapSplineDraft=null;const minPoints=d.shape.type==="polygon"?3:2;if(cancel||d.shape.points.length<minPoints){d.liveEl?.remove();return null;}if(d.shape.type==="polygon"){const first=d.shape.points[0],last=d.shape.points[d.shape.points.length-1];if(Math.hypot(first.x-last.x,first.y-last.y)>1e-6)d.shape.points.push({...first});d.shape.fill=mapFillEnabled?`${mapDrawColor}33`:"none";}d.liveEl?.classList.remove("live");d.sketch.strokes.push(d.shape);d.sketch.redoStrokes=[];await saveToDB(null);if(rerender)renderMap();return d.shape;};
 
 const renderMap=()=>{
-    mapPointDraft=null;ensureV4Data();const realm=ensureActiveRealm(),sketch=ensureActiveSketch(realm);sketch.view3d=false;sketch.camera.mode3d=false;let selectedImageId=activeMapSelectedImageId;
+    mapPointDraft=null;ensureV4Data();window.__alekWorldSurfaceTheme=activeWorldSurfaceTheme();const realm=ensureActiveRealm(),sketch=ensureActiveSketch(realm);sketch.view3d=false;sketch.camera.mode3d=false;let selectedImageId=activeMapSelectedImageId;
     const root=document.createElement("div");root.className=`board-root map-root ${mapMode==="select"?"select-mode":"drawing-mode"} map-2d-mode`;
     const tools=document.createElement("div");tools.className="board-tools board-tools-stacked map-tools";
     const top=document.createElement("div");top.className="board-top-row";
@@ -11989,13 +14068,14 @@ const renderMap=()=>{
     sketchActions.append(realmGroup,sectionGroup,mapViewGroup);
     sketchActions.style.setProperty("display","flex","important");sketchActions.style.setProperty("justify-content","flex-start","important");sketchActions.style.setProperty("width","max-content","important");sketchActions.style.setProperty("max-width","100%","important");sketchActions.style.setProperty("gap","2px","important");
     [realmGroup,sectionGroup,mapViewGroup].forEach(group=>{group.style.setProperty("flex","0 0 auto","important");group.style.setProperty("width","max-content","important");group.style.setProperty("min-width","0","important");group.style.setProperty("gap","1px","important");});
-    const paletteTrigger=document.createElement("button");paletteTrigger.className="map-tool-symbol map-palette-trigger";paletteTrigger.textContent="✦";paletteTrigger.title='Çizim Paleti · " tuşu';
+    const paletteTrigger=document.createElement("button");paletteTrigger.className="map-tool-symbol map-palette-trigger";paletteTrigger.textContent="✦";paletteTrigger.title='Çizim Paleti · Fantasy renkleri ve tema kasası · " tuşu';
     const styleGroup=document.createElement("div");styleGroup.className="map-tool-group map-style-group";
-    const color=document.createElement("input");color.type="color";color.value=mapDrawColor;color.title="Yeni çizimlerin rengi";color.setAttribute("aria-label","Çizgi rengi");
+    const color=document.createElement("input");color.type="color";color.value=mapDrawColor;color.title="Yeni çizimlerin rengi";color.setAttribute("aria-label","Çizgi rengi");color.tabIndex=-1;color.style.position="absolute";color.style.opacity="0";color.style.pointerEvents="none";color.style.width="1px";color.style.height="1px";
+    const colorButton=document.createElement("button");colorButton.className="map-color-trigger";colorButton.type="button";colorButton.textContent="◈";colorButton.title="Drawing Color Palette";colorButton.setAttribute("aria-label","Drawing Color Palette");
     const width=document.createElement("select");[1,2,3,5,8,12].forEach(n=>{const option=document.createElement("option");option.value=n;option.textContent=`${n}px`;option.selected=n===mapDrawWidth;width.appendChild(option);});
     const dash=document.createElement("select");[["solid","Düz"],["dashed","Kesik"],["dotted","Noktalı"]].forEach(([value,text])=>{const option=document.createElement("option");option.value=value;option.textContent=text;option.selected=value===mapDrawDash;dash.appendChild(option);});
     const fill=document.createElement("button");fill.textContent=mapFillEnabled?"◼":"□";fill.title="Üçgen, çember/elips ve dikdörtgen/karenin içini seçili rengin yarı saydam tonuyla doldurur.";fill.classList.toggle("active",mapFillEnabled);
-    const undo=document.createElement("button");undo.textContent="↶";undo.title="Geri al";undo.disabled=!sketch.strokes.length;const redo=document.createElement("button");redo.textContent="↷";redo.title="İleri al";redo.disabled=!sketch.redoStrokes.length;styleGroup.append(color,width,dash,fill,undo,redo);
+    const undo=document.createElement("button");undo.textContent="↶";undo.title="Geri al";undo.disabled=!sketch.strokes.length;const redo=document.createElement("button");redo.textContent="↷";redo.title="İleri al";redo.disabled=!sketch.redoStrokes.length;styleGroup.append(color,colorButton,width,dash,fill,undo,redo);
     const gridGroup=document.createElement("div");gridGroup.className="map-tool-group grid-control-group";
     const gridDown=document.createElement("button");gridDown.textContent="−";gridDown.title="Gridi küçült";
     const gridSelect=document.createElement("select");gridSelect.title="Grid aralığı";GRID_SIZE_OPTIONS.forEach(value=>{const option=document.createElement("option");option.value=value;option.textContent=`Grid ${value}`;option.selected=value===sketch.gridSize;gridSelect.appendChild(option);});
@@ -12003,7 +14083,7 @@ const renderMap=()=>{
     const snapToggle=document.createElement("button");snapToggle.textContent=sketch.snapToGrid?"⊞":"⊡";snapToggle.title="Grid yakalamayı aç / kapat";snapToggle.classList.toggle("active",sketch.snapToGrid);
     const resetRotation=document.createElement("button");resetRotation.textContent="⟲";resetRotation.title="Görünümü varsayılana getir";
     gridGroup.append(gridDown,gridSelect,gridUp,snapToggle,resetRotation);
-    const pinGroup=document.createElement("div");pinGroup.className="map-tool-group map-utility-group";const pinPicker=makePinPaletteButton({label:"📌"});pinPicker.title="Raptiye Paleti";const mapLibraryButton=makeMapLibraryButton();mapLibraryButton.textContent="▤";mapLibraryButton.title="Cartographer’s Table Kütüphanesi";const helpButton=document.createElement("button");helpButton.textContent="?";helpButton.title="Kısayol Rehberi · F1";helpButton.onclick=()=>window.__alekOpenShortcutHelp?.();pinGroup.append(paletteTrigger,pinPicker,mapLibraryButton,helpButton);
+    const pinGroup=document.createElement("div");pinGroup.className="map-tool-group map-utility-group";const pinPicker=makePinPaletteButton({label:"📌"});pinPicker.title="Raptiye Paleti";const mapLibraryButton=makeMapLibraryButton();mapLibraryButton.textContent="▤";mapLibraryButton.title="Cartographer’s Table Kütüphanesi";const helpButton=document.createElement("button");helpButton.textContent="?";helpButton.title="Kısayol Rehberi · F1";helpButton.onclick=()=>window.__alekOpenShortcutHelp?.();pinGroup.append(pinPicker,mapLibraryButton,helpButton);
     sketchActions.append(styleGroup,gridGroup,pinGroup);
     sketchActions.classList.add("map-single-toolbar");
     sketchActions.style.setProperty("display","flex","important");sketchActions.style.setProperty("align-items","center","important");sketchActions.style.setProperty("justify-content","flex-start","important");sketchActions.style.setProperty("flex-wrap","nowrap","important");sketchActions.style.setProperty("width","100%","important");sketchActions.style.setProperty("max-width","100%","important");sketchActions.style.setProperty("overflow-x","auto","important");sketchActions.style.setProperty("overflow-y","hidden","important");sketchActions.style.setProperty("gap","2px","important");
@@ -12130,6 +14210,7 @@ const renderMap=()=>{
         mapMode=nextMode;applyModeUI();
     };
     const openDrawingPalette=()=>{
+        closeColorPalette?.();
         if(drawingPaletteShade?.isConnected){closeDrawingPalette();return;}
         const shade=document.createElement("div");shade.className="map-draw-palette-shade";
         const panel=document.createElement("section");panel.className="map-draw-palette-panel";
@@ -12139,20 +14220,44 @@ const renderMap=()=>{
         const grid=document.createElement("div");grid.className="map-draw-palette-grid";
         MAP_TOOL_DEFS.forEach(def=>{const button=document.createElement("button");button.className="map-draw-palette-item";button.dataset.mode=def.id;button.dataset.search=`${def.title} ${def.description} ${def.group}`.toLocaleLowerCase("tr");button.classList.toggle("active",mapMode===def.id);const icon=document.createElement("span"),copy=document.createElement("span"),name=document.createElement("strong"),desc=document.createElement("small"),group=document.createElement("em");icon.className="map-draw-palette-icon";icon.textContent=def.icon;name.textContent=def.title;desc.textContent=def.description;group.textContent=def.group;copy.className="map-draw-palette-copy";copy.append(name,desc);button.append(icon,copy,group);button.onclick=async()=>{await setMapMode(def.id);closeDrawingPalette();};grid.appendChild(button);});
         const settings=document.createElement("div");settings.className="map-draw-palette-settings";
-        const colorClone=document.createElement("input");colorClone.type="color";colorClone.value=mapDrawColor;colorClone.setAttribute("aria-label","Çizgi rengi");
+        const activeInfo=document.createElement("div");activeInfo.className="map-draw-palette-active";
+        activeInfo.textContent=`Active tool: ${MAP_TOOL_BY_ID.get(mapMode)?.title||"Select & Edit"}`;
+        const inlineControls=document.createElement("div");inlineControls.className="map-draw-palette-inline-controls";
         const widthClone=document.createElement("select");[1,2,3,5,8,12].forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=`${n}px`;o.selected=n===mapDrawWidth;widthClone.appendChild(o);});
-        const dashClone=document.createElement("select");[["solid","Düz"],["dashed","Kesik"],["dotted","Noktalı"]].forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;o.selected=v===mapDrawDash;dashClone.appendChild(o);});
-        const fillClone=document.createElement("button");fillClone.textContent=mapFillEnabled?"◼ Dolgu açık":"□ Dolgu kapalı";fillClone.classList.toggle("active",mapFillEnabled);
-        const activeInfo=document.createElement("div");activeInfo.className="map-draw-palette-active";activeInfo.textContent=`Aktif araç: ${MAP_TOOL_BY_ID.get(mapMode)?.title||"Seç"}`;
-        colorClone.oninput=()=>{color.value=colorClone.value;color.dispatchEvent(new Event("input",{bubbles:true}));window.setTimeout(()=>{try{colorClone.blur();search.focus({preventScroll:true});}catch(_){}},24);};colorClone.onchange=()=>{color.value=colorClone.value;color.dispatchEvent(new Event("change",{bubbles:true}));window.setTimeout(()=>{try{colorClone.blur();search.focus({preventScroll:true});}catch(_){}},24);};widthClone.onchange=()=>{width.value=widthClone.value;width.dispatchEvent(new Event("change",{bubbles:true}));};dashClone.onchange=()=>{dash.value=dashClone.value;dash.dispatchEvent(new Event("change",{bubbles:true}));};fillClone.onclick=()=>{fill.click();fillClone.textContent=mapFillEnabled?"◼ Dolgu açık":"□ Dolgu kapalı";fillClone.classList.toggle("active",mapFillEnabled);};
-        settings.append(activeInfo,colorClone,widthClone,dashClone,fillClone);
-        search.oninput=()=>{const q=search.value.trim().toLocaleLowerCase("tr");grid.querySelectorAll(".map-draw-palette-item").forEach(item=>item.hidden=!!q&&!item.dataset.search.includes(q));};
+        const dashClone=document.createElement("select");[["solid","Solid"],["dashed","Dashed"],["dotted","Dotted"]].forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;o.selected=v===mapDrawDash;dashClone.appendChild(o);});
+        const fillClone=document.createElement("button");fillClone.textContent=mapFillEnabled?"◼ Fill on":"□ Fill off";fillClone.classList.toggle("active",mapFillEnabled);
+        inlineControls.append(widthClone,dashClone,fillClone);
+        widthClone.onchange=()=>{width.value=widthClone.value;width.dispatchEvent(new Event("change",{bubbles:true}));};dashClone.onchange=()=>{dash.value=dashClone.value;dash.dispatchEvent(new Event("change",{bubbles:true}));};fillClone.onclick=()=>{fill.click();fillClone.textContent=mapFillEnabled?"◼ Fill on":"□ Fill off";fillClone.classList.toggle("active",mapFillEnabled);};
+        settings.append(activeInfo,inlineControls);
+        search.oninput=()=>{const q=search.value.trim().toLocaleLowerCase("en-US");grid.querySelectorAll(".map-draw-palette-item").forEach(item=>item.hidden=!!q&&!item.dataset.search.includes(q));};
         panel.append(head,search,grid,settings);shade.appendChild(panel);document.body.appendChild(shade);drawingPaletteShade=shade;
         close.onclick=closeDrawingPalette;shade.onpointerdown=e=>{if(e.target===shade)closeDrawingPalette();};
         panel.onkeydown=e=>{if(e.key==="Escape"){e.preventDefault();closeDrawingPalette();}};
         requestAnimationFrame(()=>search.focus());
     };
-    paletteTrigger.onclick=openDrawingPalette;
+    let colorPalettePopover=null;
+    const closeColorPalette=()=>{if(!colorPalettePopover)return;try{colorPalettePopover.remove();}catch(_){}colorPalettePopover=null;};
+    const __alekHexToRgb=hex=>{const raw=String(hex||"#000000").replace(/^#/,"").padEnd(6,"0").slice(0,6);return[parseInt(raw.slice(0,2),16)||0,parseInt(raw.slice(2,4),16)||0,parseInt(raw.slice(4,6),16)||0];};
+    const __alekRgbToHex=(r,g,b)=>`#${[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,"0")).join("")}`;
+    const __alekHueRgb=h=>{h=((Number(h)||0)%360+360)%360;const c=1,x=c*(1-Math.abs((h/60)%2-1));let r=0,g=0,b=0;if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}return[r*255,g*255,b*255];};
+    const __alekRgbHue=(r,g,b)=>{r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;if(d<1e-6)return 0;let h;if(max===r)h=60*(((g-b)/d)%6);else if(max===g)h=60*((b-r)/d+2);else h=60*((r-g)/d+4);return(h+360)%360;};
+    const __alekPalettePointFromHex=hex=>{const[r,g,b]=__alekHexToRgb(hex),max=Math.max(r,g,b),min=Math.min(r,g,b),h=__alekRgbHue(r,g,b);let x=.5;if(max>=254)x=.5*(1-min/255);else if(min<=1)x=.5+.5*(1-max/255);else{x=.5+.5*(1-max/255);}return{x:Math.max(0,Math.min(1,x)),y:Math.max(0,Math.min(1,h/360))};};
+    const __alekPaletteHexFromPoint=(x,y)=>{x=Math.max(0,Math.min(1,x));y=Math.max(0,Math.min(1,y));const base=__alekHueRgb(y*360);if(x<=.5){const t=x/.5;return __alekRgbToHex(...base.map(v=>255+(v-255)*t));}const t=(x-.5)/.5;return __alekRgbToHex(...base.map(v=>v*(1-t)));};
+    const openColorPalette=()=>{
+        if(colorPalettePopover?.isConnected){closeColorPalette();return;}
+        closeDrawingPalette();
+        const pop=document.createElement("div");pop.className="alek-map-color-popover";pop.setAttribute("role","dialog");pop.setAttribute("aria-label","Drawing color palette");
+        const field=document.createElement("div");field.className="alek-map-color-spectrum";field.tabIndex=0;field.setAttribute("aria-label","Color spectrum. Vertical axis changes hue; horizontal axis moves from white through pure color to black.");
+        const cursor=document.createElement("span");cursor.className="alek-map-color-cursor";field.appendChild(cursor);
+        const footer=document.createElement("div");footer.className="alek-map-color-footer";const preview=document.createElement("span");preview.className="alek-map-color-preview";const value=document.createElement("span");value.className="alek-map-color-value";footer.append(preview,value);pop.append(field,footer);document.body.appendChild(pop);colorPalettePopover=pop;
+        const place=()=>{const r=colorButton.getBoundingClientRect(),pw=Math.min(360,Math.max(280,window.innerWidth-24));pop.style.width=`${pw}px`;const ph=286,left=Math.max(12,Math.min(window.innerWidth-pw-12,r.left+r.width/2-pw/2)),below=r.bottom+8,top=below+ph<=window.innerHeight-12?below:Math.max(12,r.top-ph-8);pop.style.left=`${left}px`;pop.style.top=`${top}px`;};
+        const syncFromHex=hex=>{const point=__alekPalettePointFromHex(hex);cursor.style.left=`${point.x*100}%`;cursor.style.top=`${point.y*100}%`;preview.style.background=hex;value.textContent=String(hex||"").toUpperCase();};
+        const applyPoint=(clientX,clientY,commit=false)=>{const r=field.getBoundingClientRect(),x=(clientX-r.left)/Math.max(1,r.width),y=(clientY-r.top)/Math.max(1,r.height),hex=__alekPaletteHexFromPoint(x,y);color.value=hex;color.dispatchEvent(new Event(commit?"change":"input",{bubbles:true}));syncFromHex(hex);};
+        let dragging=false;field.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();dragging=true;try{field.setPointerCapture(e.pointerId);}catch(_){}applyPoint(e.clientX,e.clientY,false);};field.onpointermove=e=>{if(!dragging)return;applyPoint(e.clientX,e.clientY,false);};field.onpointerup=e=>{if(!dragging)return;dragging=false;applyPoint(e.clientX,e.clientY,true);try{field.releasePointerCapture(e.pointerId);}catch(_){}};field.onpointercancel=()=>{dragging=false;};
+        const outside=e=>{if(colorPalettePopover&&e.target!==colorButton&&!colorPalettePopover.contains(e.target)){document.removeEventListener("pointerdown",outside,true);closeColorPalette();}};setTimeout(()=>document.addEventListener("pointerdown",outside,true),0);
+        pop.onkeydown=e=>{if(e.key==="Escape"){e.preventDefault();closeColorPalette();colorButton.focus();}};window.addEventListener("resize",place,{once:true});place();syncFromHex(mapDrawColor);requestAnimationFrame(()=>field.focus({preventScroll:true}));
+    };
+    paletteTrigger.onclick=openDrawingPalette;colorButton.onclick=openColorPalette;
     let drawing=null,liveEl=null;
     const validCanvasTarget=event=>event.target===workspace.viewport||event.target===workspace.world||event.target===drawLayer||event.target.closest?.(".infinite-world")===workspace.world;
     workspace.viewport.addEventListener("pointerdown",async event=>{
@@ -12172,7 +14277,7 @@ const renderMap=()=>{
     const endDraw=async event=>{if(areaSelection.draft){const draftPoint=mapPointerPoint(event.clientX,event.clientY);try{workspace.viewport.releasePointerCapture?.(event.pointerId);}catch(_){}if(event.type==="pointercancel"){areaSelection.draft=null;drawAreaSelectionOverlay();return;}finishAreaSelection(draftPoint);return;}if(sweep){const changed=sweep.changed;sweep=null;workspace.viewport.releasePointerCapture?.(event.pointerId);if(changed)await saveToDB(null);return;}if(!drawing)return;const finalShape=drawing;const valid=finalShape.type==="freehand"?finalShape.points.length>1:Math.hypot(finalShape.end.x-finalShape.start.x,finalShape.end.y-finalShape.start.y)>2;if(valid&&finalShape.constructionMode){const origin={...finalShape.start},dx=finalShape.end.x-origin.x,dy=finalShape.end.y-origin.y,len=Math.max(.001,Math.hypot(dx,dy)),ux=dx/len,uy=dy/len,reach=12000;if(finalShape.constructionMode==="ray")finalShape.end={x:origin.x+ux*reach,y:origin.y+uy*reach};else if(finalShape.constructionMode==="xline"){finalShape.start={x:origin.x-ux*reach,y:origin.y-uy*reach};finalShape.end={x:origin.x+ux*reach,y:origin.y+uy*reach};}}if(valid){sketch.strokes.push(finalShape);sketch.redoStrokes=[];liveEl?.remove();liveEl=renderMapShape(drawLayer,finalShape);if(liveEl)bindStrokeInteraction(finalShape,liveEl);}else liveEl?.remove();drawing=null;liveEl=null;workspace.viewport.releasePointerCapture?.(event.pointerId);if(valid)await saveToDB(null);updateHistoryButtons();};
     workspace.viewport.addEventListener("pointerup",endDraw);workspace.viewport.addEventListener("pointercancel",endDraw);workspace.viewport.addEventListener("dblclick",event=>{if(["spline","polyline","polygon"].includes(mapMode)){event.preventDefault();finishSpline(false,false).then(()=>redrawStrokes());updateHistoryButtons();}});
 
-    activeMapRuntime={workspace,sketch,drawLayer,imageLayer,pinLayer,selectionLayer,redrawStrokes,attachPin,updateHistoryButtons,map3DScene,cancelArc3:clearArc3Draft,cancelPointDraft:clearPointDraft,refreshPointDraftShift,openDrawingPalette,closeDrawingPalette,setMapMode,isAreaSelectionMode:()=>areaSelectionModes.has(mapMode),hasAreaSelection:()=>!!(areaSelection.draft||areaSelection.moving||areaSelection.strokeIds.size||areaSelection.solidIds.size),commitAreaSelection,deleteAreaSelection,cancelAreaSelection};
+    activeMapRuntime={workspace,sketch,drawLayer,imageLayer,pinLayer,selectionLayer,redrawStrokes,attachPin,updateHistoryButtons,map3DScene,cancelArc3:clearArc3Draft,cancelPointDraft:clearPointDraft,refreshPointDraftShift,openDrawingPalette,closeDrawingPalette,openColorPalette,closeColorPalette,setMapMode,isAreaSelectionMode:()=>areaSelectionModes.has(mapMode),hasAreaSelection:()=>!!(areaSelection.draft||areaSelection.moving||areaSelection.strokeIds.size||areaSelection.solidIds.size),commitAreaSelection,deleteAreaSelection,cancelAreaSelection};
     realmSelect.onchange=async()=>{await finishSpline(true,false);clearPointDraft();storyData.map.activeRealmId=realmSelect.value;mapMode="select";await saveToDB(null);renderMap();};
     addRealm.onclick=async()=>{await finishSpline(true,false);clearPointDraft();await createRealm();mapMode="select";renderMap();};
     renameRealm.onclick=()=>{const wrap=document.createElement("div"),input=document.createElement("input");input.value=realm.realmTitle||"";input.placeholder="Örn. Dal’Rhim Sarayı, RHÆŦH-THÛER";wrap.append(makeLabeledField("Realm adı",input));showV2Modal({title:"Realm Adını Değiştir",body:wrap,onSave:async()=>{realm.realmTitle=input.value.trim();normalizeMapRealms();await saveToDB(null);renderMap();}});};
@@ -12190,7 +14295,7 @@ const renderMap=()=>{
     // Map yalnızca 2D çalışır; eski 3D/CAD düğümleri artık üretilmez.
     resetRotation.onclick=async()=>{workspace.resetRotation();await saveToDB(null);};
     width.onchange=()=>{mapDrawWidth=Number(width.value)||3;storyData.settings.mapDrawWidth=mapDrawWidth;scheduleAutoSave(null,100);};
-    const paintColorPreview=()=>{mapDrawColor=color.value||"#e4d6ae";color.style.boxShadow=`inset 0 0 0 3px ${mapDrawColor}`;};
+    const paintColorPreview=()=>{mapDrawColor=color.value||"#e4d6ae";color.style.boxShadow=`inset 0 0 0 3px ${mapDrawColor}`;colorButton.style.background=mapDrawColor;const [r,g,b]=__alekHexToRgb(mapDrawColor),luma=(.2126*r+.7152*g+.0722*b)/255;colorButton.style.color=luma>.62?"#071016":"#f5fbff";colorButton.style.textShadow=luma>.62?"0 1px 0 rgba(255,255,255,.18)":"0 1px 2px rgba(0,0,0,.42)";colorButton.style.boxShadow="inset 0 0 0 2px rgba(255,255,255,.28),0 0 0 1px rgba(2,8,12,.9)";};
     const returnFocusFromNativeColor=input=>{window.setTimeout(()=>{try{input?.blur?.();workspace.viewport.tabIndex=-1;workspace.viewport.focus({preventScroll:true});}catch(_){}},24);};
     const setColor=()=>{paintColorPreview();storyData.settings.mapDrawColor=mapDrawColor;scheduleAutoSave(null,100);returnFocusFromNativeColor(color);};color.oninput=setColor;color.onchange=setColor;paintColorPreview();
     dash.onchange=()=>{mapDrawDash=dash.value;storyData.settings.mapDrawDash=mapDrawDash;scheduleAutoSave(null,100);};
@@ -12418,7 +14523,7 @@ const syncAtmosChannelFromStore=()=>{
     for(const zone of ["inner","outer"]) atmosData.global[zone]=[...new Set(store.items.filter(item=>item.zone===zone).map(item=>item.path).filter(Boolean))];
 };
 const normalizeBardState=(store)=>store.state=Object.assign({idx:0,time:0,playing:false,volume:1},store.state||{});
-const mediaFolderPath=(store,id)=>{const names=[];let f=store.folders.find(x=>x.id===id),guard=0;while(f&&guard++<50){names.unshift(f.name);f=store.folders.find(x=>x.id===f.parentId);}return names.join(" › ")||"Ana Liste";};
+const mediaFolderPath=(store,id)=>{const names=[];let f=store.folders.find(x=>x.id===id),guard=0;while(f&&guard++<50){names.unshift(f.name);f=store.folders.find(x=>x.id===f.parentId);}return names.join(" › ")||"Main List";};
 const moveMediaItemBefore=(store,draggedId,targetId)=>{if(draggedId===targetId)return false;const from=store.items.findIndex(item=>item.id===draggedId),target=store.items.findIndex(item=>item.id===targetId);if(from<0||target<0)return false;const[item]=store.items.splice(from,1);const newTarget=store.items.findIndex(value=>value.id===targetId);store.items.splice(newTarget,0,item);return true;};
 const nudgeMediaItem=(store,itemId,folderId,delta)=>{const visible=store.items.filter(item=>String(item.folderId??"")===String(folderId??"")),index=visible.findIndex(item=>item.id===itemId),next=index+delta;if(index<0||next<0||next>=visible.length)return false;return moveMediaItemBefore(store,delta<0?itemId:visible[next].id,delta<0?visible[next].id:itemId);};
 const createMediaChannelStrip=(selectedId,onSelect)=>{
@@ -12426,26 +14531,34 @@ const createMediaChannelStrip=(selectedId,onSelect)=>{
     ALEK_MEDIA_CHANNEL_DEFS.forEach(channel=>{const button=document.createElement("button");button.type="button";button.textContent=channel.label;button.classList.toggle("active",channel.id===selectedId);button.onclick=()=>onSelect(channel.id);strip.appendChild(button);});
     return strip;
 };
+const syncVisibleBardPane=()=>{
+    const panel=v2Content?.querySelector?.(".performer-panel.bard-v19");
+    if(!panel)return;
+    const store=harmonizerStore("bard"),state=normalizeBardState(store),music=(store.items||[]).map(item=>item.path).filter(Boolean);
+    state.idx=music.length?clamp(Number(state.idx||0),0,music.length-1):0;
+    const count=panel.querySelector(".bard-count");if(count)count.textContent=`${music.length} tracks`;
+    const name=panel.querySelector(".bard-track-name");if(name)name.textContent=music.length?mediaRefDisplayName(music[state.idx]):"Silence";
+};
 const openHarmonizerLibrary=async(kind,forcedZone=null)=>{
     const isAmb=kind==="ambiance";
     const wrapper=document.createElement("div");wrapper.className=`media-library-wrapper ${isAmb?"flat-ambiance-library":""}`;
-    const store=harmonizerStore(kind);
+    let store=harmonizerStore(kind);
 
     if(isAmb){
         const zone=forcedZone==="outer"?"outer":"inner";
-        const zoneLabel=zone==="inner"?"İç Ambiance":"Dış Ambiance";
+        const zoneLabel=zone==="inner"?"Indoor Ambience":"Outdoor Ambience";
         const draw=()=>{
             wrapper.innerHTML="";
             const panel=document.createElement("main");panel.className="media-library-items flat-ambiance-items";
             const toolbar=document.createElement("div");toolbar.className="media-items-toolbar flat-ambiance-toolbar";
             const heading=document.createElement("div");heading.className="flat-ambiance-heading";
             const title=document.createElement("strong");title.textContent=zoneLabel;
-            const count=document.createElement("small");count.textContent=`${store.items.filter(item=>item.zone===zone).length} medya`;
+            const count=document.createElement("small");count.textContent=`${store.items.filter(item=>item.zone===zone).length} media`;
             heading.append(title,count);
-            const refresh=document.createElement("button");refresh.textContent="↻ Medyayı Yenile";
-            const add=document.createElement("button");add.textContent="＋ Çoklu Görsel / Video";
+            const refresh=document.createElement("button");refresh.textContent="↻ Refresh Media";
+            const add=document.createElement("button");add.textContent="＋ Add Images / Videos";
             toolbar.append(heading,refresh,add);panel.appendChild(toolbar);
-            const note=document.createElement("div");note.className="music-folder-note";note.textContent="Eklenen görsel ve videolar bu maceranın Media/Ambiance klasörüne kopyalanır.";panel.appendChild(note);
+            const note=document.createElement("div");note.className="music-folder-note";note.textContent="Added images and videos are copied to this workspace's Media/Ambiance folder.";panel.appendChild(note);
             const list=document.createElement("div");list.className="media-item-list flat-ambiance-list";
             const visibleItems=store.items.filter(item=>item.zone===zone);
             const commit=async()=>{syncAtmosChannelFromStore();await saveAtmosDB(null);updateAtmosphereDisplay();await saveToDB(null);draw();};
@@ -12455,41 +14568,43 @@ const openHarmonizerLibrary=async(kind,forcedZone=null)=>{
                 const name=document.createElement("span");name.className="media-item-name";
                 const display=document.createElement("b");display.textContent=`⠿ ${item.name||mediaRefDisplayName(item.path)}`;
                 const status=mediaRefStatus(item.path), ext=mediaFileExtension(mediaSourceName(item.path)).toUpperCase()||"MEDYA";
-                const stateText=document.createElement("small");stateText.className=`linked-media-status ${status}`;stateText.textContent=status==="ready"?`${ext} · Hazır`:status==="permission"?`${ext} · İzin gerekli`:status==="missing"?`${ext} · Dosya bulunamadı`:status==="external"?`${ext} · Eski dış yol`:`${ext} · Macera klasörü`;
+                const stateText=document.createElement("small");stateText.className=`linked-media-status ${status}`;stateText.textContent=status==="ready"?`${ext} · Ready`:status==="permission"?`${ext} · Permission required`:status==="missing"?`${ext} · File not found`:status==="external"?`${ext} · Legacy external path`:`${ext} · Workspace folder`;
                 name.append(display,stateText);
-                const up=document.createElement("button");up.textContent="↑";up.title="Yukarı taşı";up.onclick=()=>swapVisible(item.id,-1);
-                const down=document.createElement("button");down.textContent="↓";down.title="Aşağı taşı";down.onclick=()=>swapVisible(item.id,1);
-                const play=document.createElement("button");play.textContent="Önizle";play.onclick=async()=>{const preview=v2Content.querySelector(`.performer-panel.${zone} .performer-preview`)||v2Content.querySelector(".performer-preview");if(!preview)return;preview.innerHTML="";const url=await resolveMediaPathUrl(item.path,{requestPermission:true,force:isLinkedMediaRef(item.path)});if(!url){new Notice("Medya dosyasına erişilemiyor.");return;}if(isVideoMediaPath(item.path)){const video=document.createElement("video");video.src=url;video.autoplay=true;video.muted=true;video.loop=true;preview.appendChild(video);}else{const image=document.createElement("img");image.src=url;preview.appendChild(image);}};
-                const del=document.createElement("button");del.textContent="Sil";del.onclick=async()=>{store.items=store.items.filter(value=>value.id!==item.id);await commit();await pruneUnusedMediaRefs();};
+                const up=document.createElement("button");up.textContent="↑";up.title="Move up";up.onclick=()=>swapVisible(item.id,-1);
+                const down=document.createElement("button");down.textContent="↓";down.title="Move down";down.onclick=()=>swapVisible(item.id,1);
+                const play=document.createElement("button");play.textContent="Preview";play.onclick=async()=>{const preview=v2Content.querySelector(`.performer-panel.${zone} .performer-preview`)||v2Content.querySelector(".performer-preview");if(!preview)return;preview.innerHTML="";const url=await resolveMediaPathUrl(item.path,{requestPermission:true,force:isLinkedMediaRef(item.path)});if(!url){new Notice("The media file cannot be accessed.");return;}if(isVideoMediaPath(item.path)){const video=document.createElement("video");video.src=url;video.autoplay=true;video.muted=true;video.loop=true;preview.appendChild(video);}else{const image=document.createElement("img");image.src=url;preview.appendChild(image);}};
+                const del=document.createElement("button");del.textContent="Delete";del.onclick=async()=>{store.items=store.items.filter(value=>value.id!==item.id);await commit();await pruneUnusedMediaRefs();};
                 row.ondragstart=event=>{event.dataTransfer.effectAllowed="move";event.dataTransfer.setData("text/plain",item.id);row.classList.add("dragging");};row.ondragend=()=>row.classList.remove("dragging");row.ondragover=event=>{event.preventDefault();event.dataTransfer.dropEffect="move";row.classList.add("drop-target");};row.ondragleave=()=>row.classList.remove("drop-target");row.ondrop=async event=>{event.preventDefault();row.classList.remove("drop-target");const draggedId=event.dataTransfer.getData("text/plain");if(moveMediaItemBefore(store,draggedId,item.id))await commit();};
                 row.append(name,up,down,play,del);list.appendChild(row);
             });
-            if(!list.children.length)list.innerHTML=`<div class="empty-state large">${zoneLabel} henüz boş.<br><small>Yukarıdaki düğmeyle görsel veya video ekle.</small></div>`;
+            if(!list.children.length)list.innerHTML=`<div class="empty-state large">${zoneLabel} is empty.<br><small>Add an image or video with the button above.</small></div>`;
             panel.appendChild(list);wrapper.appendChild(panel);
             refresh.onclick=async()=>{await hydrateLinkedMediaRefs({requestPermission:true,force:true});updateAtmosphereDisplay();draw();};
             add.onclick=()=>showCustomImagePicker("bg",async paths=>{const imported=Array.isArray(paths)?paths:[paths];for(const path of imported.filter(Boolean)){if(store.items.some(item=>item.path===path&&item.zone===zone))continue;store.items.push({id:makeId("media"),path,name:mediaRefDisplayName(path),folderId:null,zone,createdAt:new Date().toISOString()});}await commit();},{multiple:true});
         };
         draw();
-        showV2Modal({title:`${zoneLabel} Kütüphanesi`,body:wrapper,wide:true,saveText:"Kapat",onSave:async()=>true});
+        showV2Modal({title:`${zoneLabel} Library`,body:wrapper,wide:true,saveText:"Close",onSave:async()=>true});
         return;
     }
 
     wrapper.classList.add("flat-bard-library");
     const draw=async()=>{
+        store=harmonizerStore("bard");
         await refreshBardFromMusicFolder({persist:false,requestPermission:false});
+        store=harmonizerStore("bard");
         wrapper.innerHTML="";
         const panel=document.createElement("main");panel.className="media-library-items flat-bard-items";
         const toolbar=document.createElement("div");toolbar.className="media-items-toolbar flat-bard-toolbar";
         const heading=document.createElement("div");heading.className="flat-ambiance-heading";
         const title=document.createElement("strong");title.textContent="Bard";
-        const count=document.createElement("small");count.textContent=`${store.items.length} yerel parça`;
+        const count=document.createElement("small");count.textContent=`${store.items.length} local tracks`;
         heading.append(title,count);
-        const refresh=document.createElement("button");refresh.textContent="↻ Medyayı Yenile";
-        const add=document.createElement("button");add.textContent="＋ Müzik Ekle";
+        const refresh=document.createElement("button");refresh.textContent="↻ Refresh Media";
+        const add=document.createElement("button");add.textContent="＋ Add Music";
         toolbar.append(heading,refresh,add);panel.appendChild(toolbar);
         const note=document.createElement("div");note.className="music-folder-note";note.textContent="Eklenen müzikler bu maceranın Media/Audio klasörüne kopyalanır.";panel.appendChild(note);
         const list=document.createElement("div");list.className="media-item-list flat-bard-list";
-        const commitOrder=async currentPath=>{const state=normalizeBardState(store);if(currentPath){const index=store.items.findIndex(media=>media.path===currentPath);if(index>=0)state.idx=index;}await saveToDB(null);await draw();};
+        const commitOrder=async currentPath=>{store=harmonizerStore("bard");const state=normalizeBardState(store);if(currentPath){const index=store.items.findIndex(media=>media.path===currentPath);if(index>=0)state.idx=index;}await saveToDB(null);store=harmonizerStore("bard");syncVisibleBardPane();await draw();};
         store.items.forEach(item=>{
             const row=document.createElement("div");row.className="media-item-row";row.draggable=true;row.dataset.id=item.id;
             const status=mediaRefStatus(item.path);
@@ -12498,20 +14613,33 @@ const openHarmonizerLibrary=async(kind,forcedZone=null)=>{
             const ext=mediaFileExtension(mediaSourceName(item.path)).toUpperCase()||"MEDYA";
             const stateText=document.createElement("small");stateText.className=`linked-media-status ${status}`;stateText.textContent=status==="ready"?`${ext} · Hazır`:status==="external"?`${ext} · Eski dış yol`:status==="permission"?`${ext} · İzin gerekli`:status==="missing"?`${ext} · Dosya bulunamadı`:`${ext} · Macera klasörü`;
             nameWrap.append(mainName,stateText);
-            const up=document.createElement("button");up.textContent="↑";up.title="Yukarı taşı";
-            const down=document.createElement("button");down.textContent="↓";down.title="Aşağı taşı";
+            const up=document.createElement("button");up.textContent="↑";up.title="Move up";
+            const down=document.createElement("button");down.textContent="↓";down.title="Move down";
             const play=document.createElement("button");play.textContent="Çal";play.onclick=async()=>{const state=normalizeBardState(store),idx=store.items.findIndex(media=>media.id===item.id);if(idx>=0){state.idx=idx;state.time=0;state.playing=true;await playMusicLogic({requestPermission:true});await draw();}};
-            const del=document.createElement("button");del.textContent="Kaldır";del.onclick=async()=>{const state=normalizeBardState(store),wasCurrent=store.items[state.idx]?.id===item.id;store.items=store.items.filter(media=>media.id!==item.id);if(wasCurrent){state.idx=0;state.time=0;state.playing=false;audioPlayer.pause();audioPlayer.removeAttribute("src");audioPlayer.load();}await saveToDB(null);await pruneUnusedMediaRefs();await draw();};
+            const del=document.createElement("button");del.textContent="Kaldır";del.onclick=async()=>{store=harmonizerStore("bard");const state=normalizeBardState(store),wasCurrent=store.items[state.idx]?.id===item.id;store.items=store.items.filter(media=>media.id!==item.id);if(wasCurrent){state.idx=0;state.time=0;state.playing=false;audioPlayer.pause();audioPlayer.removeAttribute("src");audioPlayer.load();}await saveToDB(null);store=harmonizerStore("bard");await pruneUnusedMediaRefs();syncVisibleBardPane();await draw();};
             const reorder=async delta=>{const state=normalizeBardState(store),currentPath=store.items[state.idx]?.path;const index=store.items.findIndex(value=>value.id===item.id),next=index+delta;if(index<0||next<0||next>=store.items.length)return;[store.items[index],store.items[next]]=[store.items[next],store.items[index]];await commitOrder(currentPath);};up.onclick=()=>reorder(-1);down.onclick=()=>reorder(1);
             row.ondragstart=event=>{event.dataTransfer.effectAllowed="move";event.dataTransfer.setData("text/plain",item.id);row.classList.add("dragging");};row.ondragend=()=>row.classList.remove("dragging");row.ondragover=event=>{event.preventDefault();event.dataTransfer.dropEffect="move";row.classList.add("drop-target");};row.ondragleave=()=>row.classList.remove("drop-target");row.ondrop=async event=>{event.preventDefault();row.classList.remove("drop-target");const draggedId=event.dataTransfer.getData("text/plain"),state=normalizeBardState(store),currentPath=store.items[state.idx]?.path;if(moveMediaItemBefore(store,draggedId,item.id))await commitOrder(currentPath);};
             row.append(nameWrap,up,down,play,del);list.appendChild(row);
         });
-        if(!list.children.length)list.innerHTML='<div class="empty-state large">Henüz yerel müzik yok.<br><small>Müzik Ekle ile seçtiğin dosya bu maceranın Media/Audio klasörüne kopyalanır.</small></div>';
+        if(!list.children.length)list.innerHTML=`<div class="empty-state large">No local music yet.<br><small>Files selected with Add Music are copied to this workspace\'s Media/Audio folder.</small></div>`;
         panel.appendChild(list);wrapper.appendChild(panel);
-        refresh.onclick=async()=>{await refreshBardFromMusicFolder({persist:true,requestPermission:true});await playMusicLogic({requestPermission:true});await draw();};
-        add.onclick=()=>showCustomImagePicker("audio",async paths=>{const refs=Array.isArray(paths)?paths:[paths];for(const path of refs.filter(Boolean)){if(store.items.some(item=>item.path===path))continue;store.items.push({id:makeId("media"),path,name:mediaRefDisplayName(path),folderId:null,zone:null,createdAt:new Date().toISOString()});}await saveToDB(null);if(store.items.length===refs.length){const state=normalizeBardState(store);state.idx=0;state.time=0;state.playing=false;}await draw();},{multiple:true});
+        refresh.onclick=async()=>{await refreshBardFromMusicFolder({persist:true,requestPermission:true});store=harmonizerStore("bard");syncVisibleBardPane();await playMusicLogic({requestPermission:true});await draw();};
+        add.onclick=()=>showCustomImagePicker("audio",async paths=>{
+            const refs=(Array.isArray(paths)?paths:[paths]).filter(Boolean);
+            store=harmonizerStore("bard");
+            const beforeCount=store.items.length;
+            for(const path of refs){if(store.items.some(item=>item.path===path))continue;store.items.push({id:makeId("media"),path,name:mediaRefDisplayName(path),folderId:null,zone:null,createdAt:new Date().toISOString()});}
+            if(beforeCount===0&&store.items.length>0){const state=normalizeBardState(store);state.idx=0;state.time=0;state.playing=false;}
+            // Update the visible count/name before persistence so the user gets instant feedback.
+            syncVisibleBardPane();
+            await saveToDB(null);
+            // saveToDB may normalize/replace nested data objects; always reacquire the canonical store.
+            store=harmonizerStore("bard");
+            syncVisibleBardPane();
+            await draw();
+        },{multiple:true});
     };
-    await draw();showV2Modal({title:"Bard Kütüphanesi",body:wrapper,wide:true,saveText:"Kapat",onSave:async()=>true});
+    await draw();showV2Modal({title:"Bard Library",body:wrapper,wide:true,saveText:"Close",onSave:async()=>{syncVisibleBardPane();if(activeHarmonizerSection==="bard")await renderPerformer();return true;}});
 };
 
 let activeHarmonizerSection = "inner";
@@ -12522,12 +14650,12 @@ const renderPerformer=async()=>{
     const shell=document.createElement("div");shell.className="harmonizer-shell harmonizer-v10 harmonizer-v11 harmonizer-v12 harmonizer-v14 harmonizer-v15";
     const workbench=document.createElement("div");workbench.className="harmonizer-workbench";
     const side=document.createElement("aside");side.className="harmonizer-side";
-    const title=document.createElement("div");title.className="harmonizer-side-title";title.innerHTML='<strong>Harmonizer</strong><span>Atmosfer ve müzik</span>';side.appendChild(title);
+    const title=document.createElement("div");title.className="harmonizer-side-title";title.innerHTML='<strong>Harmonizer</strong><span>Atmosphere & music</span>';side.appendChild(title);
     const sections=[
-        ["inner","◉","İç Ambiance"],
-        ["outer","◎","Dış Ambiance"],
+        ["inner","◉","Indoor Ambience"],
+        ["outer","◎","Outdoor Ambience"],
         ["bard","♫","Bard"],
-        ["graphics","▣","Performans & GPU"]
+        ["graphics","▣","Performance & GPU"]
     ];
     sections.forEach(([id,glyph,label])=>{const b=document.createElement("button");b.type="button";b.dataset.section=id;b.classList.toggle("active",activeHarmonizerSection===id);b.innerHTML=`<span>${glyph}</span><strong>${label}</strong>`;b.onclick=()=>{activeHarmonizerSection=id;renderPerformer();};side.appendChild(b);});
     const pane=document.createElement("main");pane.className="harmonizer-pane";workbench.append(side,pane);shell.appendChild(workbench);v2Content.replaceChildren(shell);
@@ -12535,33 +14663,46 @@ const renderPerformer=async()=>{
     const renderAmbiancePane=zone=>{
         const isInner=zone==="inner", store=harmonizerStore("ambiance");syncAtmosChannelFromStore();
         const panel=document.createElement("section");panel.className=`performer-panel ambiance ${zone}`;
-        panel.innerHTML=`<div class="performer-heading"><div><small>${isInner?"Uygulama çerçevesinin iç yüzeyi":"Uygulamanın dış kozmik zemini"}</small><h2>${isInner?"İç Ambiance":"Dış Ambiance"}</h2></div><span class="ambiance-zone-badge">${isInner?"İÇ":"DIŞ"}</span></div><p>${isInner?"Panellerin arkasında görünen iç atmosfer medyasını bağımsız yönet.":"Ana pencerenin çevresinde görünen dış atmosfer medyasını bağımsız yönet."}</p><div class="performer-preview"></div><div class="harmonizer-timings"></div><button class="big-action">${isInner?"İç Ambiance Kütüphanesini Aç":"Dış Ambiance Kütüphanesini Aç"}</button>`;
+        panel.innerHTML=`<div class="performer-heading"><div><small>${isInner?"Inside the application frame":"Outer cosmic backdrop"}</small><h2>${isInner?"Indoor Ambience":"Outdoor Ambience"}</h2></div><span class="ambiance-zone-badge">${isInner?"INNER":"OUTER"}</span></div><p>${isInner?"Manage the indoor atmospheric media behind panels independently.":"Manage the outer atmospheric media around the main window independently."}</p><div class="performer-preview"></div><div class="ambiance-auto-timing">Automatic · 10 s image cycle${isInner?"":" · +5 s phase"}</div><button class="big-action">${isInner?"Open Indoor Ambience Library":"Open Outdoor Ambience Library"}</button>`;
         pane.appendChild(panel);
         const item=store.items.find(media=>media.zone===zone),preview=panel.querySelector(".performer-preview");
-        if(item?.path){const url=getDynamicUrl(item.path);if(isVideoMediaPath(item.path)){const v=document.createElement("video");v.src=url;v.autoplay=true;v.muted=true;v.loop=true;preview.appendChild(v);}else{const i=document.createElement("img");i.src=url;preview.appendChild(i);}}else preview.textContent=`${isInner?"İç":"Dış"} Ambiance henüz boş.`;
-        const timings=store.timings,box=panel.querySelector(".harmonizer-timings");const fields=isInner?[["innerInterval","Bekleme"],["innerTransition","Geçiş"]]:[["outerInterval","Bekleme"],["outerTransition","Geçiş"]];
-        fields.forEach(([key,label])=>{const l=document.createElement("label"),sp=document.createElement("span"),inp=document.createElement("input");sp.textContent=label;inp.type="number";inp.min="0.1";inp.step="0.1";inp.value=String(timings[key]);inp.onchange=async()=>{timings[key]=Math.max(.1,Number(inp.value)||1);await saveToDB(null);updateAtmosphereDisplay();};l.append(sp,inp);box.appendChild(l);});
+        if(item?.path){
+            const url=getDynamicUrl(item.path);
+            if(isVideoMediaPath(item.path)){
+                const v=document.createElement("video");v.src=url;v.muted=true;v.loop=true;v.playsInline=true;
+                const profile=performanceProfile();
+                // The Harmonizer preview must not decode a second looping video in Balanced.
+                // The actual ambience behind the app remains live; this preview holds a decoded frame.
+                v.autoplay=profile==="cinematic";
+                v.preload=profile==="cinematic"?"auto":"metadata";
+                if(profile!=="cinematic")v.addEventListener("loadeddata",()=>{try{v.currentTime=Math.min(.05,Number.isFinite(v.duration)?v.duration:.05);v.pause();}catch(_){}},{once:true});
+                preview.appendChild(v);
+                if(profile==="cinematic"&&ambianceCanRun())v.play().catch(()=>{});
+            }else{
+                const i=document.createElement("img");i.src=url;i.decoding="async";preview.appendChild(i);
+            }
+        }else preview.textContent=`${isInner?"Indoor":"Outdoor"} Ambience is empty.`;
         panel.querySelector(".big-action").onclick=()=>openHarmonizerLibrary("ambiance",zone);
     };
 
     const renderBardPane=()=>{
         const panel=document.createElement("section");panel.className="performer-panel bard bard-v19";
-        panel.innerHTML='<div class="performer-heading"><div><small>Bütün menülerde kesintisiz</small><h2>Bard</h2></div><span class="ambiance-zone-badge">GLOBAL</span></div><p>Müzik sırasını, kaldığı zamanı ve ses seviyesini yönet.</p><div class="bard-now"><strong class="bard-track-name">Sessizlik</strong><span class="bard-play-indicator paused">● Duraklatıldı</span></div><div class="bard-controls"><button data-act="prev" title="Önceki parça">‹</button><button data-act="toggle" class="bard-toggle" title="Çal">▶</button><button data-act="next" title="Sonraki parça">›</button></div><div class="bard-channel-meta"><span class="bard-count">0 parça</span><span class="bard-elapsed">00:00</span></div><label class="bard-volume"><span>Ses</span><input type="range" min="0" max="1" step="0.01"><b class="bard-volume-value">100%</b></label><button class="big-action">Bard Kütüphanesini Aç</button>';
+        panel.innerHTML='<div class="performer-heading"><div><small>UNINTERRUPTED ACROSS ALL MENUS</small><h2>Bard</h2></div><span class="ambiance-zone-badge">GLOBAL</span></div><p>Manage the music queue, playback position, and volume.</p><div class="bard-now"><strong class="bard-track-name">Silence</strong><span class="bard-play-indicator paused">● Paused</span></div><div class="bard-controls"><button data-act="prev" title="Previous track">‹</button><button data-act="toggle" class="bard-toggle" title="Play">▶</button><button data-act="next" title="Next track">›</button></div><div class="bard-channel-meta"><span class="bard-count">0 tracks</span><span class="bard-elapsed">00:00</span></div><label class="bard-volume"><span>Volume</span><input type="range" min="0" max="1" step="0.01"><b class="bard-volume-value">100%</b></label><button class="big-action">Open Bard Library</button>';
         pane.appendChild(panel);
         const store=harmonizerStore("bard"),state=normalizeBardState(store),music=store.items.map(item=>item.path).filter(Boolean);
         state.idx=music.length?clamp(Number(state.idx||0),0,music.length-1):0;
         const isActuallyPlaying=music.length && state.playing && !audioPlayer.paused;
-        const name=music.length?mediaRefDisplayName(music[state.idx]):"Sessizlik";
+        const name=music.length?mediaRefDisplayName(music[state.idx]):"Silence";
         const formatTime=value=>{const total=Math.max(0,Math.floor(Number(value)||0)),m=Math.floor(total/60),s=total%60;return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;};
         panel.querySelector(".bard-track-name").textContent=name;
-        const indicator=panel.querySelector(".bard-play-indicator");indicator.textContent=isActuallyPlaying?"● Oynuyor":"● Duraklatıldı";indicator.classList.toggle("playing",!!isActuallyPlaying);indicator.classList.toggle("paused",!isActuallyPlaying);
-        panel.querySelector(".bard-count").textContent=`${music.length} parça`;
+        const indicator=panel.querySelector(".bard-play-indicator");indicator.textContent=isActuallyPlaying?"● Playing":"● Paused";indicator.classList.toggle("playing",!!isActuallyPlaying);indicator.classList.toggle("paused",!isActuallyPlaying);
+        panel.querySelector(".bard-count").textContent=`${music.length} tracks`;
         panel.querySelector(".bard-elapsed").textContent=formatTime(state.time);
-        const toggle=panel.querySelector('[data-act="toggle"]');toggle.textContent=isActuallyPlaying?"❚❚":"▶";toggle.title=isActuallyPlaying?"Duraklat":"Çal";toggle.classList.toggle("playing",!!isActuallyPlaying);
+        const toggle=panel.querySelector('[data-act="toggle"]');toggle.textContent=isActuallyPlaying?"❚❚":"▶";toggle.title=isActuallyPlaying?"Pause":"Play";toggle.classList.toggle("playing",!!isActuallyPlaying);
         const volume=panel.querySelector(".bard-volume input"),volumeText=panel.querySelector(".bard-volume-value");volume.value=String(clamp(Number(state.volume??1),0,1));volumeText.textContent=`${Math.round(Number(volume.value)*100)}%`;
-        volume.oninput=()=>{state.volume=clamp(Number(volume.value),0,1);audioPlayer.volume=state.volume;volumeText.textContent=`${Math.round(state.volume*100)}%`;scheduleAutoSave(null,250);};
+        volume.oninput=()=>{state.volume=clamp(Number(volume.value),0,1);__alekBardFadeToken++;__alekBardFadeBusy=false;audioPlayer.volume=state.volume;volumeText.textContent=`${Math.round(state.volume*100)}%`;scheduleAutoSave(null,250);};
         panel.querySelector(".big-action").onclick=()=>openHarmonizerLibrary("bard");
-        toggle.onclick=async()=>{if(!music.length){new Notice("Önce Bard Kütüphanesine müzik bağla.");return;}if(toggle.dataset.busy==="1")return;toggle.dataset.busy="1";toggle.disabled=true;const currentlyPlaying=!audioPlayer.paused&&!audioPlayer.ended;try{if(currentlyPlaying){state.time=Number.isFinite(audioPlayer.currentTime)?audioPlayer.currentTime:Number(state.time||0);state.playing=false;audioPlayer.pause();}else{state.playing=true;await playMusicLogic({requestPermission:true});state.playing=!audioPlayer.paused&&!audioPlayer.ended;if(!state.playing)new Notice("Müzik başlatılamadı. Dosya erişimini veya medya kaynağını kontrol et.");}await saveToDB(null);}finally{renderPerformer();}};
+        toggle.onclick=async()=>{if(!music.length){new Notice("Add music to the Bard Library first.");return;}if(toggle.dataset.busy==="1")return;toggle.dataset.busy="1";toggle.disabled=true;const currentlyPlaying=!audioPlayer.paused&&!audioPlayer.ended;try{if(currentlyPlaying){state.time=Number.isFinite(audioPlayer.currentTime)?audioPlayer.currentTime:Number(state.time||0);state.playing=false;audioPlayer.pause();}else{state.playing=true;await playMusicLogic({requestPermission:true});state.playing=!audioPlayer.paused&&!audioPlayer.ended;if(!state.playing)new Notice("Music could not start. Check file access or the media source.");}await saveToDB(null);}finally{renderPerformer();}};
         panel.querySelector('[data-act="prev"]').onclick=async()=>{if(!music.length)return;state.idx=(state.idx-1+music.length)%music.length;state.time=0;state.playing=true;await playMusicLogic({requestPermission:true});await saveToDB(null);renderPerformer();};
         panel.querySelector('[data-act="next"]').onclick=async()=>{if(!music.length)return;state.idx=(state.idx+1)%music.length;state.time=0;state.playing=true;await playMusicLogic({requestPermission:true});await saveToDB(null);renderPerformer();};
     };
@@ -12569,62 +14710,69 @@ const renderPerformer=async()=>{
     const renderGraphicsPane=async()=>{
         const panel=document.createElement("section");panel.className="performer-panel graphics-performance";
         panel.innerHTML=`
-            <div class="performer-heading"><div><small>Windows · WebView2 · Uyku Yönetimi</small><h2>Performans & GPU</h2></div><span class="ambiance-zone-badge">v0.1.0</span></div>
-            <p>Aktif olmayan menüler tamamen serbest bırakılır; Map, Tide ve Harmonizer önizlemeleri arkada çizim yapmaz. GPU tercihi uygulama yeniden başlatıldığında devreye girer. Windows, WebView2 için seçilen kartı doğrudan kilitlemek yerine güç sınıfına eşler.</p>
+            <div class="performer-heading"><div><small>Windows · WebView2 · Sleep Management</small><h2>Performance & GPU</h2></div><span class="ambiance-zone-badge">v0.1.1</span></div>
+            <p>Inactive menus are fully released; Map, Connections, and Harmonizer previews do not render in the background. The GPU preference takes effect after restarting the application. Windows maps the selected WebView2 adapter to a power class instead of hard-locking the adapter.</p>
             <div class="performance-grid">
-                <section class="performance-card"><h3>Çizim Profili</h3><label>Profil<select class="performance-profile"><option value="eco">Tasarruf · statik Ambiance</option><option value="balanced">Dengeli · önerilen</option><option value="cinematic">Sinematik · tam geçişler</option></select></label><div class="sleep-status"><span>✓ Pasif menüler uyur</span><span>✓ Pencere gizlenince video durur</span><span>✓ Map/Tide DOM belleği bırakılır</span></div></section>
-                <section class="performance-card"><h3>Windows GPU Güç Sınıfı</h3><label>Tercih<select class="gpu-preference"><option value="system">Windows karar versin</option><option value="power-saving">Güç tasarrufu · zayıf/entegre GPU</option><option value="high-performance">Yüksek performans · güçlü GPU</option><option value="software">Yazılım çizimi · GPU kapalı</option></select></label><label>Algılanan kart (güç sınıfına eşlenir)<select class="gpu-adapter"><option value="">Otomatik / Windows sınıfı</option></select></label><div class="gpu-actions"><button class="gpu-scan" type="button">Yeniden Tara</button><button class="gpu-apply" type="button">Tercihi Uygula</button><button class="gpu-settings" type="button">Windows Grafik Ayarları</button></div></section>
+                <section class="performance-card"><h3>Rendering Profile</h3><label>Profile<select class="performance-profile"><option value="eco">Eco · static ambience</option><option value="balanced">Balanced · recommended</option><option value="cinematic">Cinematic · full transitions</option></select></label><div class="sleep-status"><span>✓ Inactive menus sleep</span><span>✓ Video stops when the window is hidden</span><span>✓ Map/Connections DOM memory is released</span></div></section>
+                <section class="performance-card"><h3>Graphics Processor</h3><p class="gpu-selector-note">Ałek’ryŧhæ starts with the strongest detected GPU by default. Once you choose a GPU yourself, that choice stays saved.</p><label>GPU<select class="gpu-adapter"></select></label><div class="gpu-actions"><button class="gpu-scan" type="button">Rescan</button><button class="gpu-apply" type="button">Apply GPU</button></div></section>
             </div>
-            <section class="renderer-report"><h3>Etkin Çizici</h3><strong class="renderer-name">Taranıyor…</strong><small class="renderer-api"></small><div class="adapter-list"></div><small class="gpu-bridge-state"></small></section>`;
+            <section class="renderer-report"><h3>Active Renderer</h3><strong class="renderer-name">Scanning…</strong><small class="renderer-api"></small><div class="adapter-list"></div><small class="gpu-bridge-state"></small></section>`;
         pane.appendChild(panel);
-        const profileSelect=panel.querySelector(".performance-profile"),prefSelect=panel.querySelector(".gpu-preference"),adapterSelect=panel.querySelector(".gpu-adapter"),adapterList=panel.querySelector(".adapter-list"),bridgeState=panel.querySelector(".gpu-bridge-state");
+        const profileSelect=panel.querySelector(".performance-profile"),adapterSelect=panel.querySelector(".gpu-adapter"),adapterList=panel.querySelector(".adapter-list"),bridgeState=panel.querySelector(".gpu-bridge-state");
         let scannedGraphicsAdapters=[];
-        profileSelect.value=performanceProfile();prefSelect.value=performanceConfig.gpuPreference||"system";
+        profileSelect.value=performanceProfile();
         const renderer=queryActiveRenderer();panel.querySelector(".renderer-name").textContent=renderer.renderer;panel.querySelector(".renderer-api").textContent=[renderer.vendor,renderer.api].filter(Boolean).join(" · ");
+        const gpuStrengthScore=item=>{const kind=String(item?.kind||"").toLowerCase(),memory=Number(item?.memoryMb||item?.dedicatedMemoryMb||0),active=item?.active===false?0:1;const tier=kind.includes("discrete")?3:kind.includes("integrated")?1:kind.includes("software")||kind.includes("virtual")?0:2;return tier*1e12+memory*1e6+active*1e3;};
+        const strongestAdapterId=items=>{const ranked=[...items].sort((a,b)=>gpuStrengthScore(b)-gpuStrengthScore(a));if(!ranked.length)return"";const item=ranked[0],index=items.indexOf(item);return String(item.id??item.luid??index);};
+        const applySelectedGpu=async({notice=true}={})=>{
+            const adapterId=String(adapterSelect.value||"");if(!adapterId)return{ok:false,error:"no_adapter"};
+            checkpointMediaContinuity(true);performanceConfig.selectedAdapterId=adapterId;performanceConfig.gpuUserSelected=true;savePerformanceConfig();await saveToDB(null);
+            const result=await nativeGraphicsCall("setGraphicsPreference",{adapterId,automatic:false});
+            if(notice){if(result.ok)new Notice(result.message||"GPU saved. Restart Ałek’ryŧhæ to use it.",6500);else new Notice("Core graphics bridge did not respond.",6500);}return result;
+        };
         const scan=async()=>{
-            adapterList.replaceChildren();adapterSelect.innerHTML='<option value="">Otomatik / Windows sınıfı</option>';
+            adapterList.replaceChildren();adapterSelect.replaceChildren();
             const result=await nativeGraphicsCall("listGraphicsAdapters",{}),items=Array.isArray(result.adapters)?result.adapters:[];scannedGraphicsAdapters=items;
             const nativeConfig=result.config&&typeof result.config==="object"?result.config:{};
-            const nativePreference=String(nativeConfig.preference||nativeConfig.Preference||"");
             const nativeAdapterId=String(nativeConfig.selectedAdapterId||nativeConfig.SelectedAdapterId||"");
-            if(nativePreference&&[...prefSelect.options].some(option=>option.value===nativePreference)){prefSelect.value=nativePreference;performanceConfig.gpuPreference=nativePreference;}
-            if(nativeAdapterId)performanceConfig.selectedAdapterId=nativeAdapterId;
+            const nativeExplicit=Boolean(nativeConfig.userExplicitlySelected??nativeConfig.UserExplicitlySelected??false);
+            const recommendedId=String(result.recommendedAdapterId||result.RecommendedAdapterId||strongestAdapterId(items)||"");
             if(items.length){
                 items.forEach((item,index)=>{
-                    const id=String(item.id??item.luid??index),name=String(item.name||item.description||`GPU ${index+1}`),memory=Number(item.memoryMb||item.dedicatedMemoryMb||0);
-                    const option=document.createElement("option");option.value=id;option.textContent=`${name}${memory?` · ${Math.round(memory/1024*10)/10} GB`:""}`;adapterSelect.appendChild(option);
-                    const row=document.createElement("div");row.className="adapter-row";const source=String(item.source||"");row.innerHTML=`<b>${escapeHtmlValue(name)}</b><span>${escapeHtmlValue(item.kind||item.preference||"Windows bağdaştırıcısı")}${memory?` · ${Math.round(memory/1024*10)/10} GB`:""}${source?` · ${escapeHtmlValue(source)}`:""}</span>`;adapterList.appendChild(row);
+                    const id=String(item.id??item.luid??index),name=String(item.name||item.description||`GPU ${index+1}`),memory=Number(item.memoryMb||item.dedicatedMemoryMb||0),recommended=id===recommendedId;
+                    const option=document.createElement("option");option.value=id;option.textContent=`${recommended?"★ ":""}${name}${memory?` · ${Math.round(memory/1024*10)/10} GB`:""}`;adapterSelect.appendChild(option);
+                    const row=document.createElement("div");row.className="adapter-row";const source=String(item.source||"");row.innerHTML=`<b>${recommended?"★ ":""}${escapeHtmlValue(name)}</b><span>${escapeHtmlValue(item.kind||"graphics adapter")}${memory?` · ${Math.round(memory/1024*10)/10} GB`:""}${source?` · ${escapeHtmlValue(source)}`:""}</span>`;adapterList.appendChild(row);
                 });
-                adapterSelect.value=[...adapterSelect.options].some(o=>o.value===String(performanceConfig.selectedAdapterId||""))?String(performanceConfig.selectedAdapterId||""):"";
-                bridgeState.textContent=result.exactAdapterSelection?`${items.length} ekran kartı listelendi; seçilen kart doğrudan kullanılacak.`:`${items.length} ekran kartı listelendi. Seçim Windows güç sınıfına eşlenir; kesin adaptör kilidi değildir.`;bridgeState.className="gpu-bridge-state ready";
+                let wanted="";
+                if(performanceConfig.gpuUserSelected&&String(performanceConfig.selectedAdapterId||""))wanted=String(performanceConfig.selectedAdapterId||"");
+                else if(nativeExplicit&&nativeAdapterId){wanted=nativeAdapterId;performanceConfig.gpuUserSelected=true;}
+                else wanted=nativeAdapterId||recommendedId;
+                if(![...adapterSelect.options].some(o=>o.value===wanted))wanted=recommendedId||adapterSelect.options[0]?.value||"";
+                adapterSelect.value=wanted;performanceConfig.selectedAdapterId=wanted;
+                if(!nativeExplicit&&!performanceConfig.gpuUserSelected)performanceConfig.gpuUserSelected=false;
+                savePerformanceConfig();
+                const chosen=items.find((item,index)=>String(item.id??item.luid??index)===wanted),chosenName=String(chosen?.name||chosen?.description||"GPU");
+                bridgeState.textContent=performanceConfig.gpuUserSelected?`Manual GPU saved: ${chosenName}. Restart the application after changing the GPU.`:`Automatic default: ${chosenName} (strongest detected GPU). Choose another GPU to keep it as your permanent selection.`;bridgeState.className="gpu-bridge-state ready";
             }else{
-                const row=document.createElement("div");row.className="adapter-row current";row.innerHTML=`<b>${escapeHtmlValue(renderer.renderer)}</b><span>WebView2'nin şu anda kullandığı çizici</span>`;adapterList.appendChild(row);
-                bridgeState.textContent=result.unsupported?"Core grafik köprüsü kullanılamadı. Etkin WebView2 çizicisi gösteriliyor; paket içindeki GPU yardımcısı yedek olarak kullanılabilir.":`GPU listesi alınamadı: ${result.error||"bilinmeyen hata"}`;
-                bridgeState.className="gpu-bridge-state warning";
+                const row=document.createElement("div");row.className="adapter-row current";row.innerHTML=`<b>${escapeHtmlValue(renderer.renderer)}</b><span>Renderer currently used by WebView2</span>`;adapterList.appendChild(row);
+                bridgeState.textContent=result.unsupported?"Core graphics bridge is unavailable.":`GPU list could not be retrieved: ${result.error||"unknown error"}`;bridgeState.className="gpu-bridge-state warning";
             }
         };
-        profileSelect.onchange=()=>{performanceConfig.profile=profileSelect.value;savePerformanceConfig();applyPerformanceProfile();updateAtmosphereDisplay();new Notice(`Performans profili: ${profileSelect.options[profileSelect.selectedIndex].textContent}`);};
-        prefSelect.onchange=()=>{performanceConfig.gpuPreference=prefSelect.value;savePerformanceConfig();};
-        adapterSelect.onchange=()=>{performanceConfig.selectedAdapterId=adapterSelect.value;const selected=scannedGraphicsAdapters.find((item,index)=>String(item.id??item.luid??index)===adapterSelect.value);const kind=String(selected?.kind||"").toLowerCase();if(kind.includes("discrete")){prefSelect.value="high-performance";performanceConfig.gpuPreference="high-performance";}else if(kind.includes("integrated")){prefSelect.value="power-saving";performanceConfig.gpuPreference="power-saving";}savePerformanceConfig();};
+        profileSelect.onchange=()=>{checkpointMediaContinuity(true);performanceConfig.profile=profileSelect.value;savePerformanceConfig();applyPerformanceProfile();new Notice(`Performance profile: ${profileSelect.options[profileSelect.selectedIndex].textContent}`);};
+        adapterSelect.onchange=async()=>{await applySelectedGpu({notice:true});};
         panel.querySelector(".gpu-scan").onclick=scan;
-        panel.querySelector(".gpu-apply").onclick=async()=>{
-            performanceConfig.gpuPreference=prefSelect.value;performanceConfig.selectedAdapterId=adapterSelect.value;savePerformanceConfig();applyPerformanceProfile();
-            const result=await nativeGraphicsCall("setGraphicsPreference",{preference:prefSelect.value,adapterId:adapterSelect.value});
-            if(result.ok)new Notice(result.message||"GPU tercihi kaydedildi. Uygulamayı yeniden başlat.",6500);
-            else new Notice("Core grafik köprüsü yanıt vermedi. ZIP içindeki GPU_Ayarla.cmd dosyasını yedek olarak çalıştır.",7500);
-        };
-        panel.querySelector(".gpu-settings").onclick=async()=>{const result=await nativeGraphicsCall("openWindowsGraphicsSettings",{});if(!result.ok){try{window.open("ms-settings:display-advancedgraphics","_blank");}catch(_){new Notice("Windows Ayarlar > Sistem > Ekran > Grafikler bölümünü aç.");}}};
+        panel.querySelector(".gpu-apply").onclick=async()=>{await applySelectedGpu({notice:true});};
         await scan();
     };
 
     const renderVoicePane=()=>{
         const vf=voiceforgeSettings();const panel=document.createElement("section");panel.className="performer-panel voiceforge";
-        panel.innerHTML='<div class="performer-heading"><div><small>Edge TTS → RVC Voice Mask</small><h2>Voiceforge</h2></div><button class="voice-refresh" type="button">Yeniden Tara</button></div><p>Seçilen aygıt yalnız Voiceforge üzerinden başlatılan RVC sürecine uygulanır. Voiceforge artık RVC Python ortamında CUDA\'yı gerçekten test eder ve doğrulanmayan NVIDIA seçimini çalıştırmaz.</p><div class="voiceforge-layout"><div class="voice-speaker-list"></div><div class="voice-test-panel"><section class="voice-device-panel"><label>RVC işlem birimi<select class="voice-device"><option value="auto">Otomatik seçim</option></select></label><div class="voice-device-actions"><button class="voice-rvc-start" type="button">RVC Başlat</button><button class="voice-rvc-stop" type="button">RVC Durdur</button></div><small class="voice-device-status">GPU ve RVC durumu taranıyor…</small><small class="voice-device-proof">Gerçek aygıt doğrulaması bekleniyor…</small></section><label>Test konuşmacısı<select class="voice-active"></select></label><label>Edge sesi<input class="voice-edge" type="text"></label><label>Test metni<textarea class="voice-test-text">Ałek’ryŧhæ’nın Mavi Çekirdeği bugün yeniden nefes alıyor.</textarea></label><button class="big-action voice-test-speak">Seçili Konuşmacıyla Konuş</button><small class="voice-bridge-note">VoiceBridge: <code class="voice-bridge-url"></code> · RVC/Applio: <code class="voice-rvc-url">http://127.0.0.1:6969</code></small><small class="voice-gpu-note">Not: Ałek arayüzünü Windows Intel GPU’da çizebilir. Burada gösterilen “Doğrulanan RVC aygıtı” yalnız ses dönüşüm motorunun gerçek aygıtıdır.</small></div></div>';
+        panel.innerHTML='<div class="performer-heading"><div><small>Edge TTS → RVC Voice Mask</small><h2>Voiceforge</h2></div><button class="voice-refresh" type="button">Rescan</button></div><p>The selected device applies only to the RVC process launched through Voiceforge. Voiceforge now tests CUDA inside the RVC Python environment and will not use an unverified NVIDIA selection.</p><div class="voiceforge-layout"><div class="voice-speaker-list"></div><div class="voice-test-panel"><section class="voice-device-panel"><label>RVC processing device<select class="voice-device"><option value="auto">Automatic selection</option></select></label><div class="voice-device-actions"><button class="voice-rvc-start" type="button">Start RVC</button><button class="voice-rvc-stop" type="button">Stop RVC</button></div><small class="voice-device-status">Scanning GPU and RVC status…</small><small class="voice-device-proof">Waiting for real device verification…</small></section><label>Test speaker<select class="voice-active"></select></label><label>Edge voice<input class="voice-edge" type="text"></label><label>Test text<textarea class="voice-test-text">Ałek’ryŧhæ’s Blue Core is breathing again today.</textarea></label><button class="big-action voice-test-speak">Speak with Selected Voice</button><small class="voice-bridge-note">VoiceBridge: <code class="voice-bridge-url"></code> · RVC/Applio: <code class="voice-rvc-url">http://127.0.0.1:6969</code></small><small class="voice-gpu-note">Note: The Ałek interface may render on the Windows Intel GPU. The “Verified RVC device” shown here refers only to the actual voice-conversion engine device.</small></div></div>';
         pane.appendChild(panel);
         const list=panel.querySelector(".voice-speaker-list");
-        if(!ALEK_VOICE_SPEAKERS.length)list.innerHTML='<div class="empty-state large">Aynı isimli .pth + .index çifti bulunamadı.<br>Örnek: <b>Meggy.pth</b> + <b>Meggy.index</b></div>';
+        if(!ALEK_VOICE_SPEAKERS.length)list.innerHTML='<div class="empty-state large">No matching .pth + .index pair was found.<br>Example: <b>Meggy.pth</b> + <b>Meggy.index</b></div>';
         ALEK_VOICE_SPEAKERS.forEach(speaker=>{const card=document.createElement("button");card.type="button";card.className="voice-speaker-card";card.classList.toggle("active",vf.activeSpeaker===speaker.name);card.innerHTML=`<strong>${escapeHtmlValue(speaker.name)}</strong><small>${escapeHtmlValue(speaker.pthPath.split('/').pop())}</small><small>${escapeHtmlValue(speaker.indexPath.split('/').pop())}</small>`;card.onclick=async()=>{vf.activeSpeaker=speaker.name;await saveToDB(null);renderPerformer();};list.appendChild(card);});
-        const select=panel.querySelector(".voice-active");select.innerHTML='<option value="">Konuşmacı seç</option>'+ALEK_VOICE_SPEAKERS.map(s=>`<option value="${escapeHtmlValue(s.name)}" ${vf.activeSpeaker===s.name?'selected':''}>${escapeHtmlValue(s.name)}</option>`).join('');select.onchange=async()=>{vf.activeSpeaker=select.value;await saveToDB(null);renderPerformer();};
+        const select=panel.querySelector(".voice-active");select.innerHTML='<option value="">Select speaker</option>'+ALEK_VOICE_SPEAKERS.map(s=>`<option value="${escapeHtmlValue(s.name)}" ${vf.activeSpeaker===s.name?'selected':''}>${escapeHtmlValue(s.name)}</option>`).join('');select.onchange=async()=>{vf.activeSpeaker=select.value;await saveToDB(null);renderPerformer();};
         const edge=panel.querySelector(".voice-edge");edge.value=vf.edgeVoice||"tr-TR-EmelNeural";edge.onchange=async()=>{vf.edgeVoice=edge.value.trim()||"tr-TR-EmelNeural";await saveToDB(null);};
         panel.querySelector(".voice-bridge-url").textContent=vf.bridgeUrl||"http://127.0.0.1:6970";
         panel.querySelector(".voice-test-speak").onclick=()=>speakVoiceText(select.value,panel.querySelector(".voice-test-text").value,panel.querySelector(".voice-test-speak"));
@@ -12632,8 +14780,8 @@ const renderPerformer=async()=>{
 
         const deviceSelect=panel.querySelector(".voice-device"),deviceStatus=panel.querySelector(".voice-device-status"),deviceProof=panel.querySelector(".voice-device-proof"),startButton=panel.querySelector(".voice-rvc-start"),stopButton=panel.querySelector(".voice-rvc-stop");
         let detectedDevices=[];
-        const deviceLabel=device=>device.kind==="cuda"?`NVIDIA ${device.index}: ${device.name}${device.memoryTotalMb?` · ${Math.round(device.memoryTotalMb/1024)} GB`:""}`:(device.kind==="cpu"?"CPU (yavaş)":device.name||device.id);
-        const nameForDevice=id=>{const resolved=id==="auto"?(detectedDevices.filter(d=>d.kind==="cuda").sort((a,b)=>(b.memoryTotalMb||0)-(a.memoryTotalMb||0))[0]?.id||"cpu"):id;const found=detectedDevices.find(d=>d.id===resolved);return found?deviceLabel(found):resolved||"Bilinmiyor";};
+        const deviceLabel=device=>device.kind==="cuda"?`NVIDIA ${device.index}: ${device.name}${device.memoryTotalMb?` · ${Math.round(device.memoryTotalMb/1024)} GB`:""}`:(device.kind==="cpu"?"CPU (slow)":device.name||device.id);
+        const nameForDevice=id=>{const resolved=id==="auto"?(detectedDevices.filter(d=>d.kind==="cuda").sort((a,b)=>(b.memoryTotalMb||0)-(a.memoryTotalMb||0))[0]?.id||"cpu"):id;const found=detectedDevices.find(d=>d.id===resolved);return found?deviceLabel(found):resolved||"Unknown";};
         const renderStatus=status=>{
             const selected=String(status.selectedDevice||vf.selectedDevice||"auto");
             const resolved=String(status.resolvedDevice||selected);
@@ -12642,48 +14790,48 @@ const renderPerformer=async()=>{
             const external=!!status.rvcOnline&&!status.managed;
             const restart=!!status.restartRequired;
             if(external){
-                deviceStatus.textContent=`RVC dışarıdan açık · aygıt doğrulanamıyor. Harici RVC'yi kapatıp Voiceforge üzerinden başlat.`;
+                deviceStatus.textContent=`RVC is running externally · the device cannot be verified. Close the external RVC process and start it through Voiceforge.`;
                 deviceStatus.classList.remove("online");deviceStatus.classList.add("warning");
-                deviceProof.textContent="Doğrulama: Harici süreç. NVIDIA seçimi uygulanmış kabul edilmiyor.";
-                startButton.disabled=true;startButton.textContent="Harici RVC Açık";stopButton.disabled=true;
+                deviceProof.textContent="Verification: External process. NVIDIA selection is not treated as applied.";
+                startButton.disabled=true;startButton.textContent="External RVC Running";stopButton.disabled=true;
                 return;
             }
             deviceStatus.classList.remove("warning");
             if(status.rvcOnline){
-                deviceStatus.textContent=`RVC çalışıyor · ${activeLabel}${restart?" · yeni seçim bekliyor":""}`;
+                deviceStatus.textContent=`RVC running · ${activeLabel}${restart?" · new selection pending":""}`;
                 deviceStatus.classList.add("online");
-                deviceProof.textContent=status.verificationMessage||`Doğrulanan RVC aygıtı: ${activeLabel}`;
-                startButton.disabled=!restart;startButton.textContent=restart?"Seçimi Uygula ve Yeniden Başlat":"RVC Çalışıyor";stopButton.disabled=false;
+                deviceProof.textContent=status.verificationMessage||`Verified RVC device: ${activeLabel}`;
+                startButton.disabled=!restart;startButton.textContent=restart?"Apply Selection & Restart":"RVC Running";stopButton.disabled=false;
             }else{
-                deviceStatus.textContent=`RVC kapalı · Seçili: ${selectedLabel}`;
+                deviceStatus.textContent=`RVC stopped · Selected: ${selectedLabel}`;
                 deviceStatus.classList.remove("online");
                 const probe=status.selectedProbe||{};
-                if(resolved.startsWith("cuda:")) deviceProof.textContent=probe.ok&&probe.cudaAvailable?`CUDA hazır: ${probe.cudaName||selectedLabel}${probe.cudaVersion?` · CUDA ${probe.cudaVersion}`:""}`:(probe.error?`CUDA doğrulanamadı: ${probe.error}`:"RVC başlatılırken CUDA gerçek ortamda doğrulanacak.");
-                else deviceProof.textContent="CPU seçili. RVC GPU kullanmayacak.";
-                startButton.disabled=false;startButton.textContent="RVC Başlat";stopButton.disabled=true;
+                if(resolved.startsWith("cuda:")) deviceProof.textContent=probe.ok&&probe.cudaAvailable?`CUDA ready: ${probe.cudaName||selectedLabel}${probe.cudaVersion?` · CUDA ${probe.cudaVersion}`:""}`:(probe.error?`CUDA could not be verified: ${probe.error}`:"CUDA will be verified in the real environment when RVC starts.");
+                else deviceProof.textContent="CPU selected. RVC will not use the GPU.";
+                startButton.disabled=false;startButton.textContent="Start RVC";stopButton.disabled=true;
             }
         };
         const updateRvcStatus=async()=>{
             try{const status=await voiceBridgeRequest("/rvc/status");panel.querySelector(".voice-rvc-url").textContent=status.rvcApiUrl||"http://127.0.0.1:6969";renderStatus(status);}
-            catch(error){deviceStatus.textContent=`VoiceBridge erişilemiyor: ${error.message||error}`;deviceProof.textContent="Gerçek aygıt doğrulanamadı.";deviceStatus.classList.remove("online");deviceStatus.classList.add("warning");startButton.disabled=true;stopButton.disabled=true;}
+            catch(error){deviceStatus.textContent=`VoiceBridge is unreachable: ${error.message||error}`;deviceProof.textContent="The real device could not be verified.";deviceStatus.classList.remove("online");deviceStatus.classList.add("warning");startButton.disabled=true;stopButton.disabled=true;}
         };
         const loadDevices=async()=>{
             try{
                 const data=await voiceBridgeRequest("/devices");detectedDevices=Array.isArray(data.devices)?data.devices:[];
-                deviceSelect.innerHTML='<option value="auto">Otomatik · en uygun NVIDIA</option>';
+                deviceSelect.innerHTML='<option value="auto">Automatic · best NVIDIA</option>';
                 detectedDevices.forEach(device=>{const option=document.createElement("option");option.value=device.id;option.textContent=deviceLabel(device);deviceSelect.appendChild(option);});
                 const selected=String(vf.selectedDevice||data.selectedDevice||"auto");deviceSelect.value=[...deviceSelect.options].some(option=>option.value===selected)?selected:"auto";
                 if(vf.selectedDevice!==deviceSelect.value){vf.selectedDevice=deviceSelect.value;await saveToDB(null);}
                 await updateRvcStatus();
-            }catch(error){deviceStatus.textContent=`GPU taraması yapılamadı: ${error.message||error}`;deviceProof.textContent="RVC Python/CUDA doğrulaması yapılamadı.";deviceSelect.disabled=true;startButton.disabled=true;stopButton.disabled=true;}
+            }catch(error){deviceStatus.textContent=`GPU scan failed: ${error.message||error}`;deviceProof.textContent="RVC Python/CUDA verification failed.";deviceSelect.disabled=true;startButton.disabled=true;stopButton.disabled=true;}
         };
         deviceSelect.onchange=async()=>{
             vf.selectedDevice=deviceSelect.value;await saveToDB(null);
-            try{const result=await voiceBridgeRequest("/settings",{selectedDevice:deviceSelect.value});new Notice(result.restartRequired?"GPU seçimi kaydedildi. Uygulamak için RVC'yi yeniden başlat.":`İşlem birimi seçildi: ${deviceSelect.options[deviceSelect.selectedIndex]?.textContent||deviceSelect.value}`);}catch(error){new Notice(`GPU seçimi kaydedilemedi: ${error.message||error}`);}
+            try{const result=await voiceBridgeRequest("/settings",{selectedDevice:deviceSelect.value});new Notice(result.restartRequired?"GPU selection saved. Restart RVC to apply it.":`Processing device selected: ${deviceSelect.options[deviceSelect.selectedIndex]?.textContent||deviceSelect.value}`);}catch(error){new Notice(`GPU selection could not be saved: ${error.message||error}`);}
             await updateRvcStatus();
         };
-        startButton.onclick=async()=>{startButton.disabled=true;deviceStatus.textContent="RVC aygıtı doğrulanıyor ve başlatılıyor…";deviceProof.textContent="RVC Python ortamında CUDA testi yapılıyor…";try{const result=await voiceBridgeRequest("/rvc/start",{device:deviceSelect.value});new Notice(result.message||"RVC başlatıldı.");}catch(error){new Notice(`RVC başlatılamadı: ${error.message||error}`,8500);}await updateRvcStatus();};
-        stopButton.onclick=async()=>{stopButton.disabled=true;try{const result=await voiceBridgeRequest("/rvc/stop",{});new Notice(result.message||"RVC durduruldu.");}catch(error){new Notice(`RVC durdurulamadı: ${error.message||error}`,6500);}await updateRvcStatus();};
+        startButton.onclick=async()=>{startButton.disabled=true;deviceStatus.textContent="Verifying and starting the RVC device…";deviceProof.textContent="Testing CUDA in the RVC Python environment…";try{const result=await voiceBridgeRequest("/rvc/start",{device:deviceSelect.value});new Notice(result.message||"RVC started.");}catch(error){new Notice(`RVC could not be started: ${error.message||error}`,8500);}await updateRvcStatus();};
+        stopButton.onclick=async()=>{stopButton.disabled=true;try{const result=await voiceBridgeRequest("/rvc/stop",{});new Notice(result.message||"RVC stopped.");}catch(error){new Notice(`RVC could not be stopped: ${error.message||error}`,6500);}await updateRvcStatus();};
         loadDevices();
     };
 
@@ -13320,26 +15468,26 @@ document.addEventListener("keydown",e=>{
 // -------------------------- v0.0.0 · F1 Kısayol Rehberi --------------------------
 let alekShortcutHelpShade=null;
 const SHORTCUT_GUIDE_SECTIONS=[
-{icon:"⌘",title:"Core ve Genel",tone:"gold",rows:[["F1","Komuta Atlası'nı açar"],["F2","Ana Daireyi açar"],["F11","Core penceresinde gerçek tam ekranı açar veya kapatır"],["Ctrl + Tekerlek","Ałek’ryŧhæ arayüz ölçeğini değiştirir"],["Alt + G","A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti'ni açar veya kapatır"],["Ctrl + Shift + Esc","Yalnız Ałek’ryŧhæ arayüz katmanını kapatır; Core penceresini kapatmaz"],["Esc","Aktif seçim, pencere veya işlemi iptal eder"],["Enter / Boşluk","Odaktaki düğmeyi veya seçeneği etkinleştirir"]]},
-{icon:"◉",title:"Mavi Ay · Odak Merkezi",tone:"blue",rows:[["F2 → Mavi Ay","Odak Merkezi'ni açar"],["Pomodoro","Setleri odak → kısa mola biçiminde yürütür; son setten sonra uzun mola başlatır"],["Kronometre","Çalışma süresini ölçer ve tur kaydı alır"],["Zamanlayıcı","Belirlediğin dakika kadar geri sayım başlatır"],["Çalışma Sistemleri","25/5, 50/10, 52/17, 90/20 veya 15 sn Test düzenini seçer"],["Olumlama","Kayıtlı cümleler arasında geçer veya kendi cümleni ekler"],["Esc","Odak Merkezi'ni kapatır"]]},
-{icon:"▦",title:"Takvim",tone:"cyan",rows:[["F2 → Takvim","Takvimi açar"],["Meggy Dairesi","Bütün takvim notlarını eskiden yeniye kronolojik listeler"],["Bir Güne Tıkla","O güne ait notları açar"],["Not Ekle","Seçili güne yeni not kaydeder"],["Sil","Not silmeden önce 24 Kozmik Mühür doğrulamasını ister"],["Bugüne Git","Takvimi bugünün tarihine getirir"]]},
-{icon:"✦",title:"Cartographer’s Table ve Tide",tone:"blue",rows:[["F2","Ana Daireyi açar"],["Alt + G","A̤ɐ͜ɨǣ́ꞎ͡ƣ İmge Paleti’ni açar veya kapatır"],["Tekerlek","Çalışma yüzeyini yakınlaştırır veya uzaklaştırır"],["Orta Tuş + Sürükle","Çalışma yüzeyinde gezinir"],["Alt + Tekerlek","Yalnız Cartographer’s Table yüzeyini iki boyutlu döndürür"],["R","İmleç konumuna raptiye ekler"],["F","Cartographer’s Table'da seçili kütüphane görselini imleç konumuna ekler"],["Ctrl + Z","Geri alır"],["Ctrl + Shift + Z / Ctrl + Y","İleri alır"],["Shift + Boyutlandır","Görselin en-boy oranını korur"],["Shift + Döndür","Görseli varsayılan dönüşüne göre tam derece adımlarıyla döndürür"]]},
-{icon:"⌁",title:"Cartographer’s Table Çizimi",tone:"cyan",rows:[["\" / Tab Üstü","Çizim Paleti'ni açar veya kapatır"],["Kare / Kement Seçim","Çizim ve metinleri seçer"],["Space","Seçimi yeni konumuna bırakır veya noktalı çizimi tamamlar"],["Delete","Seçili çizim ve metinleri siler"],["Backspace","Noktalı çizimde son kontrol noktasını kaldırır"],["Çift Tık","Noktalı çizimi tamamlar"],["Shift","Kare, daire ve eşkenar kısıtı uygular"],["Esc","Aktif çizim veya seçimi iptal eder"]]},
-{icon:"☾",title:"Lore, Reverie ve Harmonizer",tone:"violet",rows:[["F2 → Lore","Lore yüzeyini açar"],["F2 → Reverie","Reverie yüzeyini açar"],["Üstteki ♫","Harmonizer'ı açar"],["Enter / Boşluk","Odaktaki Reverie kaydını veya düğmeyi açar"],["Esc","Açık alt pencereyi veya işlemi kapatır"]]},
-{icon:"✦",title:"AI",tone:"cyan",rows:[["F2","AI ekranındayken de Ana Daireyi açar; önce Edge dışına tıklamak gerekmez"],["AI","Gerçek Microsoft Edge içindeki ChatGPT alanını açar"],["F2 → Başka Dilim","Edge alanını kapatır ve seçilen Ałek’ryŧhæ yüzeyine geçer"]]}
+{icon:"⌘",title:"Core & General",tone:"gold",rows:[["F1","Open the Command Atlas"],["F2","Open the Primary Radial Menu"],["F11","Toggle true fullscreen in the Core window"],["Ctrl + Wheel","Change the Ałek’ryŧhæ interface scale"],["Alt + G","Toggle the A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette"],["Ctrl + Shift + Esc","Close only the Ałek’ryŧhæ interface layer without closing Core"],["Esc","Cancel the active selection, window, or operation"],["Enter / Space","Activate the focused button or option"]]},
+{icon:"◉",title:"Blue Moon · Focus Center",tone:"blue",rows:[["F2 → Blue Moon","Open the Focus Center"],["Pomodoro","Run focus → short break sets, followed by a long break after the final set"],["Stopwatch","Measure work time and record laps"],["Timer","Start a countdown for the selected number of minutes"],["Focus Systems","Choose 25/5, 50/10, 52/17, 90/20, or 15 sec Test"],["Affirmations","Cycle through saved sentences or add your own"],["Esc","Close the Focus Center"]]},
+{icon:"▦",title:"Calendar",tone:"cyan",rows:[["F2 → Calendar","Open Calendar"],["Meggy Circle","List all calendar notes chronologically from oldest to newest"],["Click a Day","Open notes for that day"],["Add Note","Save a new note to the selected day"],["Delete","Require the 24 Seal verification before deleting a note"],["Go to Today","Move the calendar to today"]]},
+{icon:"✦",title:"Cartographer’s Table & Connections",tone:"blue",rows:[["F2","Open the Primary Radial Menu"],["Alt + G","Toggle the A̤ɐ͜ɨǣ́ꞎ͡ƣ Symbol Palette"],["Wheel","Zoom the workspace"],["Middle Button + Drag","Pan across the workspace"],["Alt + Wheel","Rotate only the Cartographer’s Table in 2D"],["R","Add a pin at the pointer"],["F","Place the selected library visual at the pointer on the Cartographer’s Table"],["Ctrl + Z","Undo"],["Ctrl + Shift + Z / Ctrl + Y","Redo"],["Shift + Resize","Preserve the visual aspect ratio"],["Shift + Rotate","Rotate in whole-degree steps relative to the default rotation"]]},
+{icon:"⌁",title:"Cartographer’s Table Drawing",tone:"cyan",rows:[["Key above Tab","Toggle the Drawing Palette"],["Box / Lasso Selection","Select drawings and text"],["Space","Drop the selection at its new position or finish a point-based drawing"],["Delete","Delete selected drawings and text"],["Backspace","Remove the last control point from a point-based drawing"],["Double Click","Finish a point-based drawing"],["Shift","Apply square, circle, and equilateral constraints"],["Esc","Cancel the active drawing or selection"]]},
+{icon:"☾",title:"Lore, Reverie & Harmonizer",tone:"violet",rows:[["F2 → Lore","Open Lore"],["F2 → Reverie","Open Reverie"],["♫ at the Top","Open Harmonizer"],["Enter / Space","Open the focused Reverie entry or button"],["Esc","Close the active subwindow or operation"]]},
+{icon:"✦",title:"Assistant",tone:"cyan",rows:[["F2","Open the Primary Radial Menu even while Assistant is active"],["Assistant","Open the ChatGPT area inside Microsoft Edge"],["F2 → Another Slice","Close the Edge area and switch to the selected Ałek’ryŧhæ workspace"]]}
 ]
 const makeShortcutAtlasCard=section=>{const card=document.createElement("section");card.className=`shortcut-atlas-card tone-${section.tone}`;const head=document.createElement("header"),icon=document.createElement("span"),title=document.createElement("h3"),body=document.createElement("div");icon.textContent=section.icon;title.textContent=section.title;head.append(icon,title);body.className="shortcut-atlas-card-body";card.append(head,body);section.rows.forEach(([keyText,descText])=>{const row=document.createElement("div");row.className="shortcut-atlas-row";const keys=document.createElement("div");keys.className="shortcut-atlas-keys";keyText.split(" / ").forEach((part,index)=>{if(index){const slash=document.createElement("span");slash.textContent="/";keys.appendChild(slash);}const kbd=document.createElement("kbd");kbd.textContent=part;keys.appendChild(kbd);});const desc=document.createElement("p");desc.textContent=descText;row.append(keys,desc);body.appendChild(row);});return card;};
 const closeShortcutHelp=()=>{alekShortcutHelpShade?.remove();alekShortcutHelpShade=null;};
 const openShortcutHelp=()=>{
     if(alekShortcutHelpShade?.isConnected)return;
     const shade=document.createElement("div");shade.className="shortcut-atlas-shade";const panel=document.createElement("section");panel.className="shortcut-atlas-panel";
-    const hero=document.createElement("header");hero.className="shortcut-atlas-hero";const emblem=document.createElement("div");emblem.className="shortcut-atlas-emblem";emblem.textContent="F1";const copy=document.createElement("div"),eyebrow=document.createElement("span"),title=document.createElement("h2"),subtitle=document.createElement("p"),close=document.createElement("button");eyebrow.textContent="AŁEK’RYŦHÆ KOMUTA ATLASI";title.textContent="Kısayol Rehberi";subtitle.textContent="Core ve etkin Ałek’ryŧhæ işlevlerindeki bütün kısayollar tek yerde.";copy.append(eyebrow,title,subtitle);close.textContent="×";close.setAttribute("aria-label","Rehberi kapat");hero.append(emblem,copy,close);
-    const command=document.createElement("div");command.className="shortcut-atlas-command";const search=document.createElement("input");search.placeholder="Kısayol veya işlem ara…";search.setAttribute("aria-label","Kısayol ara");const hint=document.createElement("span");hint.textContent="Yalnız etkin özellikler listelenir.";command.append(search,hint);
+    const hero=document.createElement("header");hero.className="shortcut-atlas-hero";const emblem=document.createElement("div");emblem.className="shortcut-atlas-emblem";emblem.textContent="F1";const copy=document.createElement("div"),eyebrow=document.createElement("span"),title=document.createElement("h2"),subtitle=document.createElement("p"),close=document.createElement("button");eyebrow.textContent="AŁEK’RYŦHÆ COMMAND ATLAS";title.textContent="Shortcut Guide";subtitle.textContent="All active Core and Ałek’ryŧhæ shortcuts in one place.";copy.append(eyebrow,title,subtitle);close.textContent="×";close.setAttribute("aria-label","Close guide");hero.append(emblem,copy,close);
+    const command=document.createElement("div");command.className="shortcut-atlas-command";const search=document.createElement("input");search.placeholder="Search shortcut or action…";search.setAttribute("aria-label","Search shortcuts");const hint=document.createElement("span");hint.textContent="Only active features are listed.";command.append(search,hint);
     const grid=document.createElement("div");grid.className="shortcut-atlas-grid";const columns=[0,1].map(()=>{const column=document.createElement("div");column.className="shortcut-atlas-column";grid.appendChild(column);return column;});const loads=[0,0];SHORTCUT_GUIDE_SECTIONS.forEach(section=>{const index=loads[0]<=loads[1]?0:1;columns[index].appendChild(makeShortcutAtlasCard(section));loads[index]+=section.rows.length+2;});
-    const footer=document.createElement("footer");footer.className="shortcut-atlas-footer";footer.innerHTML='<span><kbd>Esc</kbd> kapat</span><span><kbd>F1</kbd> her ekranda aç</span><button type="button">Rehberi Kapat</button>';
+    const footer=document.createElement("footer");footer.className="shortcut-atlas-footer";footer.innerHTML='<span><kbd>Esc</kbd> close</span><span><kbd>F1</kbd> open anywhere</span><button type="button">Close Guide</button>';
     panel.append(hero,command,grid,footer);shade.appendChild(panel);document.body.appendChild(shade);alekShortcutHelpShade=shade;
     const closeButton=footer.querySelector("button");close.onclick=closeShortcutHelp;closeButton.onclick=closeShortcutHelp;shade.onpointerdown=e=>{if(e.target===shade)closeShortcutHelp();};
-    search.oninput=()=>{const q=search.value.trim().toLocaleLowerCase("tr");grid.querySelectorAll(".shortcut-atlas-row").forEach(row=>row.hidden=!!q&&!row.textContent.toLocaleLowerCase("tr").includes(q));grid.querySelectorAll(".shortcut-atlas-card").forEach(card=>card.hidden=!card.querySelector(".shortcut-atlas-row:not([hidden])"));};
+    search.oninput=()=>{const q=search.value.trim().toLocaleLowerCase("tr");grid.querySelectorAll(".shortcut-atlas-row").forEach(row=>row.hidden=!!q&&!row.textContent.toLocaleLowerCase("en-US").includes(q));grid.querySelectorAll(".shortcut-atlas-card").forEach(card=>card.hidden=!card.querySelector(".shortcut-atlas-row:not([hidden])"));};
     panel.onkeydown=e=>{if(e.key==="Escape"){e.preventDefault();closeShortcutHelp();}};requestAnimationFrame(()=>search.focus());
 };
 window.__alekOpenShortcutHelp=openShortcutHelp;window.__alekCloseShortcutHelp=closeShortcutHelp;
@@ -13483,7 +15631,7 @@ button.danger,.alek-v2-modal-actions button.danger,.lore-editor-actions button.d
 @media(max-width:1100px){.v9-masthead{grid-template-columns:1fr auto}.v9-masthead-center{display:none}.v9-edition span{display:none}.alek-v2-nav{justify-content:flex-start}.alek-v2-content{padding:16px}.lore-reader{padding:26px}}
 @media(max-width:760px){.v9-masthead{height:58px;flex-basis:58px;padding:0 13px}.v9-core-orb{width:40px;height:40px;flex-basis:40px}.v9-brand-copy small{display:none}.v9-brand-copy strong{font-size:.9rem}.v9-edition{display:none}.alek-v2-nav button{padding-left:35px!important}.alek-v2-content{padding:12px}.calendar-head,.stage-head,.journey-tools,.board-tools{border-radius:10px}.lore-reader{padding:20px}.performer-panel{padding:17px}}
 /* v10 Harmonizer + Voiceforge temel katmanı */
-.harmonizer-v10{height:100%}.harmonizer-workbench{height:100%;min-height:0;display:grid;grid-template-columns:220px minmax(0,1fr);gap:14px}.harmonizer-side{min-height:0;padding:14px;border:1px solid rgba(63,93,108,.7);border-radius:16px;background:linear-gradient(165deg,rgba(15,28,36,.97),rgba(6,11,16,.98));box-shadow:var(--v9-shadow);display:flex;flex-direction:column;gap:8px}.harmonizer-side-title{padding:6px 8px 15px;border-bottom:1px solid rgba(100,157,180,.2);margin-bottom:4px}.harmonizer-side-title strong{display:block;color:#ecd58d;font-family:Georgia,serif;font-size:1.15rem}.harmonizer-side-title span{display:block;color:#788a95;font-size:.75rem;margin-top:4px}.harmonizer-side>button{display:grid;grid-template-columns:32px 1fr;align-items:center;gap:8px;min-height:48px;padding:8px 10px;border:1px solid rgba(62,86,99,.58);border-radius:10px;background:linear-gradient(180deg,#111b22,#091117);color:#aebcc5;text-align:left;cursor:pointer}.harmonizer-side>button span{font-size:1.15rem;color:#68c6e9;text-align:center}.harmonizer-side>button strong{font-size:.86rem}.harmonizer-side>button:hover{border-color:rgba(103,201,239,.68);color:#fff}.harmonizer-side>button.active{border-color:#d3ad5e;color:#fff;background:linear-gradient(90deg,rgba(91,61,24,.64),rgba(12,35,45,.94));box-shadow:0 0 18px rgba(78,187,225,.13)}.harmonizer-pane{min-height:0;overflow:auto}.harmonizer-pane>.performer-panel{min-height:100%;box-sizing:border-box}.performer-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.performer-heading h2{margin:2px 0 0}.performer-heading small{color:#748896;text-transform:uppercase;letter-spacing:.12em}.ambiance-zone-badge{padding:6px 9px;border:1px solid rgba(99,188,221,.42);border-radius:999px;color:#80d3f1;background:rgba(12,48,63,.5);font-size:.7rem;font-weight:900;letter-spacing:.12em}.harmonizer-pane .performer-preview{min-height:320px}.harmonizer-pane .harmonizer-timings{grid-template-columns:1fr 1fr}.voiceforge{overflow:auto!important}.voice-refresh{border:1px solid rgba(97,170,199,.55);background:#102632;color:#c7efff;border-radius:8px;padding:8px 11px;cursor:pointer}.voiceforge-layout{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(320px,1.2fr);gap:14px;min-height:0;flex:1}.voice-speaker-list{min-height:300px;overflow:auto;padding:8px;border:1px solid rgba(65,94,108,.58);border-radius:12px;background:#081016}.voice-speaker-card{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:11px 12px;margin-bottom:7px;border:1px solid #2c4552;border-radius:9px;background:linear-gradient(180deg,#13242d,#0b151b);color:white;cursor:pointer;text-align:left}.voice-speaker-card strong{color:#ecd58d}.voice-speaker-card small{color:#758b96;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.voice-speaker-card.active{border-color:#69c7e9;box-shadow:0 0 16px rgba(84,192,232,.18)}.voice-test-panel{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid rgba(65,94,108,.58);border-radius:12px;background:linear-gradient(160deg,#0d1a21,#070c11)}.voice-test-panel label{display:flex;flex-direction:column;gap:5px;color:#9cb0bb;font-size:.82rem}.voice-test-panel select,.voice-test-panel input,.voice-test-panel textarea{border:1px solid #36515e;background:#071016;color:white;border-radius:8px;padding:10px;font:inherit}.voice-test-panel textarea{min-height:150px;resize:vertical}.voice-bridge-note{color:#72838c}.voice-bridge-note code{color:#85d3ef}.story-bubble-body{white-space:pre-wrap;line-height:1.5}.story-bubble-voice{display:flex!important;align-items:center;justify-content:flex-end;gap:7px;margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.08);font-size:.72rem;color:#92a9b6;white-space:nowrap!important}.story-bubble-voice span{overflow:hidden;text-overflow:ellipsis}.story-bubble-voice button{width:30px;height:27px;border:1px solid rgba(100,187,219,.48);border-radius:7px;background:#0b1f29;color:#c9f2ff;cursor:pointer}.story-bubble-voice button:disabled{opacity:.42;cursor:not-allowed}.story-bubble-voice button.speaking{animation:v10VoicePulse .7s ease-in-out infinite alternate}@keyframes v10VoicePulse{to{box-shadow:0 0 16px #61c9ee;transform:scale(1.06)}}.speaker-chip{display:block!important;min-width:0;overflow:hidden}.speaker-chip-text{width:100%;min-width:0}.speaker-chip-text strong,.speaker-chip-text small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.speaker-voice-tag{display:block;margin-top:6px;color:#7fbdd5;font-size:.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.speaker-chip-actions{display:none!important}.tavern-columns{grid-template-columns:minmax(180px,.7fr) minmax(420px,2fr) minmax(260px,.95fr)}
+.harmonizer-v10{height:100%}.harmonizer-workbench{height:100%;min-height:0;display:grid;grid-template-columns:220px minmax(0,1fr);gap:14px}.harmonizer-side{min-height:0;padding:14px;border:1px solid rgba(63,93,108,.7);border-radius:16px;background:linear-gradient(165deg,rgba(15,28,36,.97),rgba(6,11,16,.98));box-shadow:var(--v9-shadow);display:flex;flex-direction:column;gap:8px}.harmonizer-side-title{padding:6px 8px 15px;border-bottom:1px solid rgba(100,157,180,.2);margin-bottom:4px}.harmonizer-side-title strong{display:block;color:#ecd58d;font-family:Georgia,serif;font-size:1.15rem}.harmonizer-side-title span{display:block;color:#788a95;font-size:.75rem;margin-top:4px}.harmonizer-side>button{display:grid;grid-template-columns:32px 1fr;align-items:center;gap:8px;min-height:48px;padding:8px 10px;border:1px solid rgba(62,86,99,.58);border-radius:10px;background:linear-gradient(180deg,#111b22,#091117);color:#aebcc5;text-align:left;cursor:pointer}.harmonizer-side>button span{font-size:1.15rem;color:#68c6e9;text-align:center}.harmonizer-side>button strong{font-size:.86rem}.harmonizer-side>button:hover{border-color:rgba(103,201,239,.68);color:#fff}.harmonizer-side>button.active{border-color:#d3ad5e;color:#fff;background:linear-gradient(90deg,rgba(91,61,24,.64),rgba(12,35,45,.94));box-shadow:0 0 18px rgba(78,187,225,.13)}.harmonizer-pane{min-height:0;overflow:auto}.harmonizer-pane>.performer-panel{min-height:100%;box-sizing:border-box}.performer-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.performer-heading h2{margin:2px 0 0}.performer-heading small{color:#748896;text-transform:uppercase;letter-spacing:.12em}.ambiance-zone-badge{padding:6px 9px;border:1px solid rgba(99,188,221,.42);border-radius:999px;color:#80d3f1;background:rgba(12,48,63,.5);font-size:.7rem;font-weight:900;letter-spacing:.12em}.harmonizer-pane .performer-preview{min-height:320px}.ambiance-auto-timing{margin:-2px 0 12px;color:#718a96;font-size:.72rem;letter-spacing:.035em;text-align:center}.voiceforge{overflow:auto!important}.voice-refresh{border:1px solid rgba(97,170,199,.55);background:#102632;color:#c7efff;border-radius:8px;padding:8px 11px;cursor:pointer}.voiceforge-layout{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(320px,1.2fr);gap:14px;min-height:0;flex:1}.voice-speaker-list{min-height:300px;overflow:auto;padding:8px;border:1px solid rgba(65,94,108,.58);border-radius:12px;background:#081016}.voice-speaker-card{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:11px 12px;margin-bottom:7px;border:1px solid #2c4552;border-radius:9px;background:linear-gradient(180deg,#13242d,#0b151b);color:white;cursor:pointer;text-align:left}.voice-speaker-card strong{color:#ecd58d}.voice-speaker-card small{color:#758b96;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.voice-speaker-card.active{border-color:#69c7e9;box-shadow:0 0 16px rgba(84,192,232,.18)}.voice-test-panel{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid rgba(65,94,108,.58);border-radius:12px;background:linear-gradient(160deg,#0d1a21,#070c11)}.voice-test-panel label{display:flex;flex-direction:column;gap:5px;color:#9cb0bb;font-size:.82rem}.voice-test-panel select,.voice-test-panel input,.voice-test-panel textarea{border:1px solid #36515e;background:#071016;color:white;border-radius:8px;padding:10px;font:inherit}.voice-test-panel textarea{min-height:150px;resize:vertical}.voice-bridge-note{color:#72838c}.voice-bridge-note code{color:#85d3ef}.story-bubble-body{white-space:pre-wrap;line-height:1.5}.story-bubble-voice{display:flex!important;align-items:center;justify-content:flex-end;gap:7px;margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.08);font-size:.72rem;color:#92a9b6;white-space:nowrap!important}.story-bubble-voice span{overflow:hidden;text-overflow:ellipsis}.story-bubble-voice button{width:30px;height:27px;border:1px solid rgba(100,187,219,.48);border-radius:7px;background:#0b1f29;color:#c9f2ff;cursor:pointer}.story-bubble-voice button:disabled{opacity:.42;cursor:not-allowed}.story-bubble-voice button.speaking{animation:v10VoicePulse .7s ease-in-out infinite alternate}@keyframes v10VoicePulse{to{box-shadow:0 0 16px #61c9ee;transform:scale(1.06)}}.speaker-chip{display:block!important;min-width:0;overflow:hidden}.speaker-chip-text{width:100%;min-width:0}.speaker-chip-text strong,.speaker-chip-text small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.speaker-voice-tag{display:block;margin-top:6px;color:#7fbdd5;font-size:.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.speaker-chip-actions{display:none!important}.tavern-columns{grid-template-columns:minmax(180px,.7fr) minmax(420px,2fr) minmax(260px,.95fr)}
 @media(max-width:950px){.harmonizer-workbench{grid-template-columns:1fr}.harmonizer-side{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));overflow-x:auto}.harmonizer-side-title{grid-column:1/-1}.voiceforge-layout{grid-template-columns:1fr}.tavern-columns{grid-template-columns:1fr}}
 /* v12: GPU seçimi, RVC yönetimi ve şifreli Tavern mesaj silme */
 .flat-ambiance-library{display:block!important;min-height:560px}.flat-ambiance-items{width:100%;min-height:560px;border:1px solid rgba(67,94,107,.72);border-radius:14px;background:linear-gradient(160deg,rgba(10,21,28,.98),rgba(5,10,15,.99));overflow:hidden}.flat-ambiance-toolbar{padding:14px 16px}.flat-ambiance-heading{display:flex;flex-direction:column;gap:3px;min-width:0}.flat-ambiance-heading strong{font-family:Georgia,serif;color:#f0e0b1;font-size:1.08rem}.flat-ambiance-heading small{color:#76909e}.flat-ambiance-list{padding:12px;min-height:470px;max-height:62vh;overflow:auto}.flat-ambiance-list .empty-state{min-height:420px;display:flex;align-items:center;justify-content:center;flex-direction:column}.story-bubble-voice{justify-content:flex-end!important;min-width:0}.story-bubble-voice-select{min-width:118px;max-width:210px;height:30px;border:1px solid rgba(100,187,219,.48);border-radius:7px;background:#081821;color:#d7f4ff;padding:3px 28px 3px 8px;font:inherit;cursor:pointer;overflow:hidden;text-overflow:ellipsis}.story-bubble-voice-select:focus{outline:none;border-color:#77d5f5;box-shadow:0 0 0 2px rgba(103,201,239,.11)}.story-bubble-voice button{flex:0 0 32px}.tavern-columns{grid-template-columns:minmax(180px,.7fr) minmax(0,2.25fr) minmax(245px,.88fr)!important}.tavern-meggy-col,.tavern-center,.tavern-speakers{min-width:0}.tavern-speakers{box-sizing:border-box!important;overflow-y:auto!important;overflow-x:hidden!important;padding:14px!important}.tavern-speakers h3{font-size:1.02rem;line-height:1.2;white-space:normal}.speaker-chip{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;min-width:0!important;padding:10px 11px!important;margin:0 0 9px!important;overflow:hidden!important}.speaker-chip-text{width:100%;min-width:0;overflow:hidden}.speaker-chip-text strong,.speaker-chip-text small{display:block!important;width:100%;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.speaker-chip-text strong{font-size:.88rem;line-height:1.25}.speaker-chip-text small{font-size:.74rem;line-height:1.3;margin-top:4px}.speaker-voice-tag{display:none!important}@media(max-width:1180px){.tavern-columns{grid-template-columns:minmax(170px,.65fr) minmax(0,1.85fr) minmax(220px,.8fr)!important}.speaker-chip-text strong{font-size:.82rem}}@media(max-width:950px){.tavern-columns{grid-template-columns:1fr!important}.tavern-speakers{max-height:300px}}
@@ -13559,7 +15707,7 @@ const compactDeckStyle=document.createElement("style");compactDeckStyle.id="alek
 .map-root .map-drawbar>.map-tool-group{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;align-content:center!important;flex-wrap:nowrap!important;gap:3px!important;width:100%!important;min-width:0!important;min-height:34px!important;height:34px!important;padding:0 6px!important;border:0!important;border-radius:0!important;background:transparent!important;box-sizing:border-box!important;overflow:hidden!important}
 .map-root .map-drawbar>.map-tool-group+.map-tool-group{border-left:1px solid rgba(72,108,123,.48)!important}
 .map-root .map-drawbar>.map-tool-group::before{position:static!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;margin:0 2px 0 0!important;color:#81aabd!important;font-size:.54rem!important;font-weight:900!important;letter-spacing:.1em!important;line-height:1!important;white-space:nowrap!important}
-.map-root .map-drawbar>.map-tool-group:nth-child(1)::before{content:"ARAÇ"!important}.map-root .map-drawbar>.map-tool-group:nth-child(2)::before{content:"ÇİZGİ"!important}.map-root .map-drawbar>.map-tool-group:nth-child(3)::before{content:"IZGARA"!important}.map-root .map-drawbar>.map-tool-group:nth-child(4)::before{content:"EKLE"!important}
+.map-root .map-drawbar>.map-tool-group:nth-child(1)::before{content:"TOOLS"!important}.map-root .map-drawbar>.map-tool-group:nth-child(2)::before{content:"LINE"!important}.map-root .map-drawbar>.map-tool-group:nth-child(3)::before{content:"GRID"!important}.map-root .map-drawbar>.map-tool-group:nth-child(4)::before{content:"ADD"!important}
 .map-root .map-drawbar .map-tool-symbol{width:27px!important;min-width:27px!important;max-width:27px!important;height:27px!important;min-height:27px!important;padding:0!important;border-radius:6px!important;font-size:.84rem!important;flex:0 0 27px!important}
 .map-root .map-drawbar button,.map-root .map-drawbar select,.map-root .map-drawbar input[type="color"]{height:27px!important;min-height:27px!important;min-width:0!important;padding:0 6px!important;border-radius:6px!important;font-size:.67rem!important;line-height:1!important;white-space:nowrap!important;flex:0 1 auto!important}
 .map-root .map-drawbar select{min-width:55px!important}.map-root .map-drawbar input[type="color"]{width:31px!important;min-width:31px!important;padding:2px!important;flex:0 0 31px!important}.map-root .map-style-group{padding-left:6px!important;padding-right:6px!important}
@@ -13572,7 +15720,7 @@ const compactDeckStyle=document.createElement("style");compactDeckStyle.id="alek
 
 /* Lore sıfır kayıtları tek satır kalır. */
 .lore-tree-section.empty .lore-tree-title,.lore-folder.empty>.lore-folder-row{min-height:36px!important;height:36px!important;padding-top:0!important;padding-bottom:0!important;opacity:.72!important}.lore-tree-section.empty .lore-tree-title:hover,.lore-folder.empty>.lore-folder-row:hover{opacity:1!important}.lore-tree-items[hidden],.lore-folder-content[hidden]{display:none!important}.lore-empty-category{display:block!important;padding:6px 12px!important;margin:0!important;color:#627986!important;font-size:.7rem!important;font-style:italic!important}
-.gpu-adapter{width:100%!important}.adapter-row{align-items:center!important}.adapter-row b{overflow-wrap:anywhere!important}.adapter-row span{flex:0 0 auto!important}
+.gpu-selector-note{margin:0 0 8px;color:#7f939f;font-size:.76rem;line-height:1.45}.gpu-adapter{width:100%!important}.adapter-row{align-items:center!important}.adapter-row b{overflow-wrap:anywhere!important}.adapter-row span{flex:0 0 auto!important}
 
 /* 1360 altına düşünce satırı bozup üst üste bindirmek yerine kendi içinde yatay kaydırır. */
 @media(max-width:1360px){
@@ -13841,16 +15989,12 @@ renderV2(activeV2View);
         requestAnimationFrame(()=>requestAnimationFrame(runCosmicOpening));
         
         const cleanup = (val) => {
-            if (document.body.contains(overlay)) document.body.removeChild(overlay); 
-            pauseAmbianceRuntime({release:true}); 
-            disposeViewRuntime(activeV2View); 
-            
-            if (typeof audioPlayer !== 'undefined') {
-                snapshotActiveBard();
-                audioPlayer.pause();
-                saveToDB(null);
-            }
-            
+            snapshotAmbianceRuntime({persist:true});
+            if (typeof audioPlayer !== 'undefined') pauseBardForPowerState();
+            void saveToDB(null);
+            if (document.body.contains(overlay)) document.body.removeChild(overlay);
+            pauseAmbianceRuntime({release:true});
+            disposeViewRuntime(activeV2View);
             return val;
         };
         window.__alekCleanup = cleanup;
@@ -13973,7 +16117,8 @@ const drawingPaletteStyle=document.createElement("style");drawingPaletteStyle.id
 .map-draw-palette-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:11px 16px 15px;overflow:auto;align-content:start}
 .map-draw-palette-item{position:relative;display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:67px;padding:8px 10px;border:1px solid rgba(65,102,119,.62);border-radius:11px;background:linear-gradient(145deg,rgba(17,32,41,.93),rgba(7,16,22,.96));color:#dce9ef;text-align:left;cursor:pointer;transition:.14s}.map-draw-palette-item:hover{transform:translateY(-1px);border-color:#67b9d9;background:linear-gradient(145deg,rgba(25,50,63,.95),rgba(8,20,28,.98));box-shadow:0 8px 22px rgba(0,0,0,.34)}.map-draw-palette-item.active{border-color:#e0b958;box-shadow:0 0 0 2px rgba(224,185,88,.13),0 0 18px rgba(224,185,88,.15)}.map-draw-palette-item[hidden]{display:none!important}
 .map-draw-palette-icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(100,175,207,.48);border-radius:10px;background:radial-gradient(circle at 35% 25%,rgba(49,103,130,.5),rgba(5,14,20,.92));color:#ddf4ff;font:800 1.18rem Georgia,serif}.map-draw-palette-copy{min-width:0;display:flex;flex-direction:column;gap:3px}.map-draw-palette-copy strong{color:#edf5f7;font-size:.82rem}.map-draw-palette-copy small{color:#8fa7b2;font-size:.67rem;line-height:1.28}.map-draw-palette-item em{align-self:start;padding:3px 6px;border:1px solid rgba(105,146,163,.34);border-radius:999px;color:#7896a4;font:700 .55rem system-ui,sans-serif;white-space:nowrap}
-.map-draw-palette-settings{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid rgba(72,111,128,.42);background:rgba(5,13,18,.92)}.map-draw-palette-settings>*{height:34px;border:1px solid #405c6a;border-radius:8px;background:#0c1921;color:#dbe9ef}.map-draw-palette-settings input[type=color]{width:42px;padding:3px}.map-draw-palette-settings select,.map-draw-palette-settings button{padding:0 10px}.map-draw-palette-settings button.active{border-color:#e0b958;color:#f4d986}.map-draw-palette-active{display:flex;align-items:center;flex:1;padding:0 11px;color:#a8d8eb;font-size:.75rem;font-weight:800}
+.map-draw-palette-settings{display:grid;grid-template-columns:1fr;gap:10px;padding:12px 16px;border-top:1px solid rgba(72,111,128,.42);background:rgba(5,13,18,.94)}.map-draw-palette-settings>*{min-height:34px;border:1px solid #405c6a;border-radius:8px;background:#0c1921;color:#dbe9ef}.map-draw-palette-settings select,.map-draw-palette-settings button{padding:0 10px}.map-draw-palette-settings button.active{border-color:#e0b958;color:#f4d986}.map-draw-palette-active{display:flex;align-items:center;padding:0 11px;color:#a8d8eb;font-size:.75rem;font-weight:800}.map-draw-palette-inline-controls{display:flex;align-items:center;gap:8px;padding:8px 10px}.map-draw-palette-inline-controls>*{height:34px;border:1px solid #405c6a;border-radius:8px;background:#0c1921;color:#dbe9ef}.map-draw-swatch-strip{display:flex;flex-wrap:wrap;gap:8px;padding:8px 10px}.map-draw-swatch{display:grid;grid-template-columns:28px auto;align-items:center;gap:8px;min-height:38px;padding:0 9px;border:1px solid rgba(86,137,160,.45);border-radius:10px;background:linear-gradient(180deg,rgba(15,27,34,.94),rgba(7,14,19,.98));color:#deedf2;text-align:left}.map-draw-swatch.compact{min-width:0}.map-draw-swatch span{display:block;width:22px;height:22px;border-radius:7px;background:var(--swatch);box-shadow:inset 0 0 0 2px rgba(255,255,255,.16),0 0 0 1px rgba(0,0,0,.4)}.map-draw-swatch small{font-size:.68rem;font-weight:800;letter-spacing:.01em}.map-draw-swatch.active{border-color:#e0b958;box-shadow:0 0 0 2px rgba(224,185,88,.16),0 0 18px rgba(224,185,88,.12)}.map-color-trigger{display:grid!important;place-items:center!important;width:31px!important;min-width:31px!important;max-width:31px!important;padding:0!important;font-size:1rem!important;font-weight:900!important;line-height:1!important}
+.alek-map-color-popover{position:fixed;z-index:100080;box-sizing:border-box;padding:10px;border:1px solid rgba(86,171,205,.72);border-radius:13px;background:#061119;box-shadow:0 16px 42px rgba(0,0,0,.56);user-select:none}.alek-map-color-spectrum{position:relative;width:100%;height:226px;overflow:hidden;border:1px solid rgba(133,211,238,.62);border-radius:9px;cursor:crosshair;touch-action:none;outline:none;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,0) 50%,#000 100%),linear-gradient(180deg,#f00 0%,#ff0 16.666%,#0f0 33.333%,#0ff 50%,#00f 66.666%,#f0f 83.333%,#f00 100%)}.alek-map-color-spectrum:focus-visible{box-shadow:0 0 0 2px rgba(91,196,236,.35)}.alek-map-color-cursor{position:absolute;width:15px;height:15px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #061119,0 1px 5px rgba(0,0,0,.7);transform:translate(-50%,-50%);pointer-events:none}.alek-map-color-footer{height:34px;margin-top:8px;display:flex;align-items:center;gap:9px;padding:0 9px;border:1px solid rgba(75,127,148,.48);border-radius:8px;background:#091821;color:#c9e5ee}.alek-map-color-preview{width:20px;height:20px;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 0 0 1px rgba(0,0,0,.55)}.alek-map-color-value{font:800 .72rem/1 ui-monospace,Consolas,monospace;letter-spacing:.06em}.map-draw-palette-settings{grid-template-columns:1fr!important}.map-draw-palette-settings .map-draw-palette-inline-controls{grid-column:1/-1!important}
 
 /* F1 için bağımsız, okunaklı Komuta Atlası */
 .shortcut-atlas-shade{position:fixed;inset:0;z-index:2147483100;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 15%,rgba(28,71,91,.28),rgba(1,5,8,.88) 58%);backdrop-filter:blur(13px)}
@@ -13985,7 +16130,7 @@ const drawingPaletteStyle=document.createElement("style");drawingPaletteStyle.id
 .shortcut-atlas-grid{grid-auto-rows:unset!important;align-items:start!important;overflow:auto!important}.shortcut-atlas-column{min-width:0;display:flex;flex-direction:column;gap:10px;align-self:start}.shortcut-atlas-card{display:block!important;min-height:auto!important;overflow:visible!important}.shortcut-atlas-card-body{overflow:visible!important;min-height:auto!important;padding-right:0!important}
 .alek-map-portal-tooltip{max-width:340px!important;padding:9px 12px!important;border-color:rgba(102,192,229,.72)!important;background:linear-gradient(145deg,rgba(8,23,31,.99),rgba(3,9,13,.99))!important;color:#e7f4f8!important;font-size:.72rem!important;box-shadow:0 14px 38px rgba(0,0,0,.72),0 0 18px rgba(74,171,211,.12)!important}
 .map-text{paint-order:stroke;stroke:#061018!important;stroke-width:3px!important}.map-dimension text{paint-order:stroke;stroke:#061018;stroke-width:3px}.map-point{filter:drop-shadow(0 0 4px currentColor)}
-@media(max-width:900px){.map-draw-palette-grid,.shortcut-atlas-grid{grid-template-columns:1fr}.map-draw-palette-panel,.shortcut-atlas-panel{max-height:94vh}.shortcut-atlas-command span{display:none}.map-root .section-control-group select{min-width:170px!important;width:240px!important}}
+@media(max-width:900px){.map-draw-palette-grid,.shortcut-atlas-grid{grid-template-columns:1fr}.map-draw-palette-panel,.shortcut-atlas-panel{max-height:94vh}.shortcut-atlas-command span{display:none}.map-root .section-control-group select{min-width:170px!important;width:240px!important}.map-draw-palette-settings{grid-template-columns:1fr}.map-draw-palette-inline-controls,.map-draw-swatch-strip{grid-column:1/-1}}
 `;
 document.head.appendChild(drawingPaletteStyle);
 
@@ -15844,40 +17989,66 @@ html[data-alek-performance="cpu-ram"] :is(.vertical-resource,.mevcudat-drop-targ
 // · Ana daire dilimi, sıkı kaynak rayı ve sembol-only üst araçlar.
 // ============================================================================
 const __alekPrimaryPrimaryMenuItems=[
-    {view:"ai",label:"AI",full:"AI",glyph:"✦"},
-    {view:"calendar",label:"Takvim",full:"Takvim",glyph:"▦"},
-    {view:"map",label:"CT",full:"Cartographer’s Table",glyph:"◇"},
-    {view:"connections",label:"Tide",full:"Tide",glyph:"∞"},
-    {view:"lore",label:"Lore",full:"Lore",glyph:"▤"},
-    {view:"reverie",label:"Reverie",full:"Reverie",glyph:"☾"}
+    {view:"ai",label:"Assistant",full:"Ask & Create",glyph:"✦"},
+    {view:"calendar",label:"Calendar",full:"Schedule & Notes",glyph:"▦"},
+    {view:"map",label:"Cartographer’s Table",full:"Maps & Spaces",glyph:"◇"},
+    {view:"connections",label:"Connections",full:"Ideas & Relations",glyph:"∞"},
+    {view:"lore",label:"Lore",full:"Knowledge & Worldbuilding",glyph:"▤"},
+    {view:"reverie",label:"Reverie",full:"Thoughts & Ideas",glyph:"☾"}
 ];
 
 // ============================================================================
-// Mavi Ay · Odak Merkezi
+// Blue Moon · Focus Center
 // JOA yerine yalnız üretkenlik araçlarını açar. Uygulamanın geri kalan yüzüne dokunmaz.
 // Kapalıyken interval çalışmaz; açık değilse CPU kullanmaz.
 // ============================================================================
 let __alekProductivityShade=null;
 let __alekProductivityTick=null;
 const __alekFocusSystems=[
-    {f:25,b:5,lb:15,sets:4,n:"Pomodoro",d:"4 set · 25 dk odak · 5 dk kısa mola · son setten sonra 15 dk uzun mola"},
-    {f:50,b:10,lb:30,sets:4,n:"Derin Çalışma",d:"4 set · 50 dk odak · 10 dk kısa mola · son setten sonra 30 dk uzun mola"},
-    {f:52,b:17,lb:30,sets:4,n:"52 / 17",d:"4 set · 52 dk çalışma · 17 dk kısa mola · son setten sonra 30 dk uzun mola"},
-    {f:90,b:20,lb:40,sets:3,n:"90 / 20",d:"3 set · 90 dk derin blok · 20 dk kısa mola · son setten sonra 40 dk uzun mola"},
-    {f:.25,b:.25,lb:.25,sets:4,n:"Test",d:"4 set · 15 sn çalışma · 15 sn mola · son setten sonra 15 sn uzun mola"}
+    {f:25,b:5,lb:15,sets:4,n:"Pomodoro",d:"4 sets · 25 min focus · 5 min short break · 15 min long break after the final set"},
+    {f:50,b:10,lb:30,sets:4,n:"Deep Work",d:"4 sets · 50 min focus · 10 min short break · 30 min long break after the final set"},
+    {f:52,b:17,lb:30,sets:4,n:"52 / 17",d:"4 sets · 52 min work · 17 min short break · 30 min long break after the final set"},
+    {f:90,b:20,lb:40,sets:3,n:"90 / 20",d:"3 sets · 90 min deep block · 20 min short break · 40 min long break after the final set"},
+    {f:.25,b:.25,lb:.25,sets:4,n:"Test",d:"4 sets · 15 sec work · 15 sec break · 15 sec long break after the final set"}
 ];
 const __alekProductivityDefaults=()=>({
     focusMinutes:25,breakMinutes:5,longBreakMinutes:15,setCount:4,currentSet:1,phase:"focus",remainingSec:1500,running:false,deadline:0,
     stopwatch:{elapsedMs:0,running:false,startedAt:0,laps:[]},
     timer:{durationSec:600,remainingSec:600,running:false,deadline:0},
     affirmations:[
-        "Bugün elimdeki işe sakin ve düzenli biçimde odaklanacağım.",
-        "Küçük ve temiz adımlar işi bitirir.",
-        "Dikkatimi faydalı olana yöneltiyorum.",
-        "Başladığım işi mümkün olduğunca düzgün tamamlayacağım."
+        {tr:"Bugün önümdeki işe sakin ve düzenli biçimde odaklanacağım.",en:"Today I will focus calmly and consistently on the task in front of me."},
+        {tr:"Küçük ve net adımlar işi tamamlar.",en:"Small, clear steps finish the work."},
+        {tr:"Dikkatimi faydalı olana yönlendiriyorum.",en:"I direct my attention toward what is useful."},
+        {tr:"Başladığım işi elimden gelenin en iyisiyle tamamlayacağım.",en:"I will complete what I start as well as I can."}
     ],
     affirmationIndex:0
 });
+const __alekAffirmationPairSeed=new Map([
+    ["Today I will focus calmly and consistently on the task in front of me.",{tr:"Bugün önümdeki işe sakin ve düzenli biçimde odaklanacağım.",en:"Today I will focus calmly and consistently on the task in front of me."}],
+    ["Bugün elimdeki işe sakin ve düzenli biçimde odaklanacağım.",{tr:"Bugün elimdeki işe sakin ve düzenli biçimde odaklanacağım.",en:"Today I will focus calmly and consistently on the task at hand."}],
+    ["Bugün önümdeki işe sakin ve düzenli biçimde odaklanacağım.",{tr:"Bugün önümdeki işe sakin ve düzenli biçimde odaklanacağım.",en:"Today I will focus calmly and consistently on the task in front of me."}],
+    ["Small, clear steps finish the work.",{tr:"Küçük ve net adımlar işi tamamlar.",en:"Small, clear steps finish the work."}],
+    ["Küçük ve net adımlar işi tamamlar.",{tr:"Küçük ve net adımlar işi tamamlar.",en:"Small, clear steps finish the work."}],
+    ["I direct my attention toward what is useful.",{tr:"Dikkatimi faydalı olana yönlendiriyorum.",en:"I direct my attention toward what is useful."}],
+    ["Dikkatimi faydalı olana yönlendiriyorum.",{tr:"Dikkatimi faydalı olana yönlendiriyorum.",en:"I direct my attention toward what is useful."}],
+    ["I will complete what I start as well as I can.",{tr:"Başladığım işi elimden gelenin en iyisiyle tamamlayacağım.",en:"I will complete what I start as well as I can."}],
+    ["Başladığım işi elimden gelenin en iyisiyle tamamlayacağım.",{tr:"Başladığım işi elimden gelenin en iyisiyle tamamlayacağım.",en:"I will complete what I start as well as I can."}]
+]);
+const __alekLooksTurkish=text=>/[çğıöşüÇĞİÖŞÜ]/u.test(String(text||""))||/(ve|ile|bir|bugün|işe|odak|adım|tamam|dikkat|olan|gelen)/iu.test(String(text||""));
+const __alekAffirmationPairOf=entry=>{
+    if(entry&&typeof entry==="object"&&!Array.isArray(entry)){
+        const tr=String(entry.tr||entry.turkish||entry.primary||"").trim();
+        const en=String(entry.en||entry.english||entry.secondary||"").trim();
+        if(tr||en)return{tr:tr||en,en:en||tr};
+    }
+    const raw=String(entry||"").trim();
+    if(!raw)return{tr:"",en:""};
+    if(__alekAffirmationPairSeed.has(raw))return Object.assign({},__alekAffirmationPairSeed.get(raw));
+    if(raw.includes(" || ")){const [tr,en]=raw.split(/\s*\|\|\s*/,2);return{tr:String(tr||"").trim(),en:String(en||"").trim()||String(tr||"").trim()};}
+    if(raw.includes(" | ")){const [tr,en]=raw.split(/\s*\|\s*/,2);return{tr:String(tr||"").trim(),en:String(en||"").trim()||String(tr||"").trim()};}
+    return __alekLooksTurkish(raw)?{tr:raw,en:raw}:{tr:raw,en:raw};
+};
+const __alekNormalizeAffirmationList=list=>Array.isArray(list)&&list.length?list.map(__alekAffirmationPairOf).filter(item=>item.tr||item.en):__alekProductivityDefaults().affirmations.map(__alekAffirmationPairOf);
 const __alekProductivityState=()=>{
     storyData.settings=storyData.settings&&typeof storyData.settings==="object"?storyData.settings:{};
     const base=__alekProductivityDefaults(),saved=storyData.settings.productivity&&typeof storyData.settings.productivity==="object"?storyData.settings.productivity:{};
@@ -15888,11 +18059,11 @@ const __alekProductivityState=()=>{
     if(saved.longBreakMinutes==null)state.longBreakMinutes=profile.lb;if(saved.setCount==null)state.setCount=profile.sets;
     state.setCount=Math.max(1,Math.min(12,Math.round(Number(state.setCount)||profile.sets)));state.currentSet=Math.max(1,Math.min(state.setCount,Math.round(Number(state.currentSet)||1)));
     if(!["focus","break","longBreak"].includes(state.phase))state.phase="focus";
-    if(!Array.isArray(state.affirmations)||!state.affirmations.length)state.affirmations=base.affirmations.slice();
+    state.affirmations=__alekNormalizeAffirmationList(Array.isArray(state.affirmations)&&state.affirmations.length?state.affirmations:base.affirmations);
     return state;
 };
 const __alekClockText=seconds=>{seconds=Math.max(0,Math.ceil(Number(seconds)||0));const h=Math.floor(seconds/3600),m=Math.floor((seconds%3600)/60),s=seconds%60;return h?`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;};
-const __alekFocusDurationLabel=minutes=>{const value=Math.max(0,Number(minutes)||0);return value<1?`${Math.round(value*60)} sn`:`${Number.isInteger(value)?value:Number(value.toFixed(2))} dk`;};
+const __alekFocusDurationLabel=minutes=>{const value=Math.max(0,Number(minutes)||0);return value<1?`${Math.round(value*60)} sec`:`${Number.isInteger(value)?value:Number(value.toFixed(2))} min`;};
 const __alekStopwatchText=ms=>{ms=Math.max(0,Number(ms)||0);const total=Math.floor(ms/1000),cs=Math.floor((ms%1000)/10),h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;return h?`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(cs).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(cs).padStart(2,"0")}`;};
 const __alekProductivityPersist=()=>{try{captureAdventureUiState();scheduleAutoSave(null,120);}catch(_){}};
 
@@ -16135,23 +18306,23 @@ const __alekOpenProductivityCenter=()=>{
 .alek-productivity-head{display:grid;grid-template-columns:56px minmax(0,1fr) 42px;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(88,141,164,.34)}.alek-productivity-head img{width:52px;height:52px;border-radius:50%;object-fit:cover;filter:drop-shadow(0 0 15px rgba(74,196,239,.45))}.alek-productivity-head strong{display:block;color:#f0e5c9;font:800 1.08rem Georgia,serif;letter-spacing:.04em}.alek-productivity-head small{display:block;margin-top:3px;color:#7798a7}.alek-productivity-close{width:38px;height:38px;border:1px solid #5b7480;border-radius:50%;background:#07141b;color:#d8edf5;font-size:1.2rem;cursor:pointer}
 .alek-productivity-tabs{display:flex;gap:6px;padding:9px 12px;overflow-x:auto;border-bottom:1px solid rgba(88,141,164,.28);background:rgba(2,10,15,.55)}.alek-productivity-tabs button{min-height:34px;padding:0 12px;border:1px solid rgba(73,111,128,.66);border-radius:9px;background:linear-gradient(#14232d,#081117);color:#a9c1cc;font-weight:800;white-space:nowrap;cursor:pointer}.alek-productivity-tabs button.active{border-color:#68c9ec;color:#fff;background:linear-gradient(#23546a,#0d2b3b);box-shadow:inset 0 0 18px rgba(72,196,239,.12)}
 .alek-productivity-body{min-height:0;overflow:auto;padding:22px}.alek-prod-page{height:100%;min-height:420px;display:grid;place-items:center}.alek-prod-card{width:min(650px,100%);display:grid;gap:16px;justify-items:center;padding:25px;border:1px solid rgba(74,125,148,.55);border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(44,149,191,.09),transparent 42%),rgba(5,15,21,.88)}.alek-prod-kicker{color:#75cfea;font-size:.7rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.alek-prod-clock{font:800 clamp(3.2rem,8vw,6rem)/1 ui-monospace,Consolas,monospace;color:#f2ead8;letter-spacing:-.06em;text-shadow:0 0 24px rgba(86,205,244,.14)}.alek-prod-sub{color:#87a4b1;text-align:center}.alek-prod-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.alek-prod-actions button,.alek-prod-preset{min-height:38px;padding:0 14px;border:1px solid rgba(78,126,147,.72);border-radius:9px;background:linear-gradient(#172a35,#09151c);color:#d7e9ef;font-weight:800;cursor:pointer}.alek-prod-actions button.primary,.alek-prod-preset.active{border-color:#67c9ed;background:linear-gradient(#245d75,#0d3042);color:#fff}.alek-prod-input{width:110px;min-height:38px;border:1px solid #4b6672;border-radius:9px;background:#051016;color:#edf7f9;padding:0 10px;text-align:center;font:700 1rem ui-monospace,Consolas}
-.alek-prod-presets{width:min(760px,100%);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alek-prod-preset{min-height:110px;display:grid;align-content:center;justify-items:start;gap:5px;padding:16px;text-align:left}.alek-prod-preset strong{font:800 1rem Georgia,serif;color:#efe2c3}.alek-prod-preset small{color:#89a5b1;line-height:1.4}.alek-prod-affirm{width:min(700px,100%);display:grid;gap:16px}.alek-prod-affirm-card{min-height:210px;display:grid;place-items:center;padding:28px;border:1px solid rgba(87,143,166,.58);border-radius:18px;background:radial-gradient(circle at 50% 20%,rgba(62,172,215,.09),transparent 55%),#07131a;text-align:center}.alek-prod-affirm-card p{max-width:580px;margin:0;color:#f0e6cf;font:700 clamp(1.2rem,2.5vw,1.75rem)/1.55 Georgia,serif}.alek-prod-affirm-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.alek-prod-affirm-add input{min-width:0;border:1px solid #46616e;border-radius:9px;background:#051016;color:#edf7f9;padding:10px}.alek-prod-affirm-add button{border:1px solid #5dbbdf;border-radius:9px;background:#103447;color:#e6f8ff;font-weight:800;padding:0 14px}.alek-prod-laps{width:min(560px,100%);max-height:130px;overflow:auto;display:grid;gap:5px}.alek-prod-laps div{display:flex;justify-content:space-between;padding:6px 9px;border-bottom:1px solid rgba(92,122,135,.3);color:#92aeba;font-family:ui-monospace,Consolas,monospace}
+.alek-prod-presets{width:min(760px,100%);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alek-prod-preset{min-height:110px;display:grid;align-content:center;justify-items:start;gap:5px;padding:16px;text-align:left}.alek-prod-preset strong{font:800 1rem Georgia,serif;color:#efe2c3}.alek-prod-preset small{color:#89a5b1;line-height:1.4}.alek-prod-affirm{width:min(760px,100%);display:grid;gap:16px}.alek-prod-affirm-card{display:grid;gap:12px;padding:24px;border:1px solid rgba(87,143,166,.58);border-radius:18px;background:radial-gradient(circle at 50% 20%,rgba(62,172,215,.09),transparent 55%),#07131a;text-align:center}.alek-prod-affirm-lane{display:grid;gap:10px;padding:18px 18px 22px;border:1px solid rgba(73,123,145,.48);border-radius:16px;background:linear-gradient(180deg,rgba(9,22,29,.92),rgba(5,14,20,.98))}.alek-prod-affirm-lane strong{display:block;color:#8fc5d8;font:800 .78rem/1.2 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}.alek-prod-affirm-lane p{max-width:580px;margin:0 auto;color:#f0e6cf;font:700 clamp(1.1rem,2.35vw,1.65rem)/1.52 Georgia,serif}.alek-prod-affirm-add{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:8px}.alek-prod-affirm-add input{min-width:0;border:1px solid #46616e;border-radius:9px;background:#051016;color:#edf7f9;padding:10px}.alek-prod-affirm-add button{border:1px solid #5dbbdf;border-radius:9px;background:#103447;color:#e6f8ff;font-weight:800;padding:0 14px}.alek-prod-laps{width:min(560px,100%);max-height:130px;overflow:auto;display:grid;gap:5px}.alek-prod-laps div{display:flex;justify-content:space-between;padding:6px 9px;border-bottom:1px solid rgba(92,122,135,.3);color:#92aeba;font-family:ui-monospace,Consolas,monospace}
 @media(max-width:680px){.alek-productivity-panel{height:94vh}.alek-productivity-body{padding:14px}.alek-prod-presets{grid-template-columns:1fr}.alek-prod-card{padding:18px}.alek-prod-affirm-add{grid-template-columns:1fr}.alek-prod-affirm-add button{min-height:38px}}
 `;document.head.appendChild(style);
     }
     const shade=document.createElement("div");shade.className="alek-productivity-shade";
-    const panel=document.createElement("section");panel.className="alek-productivity-panel";panel.setAttribute("role","dialog");panel.setAttribute("aria-label","Mavi Ay Odak Merkezi");
-    panel.innerHTML=`<header class="alek-productivity-head"><img src="${getDynamicUrl("Assets/Bluemoon.png")}" alt=""><div><strong>Mavi Ay · Odak Merkezi</strong><small>Pomodoro, kronometre, zamanlayıcı, çalışma sistemleri ve olumlama</small></div><button type="button" class="alek-productivity-close" aria-label="Kapat">×</button></header><nav class="alek-productivity-tabs"></nav><main class="alek-productivity-body"></main>`;
+    const panel=document.createElement("section");panel.className="alek-productivity-panel";panel.setAttribute("role","dialog");panel.setAttribute("aria-label","Blue Moon Focus Center");
+    panel.innerHTML=`<header class="alek-productivity-head"><img src="${getDynamicUrl("Assets/Bluemoon.png")}" alt=""><div><strong>Blue Moon · Focus Center</strong><small>Pomodoro, stopwatch, timer, focus systems, and affirmations</small></div><button type="button" class="alek-productivity-close" aria-label="Kapat">×</button></header><nav class="alek-productivity-tabs"></nav><main class="alek-productivity-body"></main>`;
     shade.appendChild(panel);document.body.appendChild(shade);__alekProductivityShade=shade;
     const tabs=panel.querySelector(".alek-productivity-tabs"),body=panel.querySelector(".alek-productivity-body"),close=panel.querySelector(".alek-productivity-close");
-    const defs=[['pomodoro','Pomodoro'],['stopwatch','Kronometre'],['timer','Zamanlayıcı'],['systems','Odak Sistemleri'],['affirm','Olumlama']];let active='pomodoro';
+    const defs=[['pomodoro','Pomodoro'],['stopwatch','Stopwatch'],['timer','Timer'],['systems','Focus Systems'],['affirm','Affirmations']];let active='pomodoro';
     const buttonMap=new Map();defs.forEach(([id,label])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{active=id;draw();};tabs.appendChild(b);buttonMap.set(id,b);});
     const syncAndRedrawClock=()=>{const phaseChanged=__alekProductivitySync(state);if(phaseChanged&&active==='pomodoro'){draw();return;}const clock=body.querySelector('[data-prod-clock]');if(!clock)return;if(active==='pomodoro')clock.textContent=__alekClockText(state.remainingSec);else if(active==='timer')clock.textContent=__alekClockText(state.timer.remainingSec);else if(active==='stopwatch'){const sw=state.stopwatch,elapsed=sw.elapsedMs+(sw.running?Math.max(0,Date.now()-sw.startedAt):0);clock.textContent=__alekStopwatchText(elapsed);}};
-    const pomodoroPage=()=>{const root=document.createElement('div');root.className='alek-prod-page';const phaseLabel=state.phase==='focus'?'ODAK':state.phase==='longBreak'?'UZUN MOLA':'KISA MOLA';root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">${phaseLabel}</span><div class="alek-prod-setline"><strong>Set ${state.currentSet} / ${state.setCount}</strong><span>${__alekFocusDurationLabel(state.focusMinutes)} çalışma · ${__alekFocusDurationLabel(state.breakMinutes)} kısa mola · ${__alekFocusDurationLabel(state.longBreakMinutes)} uzun mola</span></div><div class="alek-prod-clock" data-prod-clock>${__alekClockText(state.remainingSec)}</div><div class="alek-prod-sub">${state.phase==='focus'?`Set ${state.currentSet} çalışıyor.`:state.phase==='longBreak'?'Tur tamamlandı. Uzun mola bittiğinde yeni tur Set 1 ile başlar.':`Set ${state.currentSet} tamamlandı. Moladan sonra Set ${Math.min(state.setCount,state.currentSet+1)} başlar.`}</div><div class="alek-prod-actions"><button class="primary" data-act="toggle">${state.running?'Duraklat':'Başlat'}</button><button data-act="phase">Sonraki Aşama</button><button data-act="reset">Turu Sıfırla</button></div></section>`;root.querySelector('[data-act="toggle"]').onclick=()=>{__alekProductivitySync(state);if(!state.running)__alekArmNotifySound();state.running=!state.running;state.deadline=state.running?Date.now()+state.remainingSec*1000:0;__alekProductivityPersist();draw();};root.querySelector('[data-act="phase"]').onclick=()=>{const completedPhase=state.phase,completedSet=state.currentSet,setCount=state.setCount;state.running=false;state.deadline=0;__alekAdvanceFocusPhase(state);if(completedPhase==="focus"||completedPhase==="break")__alekPlayNotifySound({completedSet,setCount});__alekProductivityPersist();draw();};root.querySelector('[data-act="reset"]').onclick=()=>{state.currentSet=1;state.phase='focus';state.running=false;state.deadline=0;state.remainingSec=state.focusMinutes*60;__alekProductivityPersist();draw();};return root;};
-    const stopwatchPage=()=>{const sw=state.stopwatch,root=document.createElement('div');root.className='alek-prod-page';const elapsed=sw.elapsedMs+(sw.running?Math.max(0,Date.now()-sw.startedAt):0);root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">KRONOMETRE</span><div class="alek-prod-clock" data-prod-clock>${__alekStopwatchText(elapsed)}</div><div class="alek-prod-actions"><button class="primary" data-act="toggle">${sw.running?'Duraklat':'Başlat'}</button><button data-act="lap">Tur</button><button data-act="reset">Sıfırla</button></div><div class="alek-prod-laps"></div></section>`;const drawLaps=()=>{const box=root.querySelector('.alek-prod-laps');box.innerHTML='';(sw.laps||[]).slice().reverse().forEach((value,index)=>{const row=document.createElement('div');row.innerHTML=`<span>Tur ${sw.laps.length-index}</span><strong>${__alekStopwatchText(value)}</strong>`;box.appendChild(row);});};drawLaps();root.querySelector('[data-act="toggle"]').onclick=()=>{if(sw.running){sw.elapsedMs+=Math.max(0,Date.now()-sw.startedAt);sw.running=false;sw.startedAt=0;}else{sw.running=true;sw.startedAt=Date.now();}__alekProductivityPersist();draw();};root.querySelector('[data-act="lap"]').onclick=()=>{const value=sw.elapsedMs+(sw.running?Math.max(0,Date.now()-sw.startedAt):0);sw.laps=Array.isArray(sw.laps)?sw.laps:[];sw.laps.push(value);if(sw.laps.length>20)sw.laps.shift();__alekProductivityPersist();drawLaps();};root.querySelector('[data-act="reset"]').onclick=()=>{sw.elapsedMs=0;sw.running=false;sw.startedAt=0;sw.laps=[];__alekProductivityPersist();draw();};return root;};
-    const timerPage=()=>{const tm=state.timer,root=document.createElement('div');root.className='alek-prod-page';root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">ZAMANLAYICI</span><div class="alek-prod-clock" data-prod-clock>${__alekClockText(tm.remainingSec)}</div><div class="alek-prod-actions"><input class="alek-prod-input" data-min type="number" min="1" max="720" value="${Math.max(1,Math.round(tm.durationSec/60))}" aria-label="Dakika"><button class="primary" data-act="toggle">${tm.running?'Duraklat':'Başlat'}</button><button data-act="set">Dakikayı Ayarla</button><button data-act="reset">Sıfırla</button></div></section>`;const input=root.querySelector('[data-min]');root.querySelector('[data-act="set"]').onclick=()=>{const minutes=Math.max(1,Math.min(720,Math.round(Number(input.value)||1)));tm.durationSec=minutes*60;tm.remainingSec=tm.durationSec;tm.running=false;tm.deadline=0;__alekProductivityPersist();draw();};root.querySelector('[data-act="toggle"]').onclick=()=>{__alekProductivitySync(state);tm.running=!tm.running;tm.deadline=tm.running?Date.now()+tm.remainingSec*1000:0;__alekProductivityPersist();draw();};root.querySelector('[data-act="reset"]').onclick=()=>{tm.running=false;tm.deadline=0;tm.remainingSec=tm.durationSec;__alekProductivityPersist();draw();};return root;};
+    const pomodoroPage=()=>{const root=document.createElement('div');root.className='alek-prod-page';const phaseLabel=state.phase==='focus'?'FOCUS':state.phase==='longBreak'?'LONG BREAK':'SHORT BREAK';root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">${phaseLabel}</span><div class="alek-prod-setline"><strong>Set ${state.currentSet} / ${state.setCount}</strong><span>${__alekFocusDurationLabel(state.focusMinutes)} work · ${__alekFocusDurationLabel(state.breakMinutes)} short break · ${__alekFocusDurationLabel(state.longBreakMinutes)} long break</span></div><div class="alek-prod-clock" data-prod-clock>${__alekClockText(state.remainingSec)}</div><div class="alek-prod-sub">${state.phase==='focus'?`Set ${state.currentSet} in progress.`:state.phase==='longBreak'?'Round complete. A new round starts at Set 1 after the long break.':`Set ${state.currentSet} complete. Set ${Math.min(state.setCount,state.currentSet+1)} starts after the break.`}</div><div class="alek-prod-actions"><button class="primary" data-act="toggle">${state.running?'Pause':'Start'}</button><button data-act="phase">Next Phase</button><button data-act="reset">Reset Round</button></div></section>`;root.querySelector('[data-act="toggle"]').onclick=()=>{__alekProductivitySync(state);if(!state.running)__alekArmNotifySound();state.running=!state.running;state.deadline=state.running?Date.now()+state.remainingSec*1000:0;__alekProductivityPersist();draw();};root.querySelector('[data-act="phase"]').onclick=()=>{const completedPhase=state.phase,completedSet=state.currentSet,setCount=state.setCount;state.running=false;state.deadline=0;__alekAdvanceFocusPhase(state);if(completedPhase==="focus"||completedPhase==="break")__alekPlayNotifySound({completedSet,setCount});__alekProductivityPersist();draw();};root.querySelector('[data-act="reset"]').onclick=()=>{state.currentSet=1;state.phase='focus';state.running=false;state.deadline=0;state.remainingSec=state.focusMinutes*60;__alekProductivityPersist();draw();};return root;};
+    const stopwatchPage=()=>{const sw=state.stopwatch,root=document.createElement('div');root.className='alek-prod-page';const elapsed=sw.elapsedMs+(sw.running?Math.max(0,Date.now()-sw.startedAt):0);root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">STOPWATCH</span><div class="alek-prod-clock" data-prod-clock>${__alekStopwatchText(elapsed)}</div><div class="alek-prod-actions"><button class="primary" data-act="toggle">${sw.running?'Pause':'Start'}</button><button data-act="lap">Lap</button><button data-act="reset">Reset</button></div><div class="alek-prod-laps"></div></section>`;const drawLaps=()=>{const box=root.querySelector('.alek-prod-laps');box.innerHTML='';(sw.laps||[]).slice().reverse().forEach((value,index)=>{const row=document.createElement('div');row.innerHTML=`<span>Tur ${sw.laps.length-index}</span><strong>${__alekStopwatchText(value)}</strong>`;box.appendChild(row);});};drawLaps();root.querySelector('[data-act="toggle"]').onclick=()=>{if(sw.running){sw.elapsedMs+=Math.max(0,Date.now()-sw.startedAt);sw.running=false;sw.startedAt=0;}else{sw.running=true;sw.startedAt=Date.now();}__alekProductivityPersist();draw();};root.querySelector('[data-act="lap"]').onclick=()=>{const value=sw.elapsedMs+(sw.running?Math.max(0,Date.now()-sw.startedAt):0);sw.laps=Array.isArray(sw.laps)?sw.laps:[];sw.laps.push(value);if(sw.laps.length>20)sw.laps.shift();__alekProductivityPersist();drawLaps();};root.querySelector('[data-act="reset"]').onclick=()=>{sw.elapsedMs=0;sw.running=false;sw.startedAt=0;sw.laps=[];__alekProductivityPersist();draw();};return root;};
+    const timerPage=()=>{const tm=state.timer,root=document.createElement('div');root.className='alek-prod-page';root.innerHTML=`<section class="alek-prod-card"><span class="alek-prod-kicker">TIMER</span><div class="alek-prod-clock" data-prod-clock>${__alekClockText(tm.remainingSec)}</div><div class="alek-prod-actions"><input class="alek-prod-input" data-min type="number" min="1" max="720" value="${Math.max(1,Math.round(tm.durationSec/60))}" aria-label="Minutes"><button class="primary" data-act="toggle">${tm.running?'Pause':'Start'}</button><button data-act="set">Set Minutes</button><button data-act="reset">Reset</button></div></section>`;const input=root.querySelector('[data-min]');root.querySelector('[data-act="set"]').onclick=()=>{const minutes=Math.max(1,Math.min(720,Math.round(Number(input.value)||1)));tm.durationSec=minutes*60;tm.remainingSec=tm.durationSec;tm.running=false;tm.deadline=0;__alekProductivityPersist();draw();};root.querySelector('[data-act="toggle"]').onclick=()=>{__alekProductivitySync(state);tm.running=!tm.running;tm.deadline=tm.running?Date.now()+tm.remainingSec*1000:0;__alekProductivityPersist();draw();};root.querySelector('[data-act="reset"]').onclick=()=>{tm.running=false;tm.deadline=0;tm.remainingSec=tm.durationSec;__alekProductivityPersist();draw();};return root;};
     const systemsPage=()=>{const root=document.createElement('div');root.className='alek-prod-page';const grid=document.createElement('div');grid.className='alek-prod-presets';__alekFocusSystems.forEach(p=>{const b=document.createElement('button');b.type='button';b.className='alek-prod-preset';if(state.focusMinutes===p.f&&state.breakMinutes===p.b&&state.setCount===p.sets)b.classList.add('active');b.innerHTML=`<strong>${p.n}</strong><small>${p.d}</small>`;b.onclick=()=>{state.focusMinutes=p.f;state.breakMinutes=p.b;state.longBreakMinutes=p.lb;state.setCount=p.sets;state.currentSet=1;state.phase='focus';state.remainingSec=p.f*60;state.running=false;state.deadline=0;__alekProductivityPersist();active='pomodoro';draw();};grid.appendChild(b);});root.appendChild(grid);return root;};
-    const affirmPage=()=>{const root=document.createElement('div');root.className='alek-prod-page';const wrap=document.createElement('div');wrap.className='alek-prod-affirm';const index=Math.max(0,Math.min(state.affirmations.length-1,Number(state.affirmationIndex)||0));state.affirmationIndex=index;wrap.innerHTML=`<section class="alek-prod-affirm-card"><p></p></section><div class="alek-prod-actions"><button data-act="prev">‹ Önceki</button><button class="primary" data-act="next">Sonraki ›</button><button data-act="delete">Bu Cümleyi Sil</button></div><div class="alek-prod-affirm-add"><input type="text" maxlength="240" placeholder="Kendi olumlama cümleni ekle"><button type="button">Ekle</button></div>`;const text=wrap.querySelector('p');text.textContent=state.affirmations[index]||'';wrap.querySelector('[data-act="prev"]').onclick=()=>{state.affirmationIndex=(index-1+state.affirmations.length)%state.affirmations.length;__alekProductivityPersist();draw();};wrap.querySelector('[data-act="next"]').onclick=()=>{state.affirmationIndex=(index+1)%state.affirmations.length;__alekProductivityPersist();draw();};wrap.querySelector('[data-act="delete"]').onclick=()=>{if(state.affirmations.length<=1)return;state.affirmations.splice(index,1);state.affirmationIndex=Math.min(index,state.affirmations.length-1);__alekProductivityPersist();draw();};const input=wrap.querySelector('.alek-prod-affirm-add input'),add=wrap.querySelector('.alek-prod-affirm-add button');add.onclick=()=>{const value=String(input.value||'').trim();if(!value)return;state.affirmations.push(value);state.affirmationIndex=state.affirmations.length-1;__alekProductivityPersist();draw();};root.appendChild(wrap);return root;};
+    const affirmPage=()=>{const root=document.createElement('div');root.className='alek-prod-page';const wrap=document.createElement('div');wrap.className='alek-prod-affirm';const index=Math.max(0,Math.min(state.affirmations.length-1,Number(state.affirmationIndex)||0));state.affirmationIndex=index;const pair=__alekAffirmationPairOf(state.affirmations[index]||{});wrap.innerHTML=`<section class="alek-prod-affirm-card"><div class="alek-prod-affirm-lane"><strong>Turkish</strong><p data-lang="tr"></p></div><div class="alek-prod-affirm-lane"><strong>English</strong><p data-lang="en"></p></div></section><div class="alek-prod-actions"><button data-act="prev">‹ Previous</button><button class="primary" data-act="next">Next ›</button><button data-act="delete">Delete This Sentence</button></div><div class="alek-prod-affirm-add"><input type="text" maxlength="240" data-lang="tr" placeholder="Add Turkish affirmation"><input type="text" maxlength="240" data-lang="en" placeholder="Add English affirmation"><button type="button">Add Both</button></div>`;wrap.querySelector('[data-lang="tr"]').textContent=pair.tr||pair.en||'';wrap.querySelector('[data-lang="en"]').textContent=pair.en||pair.tr||'';wrap.querySelector('[data-act="prev"]').onclick=()=>{state.affirmationIndex=(index-1+state.affirmations.length)%state.affirmations.length;__alekProductivityPersist();draw();};wrap.querySelector('[data-act="next"]').onclick=()=>{state.affirmationIndex=(index+1)%state.affirmations.length;__alekProductivityPersist();draw();};wrap.querySelector('[data-act="delete"]').onclick=()=>{if(state.affirmations.length<=1)return;state.affirmations.splice(index,1);state.affirmationIndex=Math.min(index,state.affirmations.length-1);__alekProductivityPersist();draw();};const trInput=wrap.querySelector('.alek-prod-affirm-add input[data-lang="tr"]'),enInput=wrap.querySelector('.alek-prod-affirm-add input[data-lang="en"]'),add=wrap.querySelector('.alek-prod-affirm-add button');add.onclick=()=>{const tr=String(trInput.value||'').trim();const en=String(enInput.value||'').trim();if(!tr&&!en)return;state.affirmations.push({tr:tr||en,en:en||tr});state.affirmationIndex=state.affirmations.length-1;__alekProductivityPersist();draw();};root.appendChild(wrap);return root;};
     const draw=()=>{__alekProductivitySync(state);buttonMap.forEach((button,id)=>button.classList.toggle('active',id===active));body.replaceChildren(active==='pomodoro'?pomodoroPage():active==='stopwatch'?stopwatchPage():active==='timer'?timerPage():active==='systems'?systemsPage():affirmPage());};
     close.onclick=__alekCloseProductivityCenter;shade.addEventListener('pointerdown',event=>{if(event.target===shade)__alekCloseProductivityCenter();});document.addEventListener('keydown',__alekProductivityEscape,true);draw();__alekProductivityTick=setInterval(syncAndRedrawClock,200);
 };
@@ -16177,7 +18348,7 @@ const __alekPrimaryOpenRadialMenu=()=>{
         __alekPrimaryAiWasSuspended=true;
         try{void closeSafeAiView();}catch(_){ }
     }
-    const shade=document.createElement("div");shade.className="alek-primary-radial-shade";shade.setAttribute("role","dialog");shade.setAttribute("aria-label","Ałek’ryŧhæ ana daire dilimi");
+    const shade=document.createElement("div");shade.className="alek-primary-radial-shade";shade.setAttribute("role","dialog");shade.setAttribute("aria-label","Ałek’ryŧhæ primary radial menu");
     const wheel=document.createElement("div");wheel.className="alek-primary-radial-wheel";
     const ring=document.createElement("div");ring.className="alek-primary-radial-ring";
     __alekPrimaryPrimaryMenuItems.forEach((item,index)=>{
@@ -16186,13 +18357,13 @@ const __alekPrimaryOpenRadialMenu=()=>{
         const button=document.createElement("button");button.type="button";button.className="alek-primary-radial-slice";
         button.style.setProperty("--slice-angle",`${angle}deg`);button.style.setProperty("--slice-counter",`${-angle}deg`);
         button.dataset.view=item.view;button.classList.toggle("active",activeV2View===item.view);
-        const itemFull=item.view==="calendar"?(activeAdventure?.name||DEFAULT_ADVENTURE_NAME):item.full;
+        const itemFull=item.full;
         button.title=itemFull;button.innerHTML=`<span class="alek-primary-radial-glyph" aria-hidden="true">${item.glyph}</span><strong>${item.label}</strong><small>${itemFull}</small>`;
         button.onclick=()=>{__alekPrimaryCloseRadialMenu({resumeAi:item.view==="ai"});requestAnimationFrame(()=>{if(source)source.click();else void renderV2(item.view);});};
         ring.appendChild(button);
     });
-    const hub=document.createElement("button");hub.type="button";hub.className="alek-primary-radial-hub";hub.innerHTML=`<img src="${getDynamicUrl("Assets/Bluemoon.png")}" alt="Mavi Ay">`;hub.title="Mavi Ay · Odak Merkezi";hub.setAttribute("aria-label","Mavi Ay · Odak Merkezi");hub.onclick=()=>{__alekPrimaryCloseRadialMenu({resumeAi:activeV2View==="ai"});requestAnimationFrame(()=>__alekOpenProductivityCenter());};
-    const exit=document.createElement("button");exit.type="button";exit.className="alek-primary-radial-exit";exit.title="Ałek’ryŧhæ boyutundan çık";exit.setAttribute("aria-label","Boyuttan Çık");exit.innerHTML='<span aria-hidden="true">✕</span><strong>Boyuttan Çık</strong><small>Akışı mühürle ve kapıyı kapat</small>';
+    const hub=document.createElement("button");hub.type="button";hub.className="alek-primary-radial-hub";hub.innerHTML=`<img src="${getDynamicUrl("Assets/Bluemoon.png")}" alt="Blue Moon">`;hub.title="Blue Moon · Focus Center";hub.setAttribute("aria-label","Blue Moon · Focus Center");hub.onclick=()=>{__alekPrimaryCloseRadialMenu({resumeAi:activeV2View==="ai"});requestAnimationFrame(()=>__alekOpenProductivityCenter());};
+    const exit=document.createElement("button");exit.type="button";exit.className="alek-primary-radial-exit";exit.title="Exit the Ałek’ryŧhæ workspace";exit.setAttribute("aria-label","Exit Workspace");exit.innerHTML='<span aria-hidden="true">✕</span><strong>Exit Workspace</strong><small>Close Alek’rythae</small>';
     exit.onclick=async()=>{
         exit.disabled=true;exit.classList.add("is-closing");
         try{try{window.__alekCloseJoAWorld?.({save:true});}catch(_){}try{if(typeof saveToDB==="function")await saveToDB(null);}catch(_){}
